@@ -52,7 +52,7 @@ let options = {
     mode : 'text'
 };
 
-let dir = path.join(__dirname, '../../pythonServer/main.py');
+let dir = path.join(__dirname, '../pythonServer/main.py');
 
 PythonShell.run(dir, options, (err, results) => {
     if (err) throw err;

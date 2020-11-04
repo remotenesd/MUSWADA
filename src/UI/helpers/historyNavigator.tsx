@@ -38,15 +38,15 @@ const HistoryNavigator = ({route, gotoRoute, eraseRoute}) =>
     const goto = () =>
     {
         const p = '/' + route;
-        eraseRoute();
+        // eraseRoute();
         return (<Redirect to={p} />);
     }
 
-    // console.log('######### RECEIVED ' + route)
+    console.log('######### RECEIVED ' + route)
     if (route !== '')
     {
         const p = '/' + route;
-        eraseRoute();
+        // eraseRoute();
         return (<Redirect to={p} />);
     }
     else{

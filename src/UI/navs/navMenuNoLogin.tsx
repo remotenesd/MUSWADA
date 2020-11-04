@@ -1,4 +1,6 @@
-import React, {Component, CSSProperties} from 'react';
+
+
+import React, {Component, CSSProperties, Fragment, useState} from 'react';
 import ReactDOM from 'react-dom';
 
 
@@ -13,7 +15,6 @@ import {
     NavItem,
     NavLink,
     NavbarText,
-    ButtonToggle,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownItem,
@@ -22,18 +23,6 @@ import {
 
 import '../styles/navMenu.css';
 
-interface props {
-    redirecter : (s : String) => void,
-    toggleTheme : () => void,
-    verticalToggle : () => void,
-}
-
-interface state {
-    name : '',
-    password : '',
-    redirect : string,
-    collapsed : boolean,
-}
 
 export const noWrap =  {
     overflow: 'hidden', 
@@ -41,66 +30,72 @@ export const noWrap =  {
     whiteSpace : "nowrap" ,
 } as React.CSSProperties
 
-export default class NavMenuNoLogin extends Component<props, state>{
+const NavMenuNoLogin  = ({   route, verticalToggle , redirecter, toggleTheme, gotoRoute }) => {
 
-    
+    const [collapsed, setCollapsed] = useState(false);    
     // setCollapsed =  (v : boolean) => {this.collapsed = v }/
 
-    toggleNavbar = () => {
-        this.setState( { collapsed :  !this.state.collapsed } );
-        this.props.verticalToggle();
+    const toggleNavbar = () => {
+        setCollapsed(  ! collapsed  );
+        // verticalToggle();
     }
 
-    componentWillMount()
-    {
-        this.toggleNavbar.bind(this);
 
-        this.setState({ redirect : ''});
-        this.setState({ collapsed : true});
+    // this.setState({ redirect : ''});
+    // this.setState({ collapsed : true});
+
+    // console.log(state);
+
+    const menus : {[title : string] : string} = {
+        'SIGN IN' : 'login',
+        'REGISTER' : 'register',
+        'ABOUT' : 'about',
+        'TODOS' : 'todos', 
     }
-
-    render()
+    
+    let getMenus = () =>
     {
-
         return (
+                <Fragment>
+                    {
+                        Object.keys(menus).map(key =>
+                        {
+                            // iterate over menus and set up navs
+                            return (
+                                <NavItem>
+                                    <NavLink className="darkTheme noDrag" style={{  ...noWrap }} onClick={() => {
+                                                            toggleNavbar();
+                                                            gotoRoute(menus[key]);
+                                                        }}>{key}</NavLink>
+                                </NavItem>
+                            )
+                        })
+                    }
+                </Fragment>
+
+        );
+       
+    }
+
+
+    return (
 
             
             <Navbar  color="dark" light expand="md">
-                    <NavbarBrand className="darkTheme noDrag" href="/">SERVICE</NavbarBrand>
-                    <NavbarToggler className="noDrag" onClick={this.toggleNavbar}></NavbarToggler>
-                    <Collapse className="" isOpen={!this.state.collapsed}  navbar>
+                    <NavbarBrand className="darkTheme noDrag" href="/">MUSWADA</NavbarBrand>
+                    <NavbarToggler className="noDrag" onClick={toggleNavbar}></NavbarToggler>
+                    <Collapse className="" isOpen={!collapsed}  navbar>
                         <Nav className="mr-auto darkTheme"  navbar>  
-                            <NavItem>
-                                <NavLink className="darkTheme noDrag" style={{  ...noWrap }} onClick={() => {
-                                                        this.toggleNavbar();
-                                                        this.props.redirecter("/login");
-                                                    }}>SIGN IN</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="darkTheme noDrag" style={{  ...noWrap }} onClick={() =>{
-                                                        this.toggleNavbar();
-                                                        this.props.redirecter("/register")
-                                                    }}>REGISTER</NavLink>
-                            </NavItem>
-                            <NavItem> 
-                                <NavLink className="darkTheme noDrag" onClick={() => {
-                                                        this.toggleNavbar();
-                                                        this.props.redirecter("/about") 
-                                                    }} >ABOUT</NavLink>
-                            </NavItem>
-                            <NavItem> 
-                                <NavLink className="darkTheme noDrag" onClick={() => {
-                                                        this.toggleNavbar();
-                                                        this.props.redirecter("/todo") 
-                                                    }} >TODOs</NavLink>
-                            </NavItem>
+                            {
+                                getMenus()
+                            }
                         </Nav>
                         <UncontrolledDropdown className="noDrag" setActiveFromChild>
                             <DropdownToggle tag="a" className="nav-link noLinkStyle" caret>
                                 Theme
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem tag="a" onClick={() => this.props.toggleTheme()} active>Switch Theme</DropdownItem>
+                                <DropdownItem tag="a" onClick={() => toggleTheme()} active>Switch Theme</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
 
@@ -108,6 +103,6 @@ export default class NavMenuNoLogin extends Component<props, state>{
                     </Collapse>
             </Navbar>
         );
-    }
-
 }
+
+export default NavMenuNoLogin;

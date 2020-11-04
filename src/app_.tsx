@@ -98,9 +98,14 @@ class App extends React.Component {
                                     }
                                 )
                             :
-                                <NavMenuNoLogin   verticalToggle={() => this.switchNav.bind(this)()} 
-                                redirecter={(path) => this.goto(path)} 
-                                toggleTheme={() => this.applyTheme(this.state.activeTheme === 'dark' ? 'light' : 'dark' )} />
+                            newModifiedComponent(
+                                {
+                                    component : NavMenuNoLogin,
+                                    useStyle : false,
+                                    props :  this.propsForMenu,
+                                    state : this.stateForMenu,
+                                }
+                            )
                             }
                             
                         </div>

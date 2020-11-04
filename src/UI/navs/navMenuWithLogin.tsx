@@ -63,7 +63,7 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
                                 <NavItem>
                                     <NavLink className="darkTheme noDrag" style={{  ...noWrap }} onClick={() => {
                                                             toggleNavbar();
-                                                            gotoRoute(key);
+                                                            gotoRoute(menus[key]);
                                                         }}>{key}</NavLink>
                                 </NavItem>
                             )
