@@ -1,0 +1,19 @@
+const GET_LOGIN = 'GET_LOGIN';
+const SET_LOGIN = 'SET_LOGIN';
+const REGISTER = 'REGISTER';
+const USERNAME_EXIST = 'USERNAME_EXIST';
+
+const LOGOUT = 'LOGOUT';
+
+const SET_ROUTE = 'SET_ROUTE';
+const ERASE_ROUTE = 'ERASE_ROUTE';
+
+export {
+    GET_LOGIN,
+    SET_LOGIN,
+    LOGOUT,
+    REGISTER,
+    USERNAME_EXIST,
+    SET_ROUTE,
+    ERASE_ROUTE
+}
