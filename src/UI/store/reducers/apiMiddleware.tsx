@@ -32,8 +32,7 @@ function APIMiddleware({getState, dispatch}) {
                 });
 
             }
-
-            if (action.type === ActionTypes.REGISTER)
+            else if (action.type === ActionTypes.REGISTER)
             {
                 // REGISTER THE USER
                
@@ -58,8 +57,7 @@ function APIMiddleware({getState, dispatch}) {
                     return nextAction;
                 });
             }
-
-            if (action.type === ActionTypes.USERNAME_EXIST)
+            else if (action.type === ActionTypes.USERNAME_EXIST)
             {
                 // does this username exist on the database
                 const HEADERS = {
@@ -94,7 +92,7 @@ function APIMiddleware({getState, dispatch}) {
                 });
             }
 
-            if (action.type === ActionTypes.SET_LOGIN)
+            else if (action.type === ActionTypes.SET_LOGIN)
             {
                 // some checks TODO
                 const HEADERS = {
@@ -150,17 +148,18 @@ function APIMiddleware({getState, dispatch}) {
                     return nextAction;
                 });
             }
+            else 
+            {
+                // if nothing of the above
+                // clearly this has nothing to do 
+                // with api, continue as such
+                const nextAction = next(action);
+                //read next state
+                const state = getState();
+                // return the next action
+                return nextAction;
+            }
 
-
-
-            // if nothing of the above
-            // clearly this has nothing to do 
-            // with api, continue as such
-            const nextAction = next(action);
-            //read next state
-            const state = getState();
-            // return the next action
-            return nextAction;
         }
     }
 }

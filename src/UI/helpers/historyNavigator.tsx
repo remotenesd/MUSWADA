@@ -37,23 +37,23 @@ const HistoryNavigator = ({route, gotoRoute, eraseRoute}) =>
     
     const goto = () =>
     {
-        const p = '/' + route;
-        // eraseRoute();
-        return (<Redirect to={p} />);
+        console.log('######### RECEIVED ' + route)
+        // const p = '/' + route;
+        eraseRoute();
+        return (<Redirect to={route} />);
     }
 
-    console.log('######### RECEIVED ' + route)
     if (route !== '')
     {
         const p = '/' + route;
-        // eraseRoute();
-        return (<Redirect to={p} />);
+        eraseRoute();
+        return (<Redirect to={route} />);
     }
     else{
         return null;
     }
 }
 
-const history = Array<string>();
+// const history = Array<string>();
 
 export default  connect(mapStateToProps, mapDispatchToProps)(HistoryNavigator);

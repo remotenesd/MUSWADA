@@ -20,6 +20,7 @@ const Docs = ({route, gotoRoute}) => {
                 </i>
             </h5>
             <ul className="list-group">
+                <li className="list-group-item text-dark" onClick={() => gotoRoute('docs/asymetric')}>Asymetric encryption</li>
                 <li className="list-group-item text-dark" onClick={() => gotoRoute('docs/digitalsignatures')}>Digital Signatures</li>
                 <li className="list-group-item darkColor" onClick={() => gotoRoute('')}>Back Home.</li>
             </ul>
