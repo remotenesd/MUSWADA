@@ -7,7 +7,7 @@ import { Form, FormGroup, Label,
 
 import axios from 'axios';
 
-import globals from './helpers/globals';
+import {globals}from './helpers/globals';
 import { Route, Redirect, Link } from 'react-router-dom';
 import './styles/forms.css';
 
@@ -17,11 +17,11 @@ import {connect} from 'react-redux';
 import { IState } from './store/core/core';
 
 
-const mapStateToProps = (state : IState) => {
+const mapStateToProps = (state ) => {
     return {
-        usernameExist : state.usernameExist,
-        registeredUser : state.registeringUser,
-        registerSuccess : state.registerSuccess,
+        usernameExist : state.sessionReducer.usernameExist,
+        registeredUser : state.sessionReducer.registeringUser,
+        registerSuccess : state.sessionReducer.registerSuccess,
     };
 }
 

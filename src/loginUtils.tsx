@@ -1,9 +1,10 @@
 import { IState } from "./UI/store/core/core";
 import { LOGOUT } from "./UI/store/Actions/actionTypes";
 
-let mapStateToProps = (state : IState ) => {
+let mapStateToProps = (state  ) => {
+    // console.log(state)
     return { 
-        loggedIn : state.user.isLoggedInFunc(),
+        loggedIn : state.sessionReducer.user.isLoggedInFunc(),
     };
 }
 

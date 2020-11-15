@@ -7,10 +7,10 @@ const Asymetric = (state, props) => {
 
     return (
         <>
-            <h3>ASYMETRIC ENCRYPTION</h3>
+            <h3> ASYMETRIC ENCRYPTION</h3>
             <h5>
                 <i>
-                    Public / Private key encryption
+                    🔑 Public / Private key encryption 
                 </i>
             </h5>
             <h6>Brievely</h6>
@@ -22,6 +22,7 @@ const Asymetric = (state, props) => {
             <h6>Working Principle</h6>
             <img src={methodRSA} alt='explanation'/>
             <p>
+                🕵️
                 Whereas in asymmetric encryption there are two keys which are used to communicate and these keys are known as a private key and public key.
 
                 This is also used to share messages between the two parties but without the need of sending another party, the private keys.
