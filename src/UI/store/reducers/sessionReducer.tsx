@@ -11,9 +11,12 @@ const initState : IState = {
     usernameExist : true,
     registerSuccess : false,
     routing : '',
+    myblkchn : null,
+    theme : 'dark',
 }
 
 function sessionReducer(state = initState, action) {
+    // console.log('--------------called with state ' + state);
     if (action.type === ActionTypes.SET_LOGIN)
     {
         if (action.data.user !== null)
@@ -30,7 +33,7 @@ function sessionReducer(state = initState, action) {
             // no login ?? let's tell the user !
             var noLogSession = (new session());
             noLogSession.genNoLoginData();
-            console.log(noLogSession);
+            // console.log(noLogSession);
             return Object.assign({}, state,
                { user : noLogSession,}
             )

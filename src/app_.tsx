@@ -44,6 +44,7 @@ class App extends React.Component {
     constructor(props)
     {
         super(props);
+        
         this.goto.bind(this);
 
         this.propsForMenu.verticalToggle = () => this.switchNav.bind(this)();

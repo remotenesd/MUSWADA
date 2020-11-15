@@ -46,9 +46,10 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
 
     const menus : {[title : string] : string} = {
         'ACCOUNT' : '/account',
-        'TODO' : '/todo',
+        'BLOCKCHAIN' : '/blockchain',
+        'TODO' : '/todos',
         'DOCS' : '/docs',
-        'SIGNOUT' : '/signout', 
+        'SIGNOUT' : '/signout'
     }
     
     let getMenus = () =>

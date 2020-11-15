@@ -1,53 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import * as client from '../Blockchain/client';
-import * as clientapi from '../Blockchain/blockchain';
+import React, { useState } from 'react';
 import { Button } from 'reactstrap';
-
-
-const electron = window.require('electron');
-// const fs = electron.remote.require('fs');
-const ipcRenderer  = electron.ipcRenderer;
- 
-let ifot;
-// ipcRenderer.invoke('getApiVersion', null);
-// ipcRenderer.on('getApiVersionResponse',  (event, args) => {
-//     ifot = args;
-//     console.log(ifot);
-
-// }); // 'just something');
-
-
-
-// ipcRenderer.send('synchronous-message')
+import {globals, globalsChangedEvents} from './helpers/globals';
 
 
 const Home = (props, state) => {
 
-    const [version, setVersion ] = useState('');
-    ipcRenderer.on('startServerResponse', (event, arg) => {
-        setVersion(arg);
-    });
-    useEffect(() => {
-        console.log('called')
-    }, [version])
-    ipcRenderer.send('startServer', 'ping')
-    var data = client.getData()
+    let [PORT, setPORT ] = useState(globals.apiPort);
+    let [version, setVersion ] = useState(globals.version);
+    
+    globalsChangedEvents.push( 
+        () => {
+            setPORT(globals.apiPort);
+            setVersion(globals.version);
+        }
+    );
 
     const pushTransaction = () => 
     {
-        ipcRenderer.send('pushTransaction', {
-            sender : 10229,
-            data : 'THIS IS SOME HASH DATA REFERRING TO ANY POSSIBLE COMBINATION OF ENTROPY.',
-            signature : 'RND SIG',
-        });
+        // ipcRenderer.send('pushTransaction', {
+        //     sender : 10229,
+        //     data : 'THIS IS SOME HASH DATA REFERRING TO ANY POSSIBLE COMBINATION OF ENTROPY.',
+        //     signature : 'RND SIG',
+        // });
     }
 
     return (<>
         <h1>
             MUSWADA APP
         </h1>
-        <h2>API {version}</h2>
-        <Button onClick={pushTransaction}>add transaction</Button>
+        <h2>🔨 API {version}</h2>
+        <h2>☑️ OPEN ON PORT {PORT}</h2>
+        <Button onClick={pushTransaction}>☕ Add transaction</Button>
     </>)
 };
 

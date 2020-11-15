@@ -10,6 +10,9 @@ from hashlib import sha256
 from os import path
 filedir = (path.dirname(path.realpath(__file__)))
 
+from myp2p import emitMyRegisteration
+import globalledger as glb
+
 ##############################################################
 #!IMPORTANT THIS ASSUMES PASSWORD IS HASHED THROUGH 256 HASH 
 ##############################################################
@@ -22,7 +25,7 @@ cors = CORS(usersApi, ressources = { r"/*" : {"origins" : "*"} })
 ## DATABASE TABLE 
 #######################################################
 
-loggedin : usertypes.user = None;
+
 def registerUser(user : usertypes.user):
     ### register logged in user
     loggedin = user;
@@ -30,6 +33,28 @@ def registerUser(user : usertypes.user):
 def unregisterUser():
     # logout
     loggedin = None;
+
+
+@glb.socketioinstance.on('newUserRegistration')
+def handleNewUserRegisteration(json):
+    print('Starting user registration ' + json)
+    req = {
+            'sender' : json.sender,
+            'data' : json.data,
+            'signature' : 'everything valid for now'
+        };
+
+    blocksApi.finalizeTransactionRequest(req)
+    print(req)
+
+
+def emitMyRegisteration(req):
+    print('emiting event')
+    glb.socketioinstance.emit('newUserRegisteration', req)
+
+@glb.socketioinstance.on('reqAPIVersion')
+def sendAPIVersion():
+    glb.socketioinstance.emit('getAPIVersion' ,  glb.getVersion())
 
 
 @usersApi.route('/register', methods = ['POST'])
@@ -46,6 +71,17 @@ def newUser():
         # correct
         newuser = usertypes.user(content['name'], content['email'], content['password']);
         dbusers.insert_one(newuser.__dict__)
+
+        # emit registeration event
+        req = {
+                'sender' : content['name'],
+                'data' : newuser.getPort(),
+                'signature' : 'everything valid for now'
+        }
+        # print(emitMyRegisteration)
+        if (emitMyRegisteration) :
+            emitMyRegisteration(req)
+
         return 'OK', 200
     else:
         return 'INVALID REQUEST ARGS', 201

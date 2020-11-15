@@ -1,5 +1,6 @@
 import json;
-import hashlib;
+import hashlib
+from math import isnan;
 import random;
 import string;
 
@@ -9,9 +10,14 @@ class transaction:
     
 
     def __init__(self, sender = 0, data = '', signature = ''):
-        self.sender = sender;
         self.data = data;
         self.signature = signature;
+        # self.sender = sender;
+        if not (sender).isnumeric():
+            self.sender = -1
+        else:
+            self.sender = int(sender);
+        
 
     def toJson(self):
         # converting class to json
@@ -34,21 +40,24 @@ class transaction:
        # checks if the transaction is a valid one
        #TODO VERIFY SIGNATURE 
        return (
-           self.sender > 0
+           int(self.sender) > 0
            and len(self.data) > 0
            and len(self.signature) > 0
        );
 
 class block:
-    def __init__(self, timestamp = 0, data = [], prevHash = '', signature = ''):
+    def __init__(self, timestamp = 0, data = [], prevHash = '', signature = '', getTransaction = None):
         self.prevHash = prevHash;
         self.data = data;
         self.timestamp = timestamp;
         self.signature = signature;
+        self.getTransaction = getTransaction # function called to retrieve transaction by ID
     
     def toJson(self):
+        if (self.getTransaction == None): return None;
         # converting class to json
-        getJson = lambda x : x.__dict__;
+        # CONNECT ? RETRIEVE TRANSACTIONS !
+        getJson = lambda x : self.getTransaction(x).__dict__;
         # listJasons = [];
         listJasons = list(map(getJson, self.data));
         k = {
@@ -80,7 +89,10 @@ class block:
         # now that we have the json => hash
         # sha256.update(myjson.encode('utf-8'));
         # 
-        hash_ = hashlib.sha256(myjson.encode('utf-8')).hexdigest();
+        if (myjson != None):
+            hash_ = hashlib.sha256(myjson.encode('utf-8')).hexdigest()
+        else:
+            hash_ = ''
         
         return hash_;
 
@@ -126,9 +138,9 @@ class block:
 class blockchain:
     def __init__(self, blocks = [], latestHash = "", invalidatedBlocks = []):
         # 
-        self.blocks = blocks;
-        self.latestHash = latestHash;
-        self.invalidatedBlocks = invalidatedBlocks;
+        self.blocks = blocks
+        self.latestHash = latestHash
+        self.invalidatedBlocks = invalidatedBlocks
 
         # verify blocks
         if self.blocks == []:
@@ -150,7 +162,7 @@ class blockchain:
 
     def computeLatestHash(self):
         # todo : future versions : should include invalidated blocks
-        if len(self.blocks) > 0:
+        if (len(self.blocks) > 0):
             self.latestHash = self.blocks[len(self.blocks) - 1].computeHash(None);
         else:
             self.latestHash = '';
@@ -199,7 +211,12 @@ class blockchain:
     
     def addTransaction(self, transaction_ : transaction):
         # tries to add a transaction to the latest block
-        if self.invalidatedBlocks[0] != None:
+        print(transaction_.__dict__)
+        if self.invalidatedBlocks == None or len(self.invalidatedBlocks) == 0 :
+            self.invalidatedBlocks += [block()]
+            self.invalidatedBlocks[0].addTransaction(transaction_);
+
+        if  self.invalidatedBlocks[0] != None:
             self.invalidatedBlocks[0].addTransaction(transaction_);
             return True;
         else:
@@ -207,6 +224,37 @@ class blockchain:
             return True;
         #
     
+
+
+
+
+
+
+
+
+#######################################################################
+## TODOS
+
+class todo:
+    def __init__(self , id , title , content, priority, status):
+        self.id = id
+        self.title = title
+        self.content = content
+        self.priority = priority
+        self.status = status
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #############################################
 ## testing mechanism routine

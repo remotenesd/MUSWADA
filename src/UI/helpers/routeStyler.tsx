@@ -10,14 +10,14 @@ const spacerStyle = {
 
 // ROUTING INJECTION
 
-const mapStateToProps = (state : IState) => {
-    return {route : state.routing}
+const mapStateToProps = (state ) => {
+    return {route : state.sessionReducer.routing}
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         gotoRoute : (where : string) => {
-            console.log('@@@@@@ GOING TO' + where);
+            // console.log('@@@@@@ GOING TO' + where);
             dispatch(setRoute(where))
         },
         eraseRoute : () => dispatch(eraseRoute())
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export const newModifiedComponent = ({component : Component, useStyle, ...rest}) => {
-    console.log({...rest});
+    // console.log({...rest});
     if (useStyle)
     {
         return routeStyler({component : connect(mapStateToProps, mapDispatchToProps)(Component), ...rest})
