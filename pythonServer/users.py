@@ -28,7 +28,11 @@ cors = CORS(usersApi, ressources = { r"/*" : {"origins" : "*"} })
 
 def registerUser(user : usertypes.user):
     ### register logged in user
+    print("[LOGIN] SUCCESS.")
     loggedin = user;
+    ## let's update (broadcast) our P2P status ID
+    from main import broadcast
+    broadcast(user['name'], str(user['_id']))
 
 def unregisterUser():
     # logout
@@ -50,7 +54,8 @@ def handleNewUserRegisteration(json):
 
 def emitMyRegisteration(req):
     print('emiting event')
-    glb.socketioinstance.emit('newUserRegisteration', req)
+    # glb.socketioinstance.emit('newUserRegisteration', req)
+    #!IMPORTANT TODO ADD EMISSION OF MY REGISTERATION TO P2P
 
 @glb.socketioinstance.on('reqAPIVersion')
 def sendAPIVersion():
