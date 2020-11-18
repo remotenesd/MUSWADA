@@ -41,6 +41,8 @@ const FORBIDDEN_WORDS_TODO = 'TODO_FORBIDDEN_WORDS';
 
 const CLEAR_FLAGS = 'CLEAR_FLAGS';
 
+const P_GET_PEERS = 'GET_PEERS';
+
 export {
 
     /// TODO
@@ -68,4 +70,6 @@ export {
     B_TRANSACTION_ADD,
     B_TRANSACTION_LIST,
     B_TRANSACTION_STATUS,
+
+    P_GET_PEERS,
 };

@@ -13,6 +13,7 @@ const initState : IState = {
     routing : '',
     myblkchn : null,
     theme : 'dark',
+    peers : [],
 }
 
 function sessionReducer(state = initState, action) {
@@ -88,6 +89,17 @@ function sessionReducer(state = initState, action) {
             {
                 routing : ''
         });
+    }
+
+    if (action.type === ActionTypes.P_GET_PEERS)
+    {
+        if (action.data.peers != null)
+        {
+            return Object.assign({}, state, 
+                {
+                    peers : action.data.peers
+            });
+        }
     }
 
     return state;

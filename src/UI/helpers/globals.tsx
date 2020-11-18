@@ -17,6 +17,7 @@ let globalsConstructor = () => {
         userURL : "user",
         todoURL : "todos",
         miscURL : "misc",
+        p2pURL : "p2p",
         version : '1.0',
         
         // blockchain API
@@ -54,7 +55,7 @@ let updateMaker = () => new Promise((resolve, reject) => {
         promisePort.then(  (res) => {
             if (res.status === 200)
             {
-                console.log('yes , status ' + res.status)
+                // console.log('yes , status ' + res.status)
                 // try to fetch version
                 globals.version = res.data.version
                 globalsChangedEvents.map(event => event());
@@ -82,15 +83,15 @@ let lostConnection = new Promise((resolve, reject) => {
         portDidUpdate.then(
             () => {
                 connectionEstablished = true;
-                console.log('connection established')
+                // console.log('connection established')
             }, () => {connectionEstablished = false}
         ).catch(() => resolve('lost !'))
         // if after 3s, nothing, then there is no connection.
-        console.log('checking connection')
+        // console.log('checking connection')
         setTimeout(() => {
             if (! connectionEstablished)
             {
-                console.log('[] connection not established')
+                // console.log('[] connection not established')
                 resolve('timeout.')
             }
         }, 3000);

@@ -144,5 +144,8 @@ export const getTODO = (id : number) => {
     }
 }
 
-
-
+export const getPeers = () => {
+    return {
+        type : Actions.P_GET_PEERS
+    }
+}

@@ -6,6 +6,7 @@ import sessionReducer from './reducers/sessionReducer';
 import APIMiddleware from './reducers/apiMiddleware';
 import rootReducer from './reducers/mainReducer';
 import { APIInsertion, forbiddenWordsMiddleware } from './reducers/todoMiddlewares';
+import { p2pMiddleware } from './reducers/p2pMiddleware';
 
 // applyMiddleware(forbiddenWordsMiddleware, APIInsertion),
 const reducer = combineReducers(
@@ -13,7 +14,7 @@ const reducer = combineReducers(
                 );
 const store = createStore(
                     reducer,
-                    applyMiddleware(APIMiddleware, forbiddenWordsMiddleware, APIInsertion)
+                    applyMiddleware(APIMiddleware, forbiddenWordsMiddleware, APIInsertion, p2pMiddleware)
             );
 
 // store.dispatch({type :});
