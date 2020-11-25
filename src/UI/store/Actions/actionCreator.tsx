@@ -149,3 +149,44 @@ export const getPeers = () => {
         type : Actions.P_GET_PEERS
     }
 }
+
+export const getMyPeers = () => {
+    return {
+        type : Actions.P_GET_MY_PEER
+    }
+}
+
+export const fakeDispatch = () => {
+    return  {
+        type : 'FAKE_DISPATCH'
+    }
+}
+
+export const updateRequired =  () => {
+    return {
+        type : Actions.M_UPDATE_REQUIRED,
+    }
+}
+
+export const sendFriendRequest = (id : number) => {
+    return {
+        type : Actions.C_SEND_FRIEND_REQUEST,
+        payload : {id : id,}
+    }
+}
+
+export const sendMessage = (id : number, message : string) => {
+    return {
+        type : Actions.C_SEND_MESSAGE,
+        payload : {
+            id : id,
+            message : message,
+        }
+    }
+}
+
+export const getMessages = () => {
+    return {
+        type : Actions.C_GET_MESSAGES,
+    }
+}

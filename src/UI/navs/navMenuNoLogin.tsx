@@ -18,6 +18,8 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
+import { rerenderAPP } from '../../index' 
+
 import "../styles/navMenu.css";
 
 export const noWrap = {
@@ -79,7 +81,7 @@ const NavMenuNoLogin = ({
 
   return (
     <Navbar color="dark" light expand="md">
-      <NavbarBrand className="darkTheme noDrag" href="/">
+      <NavbarBrand className="darkTheme noDrag" onClick={() => rerenderAPP()}>
         MUSWADA
       </NavbarBrand>
       <NavbarToggler className="noDrag" onClick={toggleNavbar}></NavbarToggler>

@@ -42,3 +42,47 @@ html, .content, Table, th, td {
     
     color : var(--color-surface);
   }
+
+
+/* .rcw-conversation-container > .rcw-header {
+    background-color: var(--color-surface) !important;
+} */
+   
+.rcw-message > .rcw-response {
+    background-color: var(--color-surface) !important;
+    border-radius: 2px 2px;
+    color: var(--color-solid) !important;
+}
+.rcw-message-text {
+  background-color: var(--color-surface-pale-f2) !important;
+  border-radius: 2px 2px;
+  color: var(--color-solid) !important;
+}
+
+
+.rcw-full-screen .rcw-close-button {
+  background-color: var(--color-surface) !important;
+}
+
+
+.rcw-messages-container {
+  background-color: var(--color-surface) !important;
+  box-shadow: inset -8px 0px 2px 0px var(--color-solid) !important; 
+  color: var(--color-solid) !important;
+}
+
+.rcw-header {
+  background-color: var(--color-surface) !important;
+  /* box-shadow : 0px -13px 20px 11px  var(--color-solid); */
+  color: var(--color-solid) !important;
+}
+
+.quick-buttons-container {
+  background-color: var(--color-surface) !important;
+  color: var(--color-solid) !important;
+}
+
+.quick-button {
+  border: none !important;
+  color: var(--color-solid) !important;
+}

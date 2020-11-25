@@ -25,6 +25,11 @@ let globalsConstructor = () => {
     }
 };
 
+let generals = {
+    // selected profile
+    selectedProfile : null || Object,
+}
+
 let globals = globalsConstructor();
 let globalsChangedEvents = [() => {}];
 
@@ -49,6 +54,7 @@ let updateMaker = () => new Promise((resolve, reject) => {
     // gotAPIVersion ::: meant 😢 gotPORTNumber
     ipcRenderer.on('gotAPIVersion', (event, arg) => {
         myPort = Number(arg);
+        
         globals = globalsConstructor();
         
         promisePort = Axios.get(globals.baseURL + '/' + globals.miscURL + '/getVersion')
@@ -98,4 +104,5 @@ let lostConnection = new Promise((resolve, reject) => {
     }, 5000)
 })
 
-export { globals , globalsChangedEvents, portDidUpdate, lostConnection};
+
+export { globals , globalsChangedEvents, portDidUpdate, lostConnection, generals};

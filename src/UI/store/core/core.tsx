@@ -67,7 +67,8 @@ interface IState {
   routing: string;
   theme : string;
   myblkchn : blockchain  | null;
-  peers : [];
+  peers : []; 
+  mypeer : {};
 }
 
 export type { IState };

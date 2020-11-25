@@ -9,18 +9,20 @@ const spacerStyle = {
 }
 
 // ROUTING INJECTION
+// BASICALLY ENABLE EVERY COMPONENT TO HAVE AUTOMATIC ROUTING
 
 const mapStateToProps = (state ) => {
     return {route : state.sessionReducer.routing}
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         gotoRoute : (where : string) => {
             // console.log('@@@@@@ GOING TO' + where);
             dispatch(setRoute(where))
         },
-        eraseRoute : () => dispatch(eraseRoute())
+        eraseRoute : () => dispatch(eraseRoute()),
+        toggleTheme : () => ownProps.toggleTheme(),
     }
 }
 
@@ -52,6 +54,7 @@ export const routeStyler = ({component : Component, ...rest}) => {
 }
 
 export const unstyledRouteStyler = ({component : Component, ...rest}) => {
+    console.log({...rest})
     return  (
         <Component {...rest} />
     )

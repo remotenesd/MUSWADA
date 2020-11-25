@@ -83,9 +83,9 @@ class App extends React.Component {
     render()
     {
         // 
+        // console.log(this.state.goto)
 
         return (
-                
                     <div className="content">
                         <div className="draggable">
                             {

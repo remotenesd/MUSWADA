@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 // entry point
 import App from './app_';
 
-import store from './UI/store/store';
+import {reMakeStore, store} from './UI/store/store';
 import {Provider} from 'react-redux';
 
 
@@ -36,6 +36,9 @@ lostConnection.then(() => {
 
 
 let renderAPP = () => {
+    console.log('re-render of app')
+    reMakeStore();
+    console.log(store.getState())
     ReactDOM.render(
         (<Provider store={store}>
             <App />
@@ -50,4 +53,18 @@ let renderNoConnection = () => {
         (<h1>Waiting for connection ...</h1>)
         , 
         document.querySelector('#root'))
+}
+
+const electron = window.require('electron');
+const ipcRenderer  = electron.ipcRenderer;
+
+let rerenderAPP = () => {
+    
+    setTimeout(
+        () => ipcRenderer.send('rerender'), 1500
+    )
+}
+
+export {
+    rerenderAPP
 }

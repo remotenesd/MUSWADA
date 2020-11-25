@@ -2,7 +2,6 @@ import React, {Component, useContext, useState, useEffect} from 'react';
 // import { AuthContext } from '../Context/auth';
 import { Table, FormGroup, Form, Label, Input , Button, Toast, ToastHeader, ToastBody, ButtonDropdown, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, ButtonGroup, UncontrolledDropdown, NavLink} from 'reactstrap';
 import * as mocker from './TODOsMocker';
-// import store from './../store/store';
 import { connect } from 'react-redux';
 import { addTODO, clearFlags, filterByPriority, filterByStatus, prioritiseTODO, markTODO } from '../store/Actions/actionCreator';
 import { TODO as TODODEF, TODOPRIORITY, TODOSTATUS  } from '../store/core/defs'

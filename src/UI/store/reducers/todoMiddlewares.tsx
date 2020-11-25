@@ -1,7 +1,7 @@
 // import { AuthContext } from '../Context/auth';
 import { Table, FormGroup, Form, Label, Input , Button} from 'reactstrap';
 import * as mocker from '../../todo/TODOsMocker';
-import store from '../store';
+import {store} from '../store';
 import { connect } from 'react-redux';
 import { addTODO } from '../Actions/actionCreator';
 import { TODO as TODODEF, TODOSTATUS  } from '../core/defs';
@@ -61,9 +61,9 @@ export function APIInsertion({getState, dispatch}){
                     {   
                         // redirect to register successfull page
                         // this.setState(  { tag :  res.data.tag });
-                        console.log(res.data)
+                        // console.log(res.data)
                         action.data   = res.data.todos ;
-                        console.log(action.data);
+                        // console.log(action.data);
                         if (true){
                             action.data = action.data.map (todo  => {
                                 let t : TODODEF = {} as TODODEF;
@@ -72,7 +72,7 @@ export function APIInsertion({getState, dispatch}){
                                 t.content = todo.content;
                                 t.priority = convertToPriority(todo.priority);
                                 t.status = convertToStatus(todo.status);
-                                console.log(todo);
+                                // console.log(todo);
                                 return t;
                             });
                         }

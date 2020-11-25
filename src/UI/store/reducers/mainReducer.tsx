@@ -2,7 +2,7 @@
 import * as action from '../Actions/actionCreator';
 import * as actionTypes from '../Actions/actionTypes';
 import * as defs from '../core/defs';
-import store from '../store';
+import {store} from '../store';
 import { TODO as TODODEF, TODOSTATUS  } from '../core/defs';
 import { convertToPriority, convertToStatus } from '../Actions/converters';
 

@@ -14,6 +14,8 @@ import Docs from "./docs/docs";
 import Asymetric from "./docs/asymtric";
 import MainBlockchain from "./blockchain/main";
 import Todo from "./todo/Todo";
+import Profile from "./profile";
+import Chat from "./chat";
 
 const Routing = (props, state) => (
   <>
@@ -63,6 +65,23 @@ const Routing = (props, state) => (
         newModifiedComponent({ component: Docs, useStyle: true, props })
       }
     />
+    
+    <Route
+      exact
+      path="/todos"
+      render={(props) =>
+        newModifiedComponent({ component: Todo, useStyle: false, props })
+      }
+    />
+
+
+
+    {
+      /*
+        ROUTING ENABLED (HISTORY NAVIGATOR)
+      */
+    }
+
     <Route
       exact
       path="/blockchain"
@@ -72,9 +91,16 @@ const Routing = (props, state) => (
     />
     <Route
       exact
-      path="/todos"
+      path="/profile"
       render={(props) =>
-        newModifiedComponent({ component: Todo, useStyle: false, props })
+        newModifiedComponent({ component: Profile, useStyle: true, props })
+      }
+    />
+    <Route
+      exact
+      path="/chat"
+      render={(props) =>
+        newModifiedComponent({ component: Chat, useStyle: true, props })
       }
     />
     {/* <PrivateRoute path="/admin" component={Admin} />

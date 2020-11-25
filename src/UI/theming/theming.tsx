@@ -7,7 +7,9 @@ export const lightTheme = {
   export const darkTheme = {
     "--color-solid": "#e3e5e0",
     "--color-surface": "#342434",
-    "--color-primary": "purple"
+    "--color-primary": "purple",
+    "--color-surface-pale": "#443444",
+    "--color-surface-pale-f2": "#544454",
   };
   
   export const applyTheme = nextTheme => {

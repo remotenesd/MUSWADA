@@ -24,14 +24,16 @@ const Home = (props, state) => {
         // });
     }
 
-    return (<>
-        <h1>
-            MUSWADA APP
-        </h1>
-        <h2>🔨 API {version}</h2>
-        <h2>☑️ OPEN ON PORT {PORT}</h2>
-        <Button onClick={pushTransaction}>☕ Add transaction</Button>
-    </>)
+    return (
+        <>
+            <h1>
+                MUSWADA
+            </h1>
+            <h2>🔨 API {version}</h2>
+            <h2>☑️ OPEN ON PORT {PORT}</h2>
+            <Button onClick={pushTransaction}>☕ Add transaction</Button>
+        </>
+    )
 };
 
 export default Home;

@@ -24,9 +24,9 @@ function createWindow() {
   // Node JS back server
 
   // creates the browser win
-  let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  win = new BrowserWindow({
+    width: 1200,
+    height: 800,
     frame: false,
     minWidth: 700,
     minHeight: 600,
@@ -63,8 +63,14 @@ let optionsP2P = {
   args : [randomPortNumber]
 };
 
-let dir = path.join(__dirname, "../pythonServer/main.py");
-let dirP2P = path.join(__dirname, "../pythonServer/myp2p.py");
+let dir = path.join ( app.getAppPath(), "../pythonServer/main.py");
+let dirP2P = path.join(app.getAppPath(), "../pythonServer/myp2p.py");
+
+if (!isDev)
+{
+  dir = path.join ( app.getAppPath(), "../../pythonServer/main.py");
+  dirP2P = path.join(app.getAppPath(), "../../pythonServer/myp2p.py");
+}
 
 // DONT RUN MAIN FOR NOW
 // PythonShell.run(dir, options, (err, results) => {
@@ -89,6 +95,15 @@ if (false)
 ipcMain.on("reqVersion", (event, arg) => {
   // good so far
   shell.send('reqAPIVersion');
+})
+
+ipcMain.on("rerender", (event, arg) => {
+  // good so far
+  win.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
 })
 
 shell.on('getAPIVersion' , (message) => {

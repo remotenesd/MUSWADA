@@ -19,7 +19,11 @@ import {
     DropdownMenu
 } from 'reactstrap';
 
+import { rerenderAPP } from '../../index' 
 import '../styles/navMenu.css';
+
+
+import logo from '../logo.svg';
 
 
 export const noWrap =  {
@@ -81,7 +85,7 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
 
             
             <Navbar  color="dark" light expand="md">
-                    <NavbarBrand className="darkTheme noDrag" href="/">SERVICE</NavbarBrand>
+                    <NavbarBrand className="darkTheme noDrag" onClick = {() => rerenderAPP()}><img width={160} height={64} src={logo} /></NavbarBrand>
                     <NavbarToggler className="noDrag" onClick={toggleNavbar}></NavbarToggler>
                     <Collapse className="" isOpen={!collapsed}  navbar>
                         <Nav className="mr-auto darkTheme"  navbar>  
