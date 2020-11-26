@@ -18,7 +18,7 @@ const mapStateToProps = (state ) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         gotoRoute : (where : string) => {
-            // console.log('@@@@@@ GOING TO' + where);
+            console.log('@@@@@@ GOING TO' + where);
             dispatch(setRoute(where))
         },
         eraseRoute : () => dispatch(eraseRoute()),
@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 export const newModifiedComponent = ({component : Component, useStyle, ...rest}) => {
     // console.log({...rest});
+    console.log('[ROUTING] PREPARING TO RENDER COMPONENT.')
     if (useStyle)
     {
         return routeStyler({component : connect(mapStateToProps, mapDispatchToProps)(Component), ...rest})
@@ -46,6 +47,7 @@ export const newModifiedComponent = ({component : Component, useStyle, ...rest})
 
 
 export const routeStyler = ({component : Component, ...rest}) => {
+    console.log('[ROUTING] RENDERING STYLED COMPONENT.')
     return  (
         <div style={spacerStyle}>
             <Component {...rest} />

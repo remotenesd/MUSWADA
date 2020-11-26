@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './UI/styles/app.css';
 import * as theming from './UI/theming/theming';
 
 import NavMenuNoLogin from './UI/navs/navMenuNoLogin';
 import Routing from './UI/Routes';
-import { Redirect, Router, BrowserRouter } from 'react-router-dom';
+import { Redirect, Router } from 'react-router-dom';
 import HistoryNavigator from './UI/helpers/historyNavigator';
 import { ToastHeader } from 'reactstrap';
 
@@ -14,22 +14,37 @@ import * as mappers from './loginUtils';
 import {connect } from 'react-redux';
 import NavMenuWithLogin from './UI/navs/navMenuWithLogin';
 import { newModifiedComponent } from './UI/helpers/routeStyler';
+import { render } from '@testing-library/react';
+// import App from './App';
 
-class App extends React.Component {
+import history from './UI/helpers/historyNavigator';
+import HistoryAction from './UI/helpers/historyAction';
+import { useEffect } from 'react';
 
-    state = {
-        goto : '',
-        activeTheme : '',
-        switchToVerticalNav : false,
-    }
 
-    props =  {
-        loggedIn : null,
-        logout : null,
-        route : '',
-    }
+interface state {
+    goto : string,
+    activeTheme : boolean,
+    switchToVerticalNav : boolean,
+}
 
-    propsForMenu = {
+interface props  {
+    loggedIn : object,
+    logout : object,
+    route : string,
+}
+
+
+const App = (props : props) => {
+
+    // let [goto, setGotoFunc] = useState('');
+    let [activeTheme, setActiveTheme] = useState('');
+    let [switchToVerticalNav, setSwitchToVerticalNav] = useState(false);
+    let [goto, setGoto] = useState('');
+    // let [goto, setGoto] = useState('');
+    // let [goto, setGoto] = useState('');
+
+    let propsForMenu = {
         verticalToggle : () => {} ,
         redirecter : (s) => {} ,
         toggleTheme : () => {},
@@ -37,27 +52,21 @@ class App extends React.Component {
 
     }
 
-    stateForMenu = {
+    let stateForMenu = {
         route : '',
     }
 
-    constructor(props)
-    {
-        super(props);
+    // constructor()
+    // {
         
-        this.goto.bind(this);
+    //     this.goto.bind(this);
 
-        this.propsForMenu.verticalToggle = () => this.switchNav.bind(this)();
-        this.propsForMenu.redirecter = (path) => this.goto(path);
-        this.propsForMenu.toggleTheme = () => this.applyTheme(this.state.activeTheme === 'dark' ? 'light' : 'dark' );
-    }
+    //     this.propsForMenu.verticalToggle = () => this.switchNav.bind(this)();
+    //     this.propsForMenu.redirecter = (path) => this.goto(path);
+    //     this.propsForMenu.toggleTheme = () => this.applyTheme(this.state.activeTheme === 'dark' ? 'light' : 'dark' );
+    // }
 
-    goto(path : String)
-    {
-        this.setState({goto : path});
-    }
-
-    applyTheme(theme)
+    function applyTheme(theme)
     {
         if (theme === 'light')
         {
@@ -67,35 +76,32 @@ class App extends React.Component {
         {   
             theming.applyTheme(theming.darkTheme)
         }
-        this.setState({activeTheme : theme});
+        activeTheme = theme;
     }
 
-    componentWillMount()
+    propsForMenu.verticalToggle = () => switchNav.bind(this)();
+    propsForMenu.redirecter = (path) => setGoto(path);
+    propsForMenu.toggleTheme = () => applyTheme(activeTheme === 'dark' ? 'light' : 'dark' );
+
+    applyTheme('dark');
+
+    function switchNav()
     {
-        this.applyTheme('dark');
+        setSwitchToVerticalNav(!switchToVerticalNav)
     }
 
-    switchNav()
-    {
-        this.setState({ verticalToggle : !this.state.switchToVerticalNav });
-    }
-
-    render()
-    {
-        // 
-        // console.log(this.state.goto)
 
         return (
                     <div className="content">
                         <div className="draggable">
                             {
-                            this.props.loggedIn ? 
+                            props.loggedIn ? 
                                 newModifiedComponent(
                                     {
                                         component : NavMenuWithLogin,
                                         useStyle : false,
-                                        props :  this.propsForMenu,
-                                        state : this.stateForMenu,
+                                        props :  propsForMenu,
+                                        state : stateForMenu,
                                     }
                                 )
                             :
@@ -103,23 +109,24 @@ class App extends React.Component {
                                 {
                                     component : NavMenuNoLogin,
                                     useStyle : false,
-                                    props :  this.propsForMenu,
-                                    state : this.stateForMenu,
+                                    props :  propsForMenu,
+                                    state : stateForMenu,
                                 }
                             )
                             }
                             
                         </div>
-                        <BrowserRouter>
+                        <Router history={history}>
                             <Routing />
-                            <HistoryNavigator goto={
-                                            this.state.goto
-                                        } />        
-                        </BrowserRouter>
+                            {/* <HistoryNavigator goto={
+                                            goto
+                                        } />         */}
+                            <HistoryAction />
+                        </Router>
                         
                     </div>
         )
-    }
 }
+
 
 export default connect(mappers.mapStateToProps, mappers.mapDispatchToProps)(App);

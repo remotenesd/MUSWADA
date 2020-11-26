@@ -14,6 +14,7 @@ import { globals, lostConnection, portDidUpdate } from './UI/helpers/globals';
 // awaits for the app to load the correct port
 portDidUpdate.then(
     () => {
+        console.log("[ROOT] RENDERING APP.");
         renderAPP();
     }
 );
@@ -33,18 +34,22 @@ lostConnection.then(() => {
     , 2000);
 })
 
-
+const rootElement = (<div id="root"></div>);
 
 let renderAPP = () => {
+    if (document.querySelector('#root').length === 0)
+    {
+        document.querySelector('body').createElement(rootElement);
+    }
     console.log('re-render of app')
     reMakeStore();
     console.log(store.getState())
-    ReactDOM.render(
+    ReactDOM.render( 
         (<Provider store={store}>
             <App />
         </Provider>)
         , 
-        document.querySelector('#root'))
+        document.getElementById('root'))
 }
 
 let renderNoConnection = () => {

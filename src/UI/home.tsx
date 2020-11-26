@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 import {globals, globalsChangedEvents} from './helpers/globals';
 
@@ -8,12 +8,19 @@ const Home = (props, state) => {
     let [PORT, setPORT ] = useState(globals.apiPort);
     let [version, setVersion ] = useState(globals.version);
     
-    globalsChangedEvents.push( 
-        () => {
+    useEffect( () => {
+        let func = () => {
             setPORT(globals.apiPort);
             setVersion(globals.version);
         }
-    );
+        globalsChangedEvents.push( 
+            func
+        );
+        return () => {
+            // cleanup
+            func = () => {}
+        }
+    });
 
     const pushTransaction = () => 
     {
@@ -31,7 +38,7 @@ const Home = (props, state) => {
             </h1>
             <h2>🔨 API {version}</h2>
             <h2>☑️ OPEN ON PORT {PORT}</h2>
-            <Button onClick={pushTransaction}>☕ Add transaction</Button>
+            <Button onClick={() => pushTransaction()}>☕ Add transaction</Button>
         </>
     )
 };

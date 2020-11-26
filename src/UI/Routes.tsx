@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import Login from "./login";
 import Account from "./account";
@@ -18,7 +18,7 @@ import Profile from "./profile";
 import Chat from "./chat";
 
 const Routing = (props, state) => (
-  <>
+  <Fragment>
     <Route
       exact
       path="/"
@@ -108,7 +108,7 @@ const Routing = (props, state) => (
         <PrivateRoute path="/search" component={Search}  />
         <PrivateRoute path="/addedSuccess" component={AddedSuccess}  />
         <RestrictedRoute restricted={true} path="/register" component={Register}  /> */}
-  </>
+  </Fragment>
 );
 
 export default Routing;

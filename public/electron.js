@@ -63,8 +63,8 @@ let optionsP2P = {
   args : [randomPortNumber]
 };
 
-let dir = path.join ( app.getAppPath(), "../pythonServer/main.py");
-let dirP2P = path.join(app.getAppPath(), "../pythonServer/myp2p.py");
+let dir = path.join ( __dirname, "../pythonServer/main.py");
+let dirP2P = path.join(__dirname, "../pythonServer/myp2p.py");
 
 if (!isDev)
 {

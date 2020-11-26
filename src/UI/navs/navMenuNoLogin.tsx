@@ -1,4 +1,5 @@
-import React, { Component, CSSProperties, Fragment, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { Component, CSSProperties, Fragment, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,46 +30,58 @@ export const noWrap = {
 } as React.CSSProperties;
 
 const NavMenuNoLogin = ({
-  route,
-  verticalToggle,
-  redirecter,
   toggleTheme,
   gotoRoute,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
-  // setCollapsed =  (v : boolean) => {this.collapsed = v }/
+  const [route, setRoute] = useState('');
+  let toggleNavbar;
+  
+  console.log('[ROUTING] UPDATING NAV.')
+  useEffect(() => {
+    // setCollapsed =  (v : boolean) => {this.collapsed = v }/
+    toggleNavbar = () => {
+      setCollapsed(!collapsed);
+      // verticalToggle();
+    };
+  })
 
-  const toggleNavbar = () => {
-    setCollapsed(!collapsed);
-    // verticalToggle();
-  };
+  useEffect( () => {
+    toggleNavbar();
+    gotoRoute(route);
+  }, [route])
+  
+  console.log('[ROUTING] UPDATING NAV.2')
+  useEffect(() => {
+
+  }, [ gotoRoute, toggleTheme])
 
   // this.setState({ redirect : ''});
   // this.setState({ collapsed : true});
 
   // console.log(state);
 
+  console.log('[ROUTING] UPDATING NAV.3')
   const menus: { [title: string]: string } = {
     "SIGN IN": "login",
-    REGISTER: "register",
-    ABOUT: "about",
-    TODOS: "todos",
+    "REGISTER": "register",
+    "ABOUT": "about",
+    "TODOS": "todos",
   };
-
+  
+  console.log('[ROUTING] UPDATING NAV.4')
   let getMenus = () => {
     return (
       <Fragment>
         {Object.keys(menus).map((key) => {
           // iterate over menus and set up navs
           return (
-            <NavItem>
+            <NavItem key={key}>
               <NavLink
+                key={key}
                 className="darkTheme noDrag"
                 style={{ ...noWrap }}
-                onClick={() => {
-                  toggleNavbar();
-                  gotoRoute(menus[key]);
-                }}
+                onClick={() => setRoute(menus[key])}
               >
                 {key}
               </NavLink>
@@ -79,12 +92,13 @@ const NavMenuNoLogin = ({
     );
   };
 
+  console.log('[ROUTING] UPDATING NAV.5')
   return (
     <Navbar color="dark" light expand="md">
       <NavbarBrand className="darkTheme noDrag" onClick={() => rerenderAPP()}>
         MUSWADA
       </NavbarBrand>
-      <NavbarToggler className="noDrag" onClick={toggleNavbar}></NavbarToggler>
+      <NavbarToggler className="noDrag" onClick={() => toggleNavbar()}></NavbarToggler>
       <Collapse className="" isOpen={!collapsed} navbar>
         <Nav className="mr-auto darkTheme" navbar>
           {getMenus()}
