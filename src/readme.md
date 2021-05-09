@@ -18,8 +18,13 @@ All this data is decentralized, and may be safe-kept in a centralized location a
 
 Please serve using following code :
 '''npm start'''
+'''npm run dev'''
 
 
 ## Development
 
 Please refer to our dev notes [found here](/plan.md)
+
+## electron development
+
+You can compile application for redistribution.
