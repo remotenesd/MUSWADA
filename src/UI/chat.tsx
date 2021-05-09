@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Widget, addResponseMessage, addLinkSnippet, addUserMessage, setQuickButtons } from 'react-chat-widget';
+import { Widget, addResponseMessage, setQuickButtons } from 'react-chat-widget';
  
 import 'react-chat-widget/lib/styles.css';
 import './styles/app.css'
@@ -8,8 +8,7 @@ import './styles/app.css'
 import logo from './logo.svg';
 
 
-import {globals, globalsChangedEvents, generals} from './helpers/globals';
-import { applyTheme } from './theming/theming';
+import { generals} from './helpers/globals';
  
 function Chat({route, gotoRoute}) {
 

@@ -1,8 +1,10 @@
-import {EventEmitter} from 'events'
 import Axios, { AxiosResponse } from 'axios';
+import { basepermission } from '../register/core';
+import { store } from '../store/store';
+import { getFirstUsage, getLogin } from '../store/Actions/actionCreator';
 
 
-let ev = new EventEmitter();
+console.log("[GLOBALS] IN GLOBALS FILE..")
 // local info
 
 const electron = window.require('electron');
@@ -10,34 +12,39 @@ const ipcRenderer  = electron.ipcRenderer;
 let myPort = 5001;
 
 
-let globalsConstructor = () => { 
+var globalsConstructor = () => { 
     return {
         apiPort : myPort,
         baseURL : "http://localhost:" + myPort,
+        appURL : "app",
         userURL : "user",
         todoURL : "todos",
         miscURL : "misc",
-        p2pURL : "p2p",
+        persURL : "pers",
+        deplacerURL : "deplacer",
+        permissionURL : "permission",
         version : '1.0',
         
         // blockchain API
         bAPI : 'https://ephemeral.api.factom.com/v1',
+        // firstDataSent : false,
+        appData : {
+            firstUsage : false,
+            batiment : '...',
+            commandant : '',
+            batimentClass : '',
+        },
     }
 };
 
 let generals = {
     // selected profile
     selectedProfile : null || Object,
+    selectedPermission : new basepermission(),
 }
 
-let globals = globalsConstructor();
+var globals = globalsConstructor();
 let globalsChangedEvents = [() => {}];
-
-
-
-ev.on('connection', () => {
-    
-})
 
 // mobile info
 
@@ -64,44 +71,68 @@ let updateMaker = () => new Promise((resolve, reject) => {
                 // console.log('yes , status ' + res.status)
                 // try to fetch version
                 globals.version = res.data.version
-                globalsChangedEvents.map(event => event());
-                // tell the app to load
-                resolve('yooo')
+                store.dispatch(getFirstUsage())
+                store.dispatch(getLogin())
+                let fetchInitialData = () => {
+                    let state = store.getState();
+                    if (!state.sessionReducer.loadingAPIFirstData && !state.sessionReducer.loadingAPILogIn)
+                    {
+                        globalsChangedEvents.map(event => event());
+                        console.log(state.sessionReducer)
+                        // tell the app to load
+                        resolve('yooo')
+                    }
+                }
+                let unsubscribe = store.subscribe(fetchInitialData) // #todo implement
             }
             else{
                 reject('error')
-            }
+            } 
         },
             // if rejection
         (res) => {
             reject('error')
         }).catch(err => reject(err));
         
-        globalsChangedEvents.map(event => event());
+        // globalsChangedEvents.map(event => event());
     }); 
 })
+
+let getAppSpecific = () => new Promise((resolve, reject) => {
+    let promiseApp : Promise<AxiosResponse<any>> = Axios.get(globals.baseURL + '/' + globals.appURL + '/getdata');
+    promiseApp.then( (res) => {
+        if (res.status === 200)
+        {
+            globals.appData = res.data.app
+            if (String(globals.appData.firstUsage).startsWith('T'))
+            {
+                globals.appData.firstUsage = true
+                store.dispatch({type: 'SET_IS_FIRST_TIME'});
+            }
+            else{
+                globals.appData.firstUsage = false
+            }
+            globalsChangedEvents.map(event => event());
+        }
+    })
+})
+
 let portDidUpdate = updateMaker();
 let lostConnection = new Promise((resolve, reject) => {
     // always checking for connection
-    setInterval(() => {
-        portDidUpdate = updateMaker();
-        let connectionEstablished = false;
-        portDidUpdate.then(
-            () => {
-                connectionEstablished = true;
-                // console.log('connection established')
-            }, () => {connectionEstablished = false}
-        ).catch(() => resolve('lost !'))
+    ipcRenderer.send('reqPortNumber');
+        // gotAPIVersion ::: meant 😢 gotPORTNumber
+    ipcRenderer.on('gotAPIVersion', (event, arg) => {
+                // wait for api version
+                // if so, there is a connection !
+                resolve("positive");
+        } 
+    );
+    setTimeout(() => {
+        
         // if after 3s, nothing, then there is no connection.
-        // console.log('checking connection')
-        setTimeout(() => {
-            if (! connectionEstablished)
-            {
-                // console.log('[] connection not established')
-                resolve('timeout.')
-            }
-        }, 3000);
-    }, 5000)
+        reject('timeout.');
+    }, 4000);
 })
 
 

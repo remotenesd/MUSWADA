@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setLogin(user.userID, user.name, user.password)),
 });
 
-const Login = ({ session, meSetLogin }) => {
+const Login = ({  session, meSetLogin }) => {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [erro, setErro] = useState("");
@@ -33,8 +33,12 @@ const Login = ({ session, meSetLogin }) => {
   useEffect(() => {
     return () => {
       setErro(session.user.name === "loginError" ? "Login error." : "");
+      if (session && session.isLoggedIn)
+      {
+        setRedirect('/');
+      }
     };
-  }, [identifier]);
+  }, [session]);
 
   useEffect(() => {
     return () => {
@@ -53,7 +57,9 @@ const Login = ({ session, meSetLogin }) => {
   };
 
   if (redirect !== "") {
-    return <Redirect to={redirect} />;
+    console.log('going to ' + redirect)
+    
+    return <Redirect to={redirect.toString()} />
   }
 
   if (session !== null && session.isLoggedIn) {

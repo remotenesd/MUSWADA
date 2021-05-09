@@ -1,0 +1,103 @@
+import React from 'react';
+import { globals } from './helpers/globals';
+import { setLogin, setRoute } from './store/Actions/actionCreator';
+import './styles/personnel.css';
+import avatar from './images/avatar-svgrepo-com.svg';
+
+import {connect} from 'react-redux'
+import { Button, Col, Form, FormGroup, Input, Label, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+
+const mapStateToProps = (state) => {
+    return {
+      session: state.sessionReducer.user,
+    };
+};
+  
+const mapDispatchToProps = (dispatch) => ({
+    meSetLogin: (user) =>
+      dispatch(setLogin(user.userID, user.name, user.password)),
+    setRoute : (route) => 
+      dispatch(setRoute(route)),
+});
+
+const Personnel = ({session, meSetLogin, setRoute}) => {
+    return (
+        <div className="d-flex w-100 h-100 personnelCover" style={{color: "#012121"}}>
+            <div className="maindPers  align-items-center justify-content-center " style={{paddingTop: '20px'}}>
+                <h1>
+                    Liste du personnel a bord
+                </h1>
+                <h3>
+                    Saisir requette ou explorer la liste complete.
+                </h3>
+                <Form className="container">
+                    <FormGroup row>
+                        <Label size="lg" sm={2} for="searchQuerry"> 💬 </Label>
+                        <Col sm={10}>
+                            <Input  autoFocus={true} bsSize="lg" sm={10} type="text" name="searchQuerry" id="searchQuerry" placeholder="Nom / Grade" />
+                            <a href="#" className='link mx-2'>(*) 🧰 Recherche specialisée.</a>
+                            <a href="#" className='link mx=2' onClick={() => setRoute('person')}>(+) 🧍 Ajout profil.</a>
+                        </Col>
+                    </FormGroup>
+                </Form>
+                <hr />
+
+                <ListGroup flush title="Liste personnel" style={{maxHeight: '70vh' , overflowY: 'scroll', marginBottom: '10px', paddingBottom: '10px', borderRadius: '2px 2px', backgroundColor: 'transparent'}}>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                    <ListGroupItem className="transparent" tag="a" href="#">
+                        <img src={avatar} alt="" width="64" height="auto" className="mx-3" />
+                        Dapibus ac facilisis in
+                        <span className="badge badge-primary mx-1 p-1">New</span>
+                    </ListGroupItem>
+                   
+                </ListGroup>
+            </div>
+            <div className="childPers w-100 p-0">
+                <div className='float-right bg-secondary m-3 p-1 rounded'>
+                    <h3 className=''>🕶️ Apercu rapide</h3>
+                </div>
+                <hr />
+                <div className="container w-100 min-vh-100">
+                    <div className='row w-100' style={{minHeight: '10rem'}}>
+                        <img className='col' src={avatar} width='max-content' height='auto' alt='' />   
+                        <h4 className='col m-auto'>Mr Joe Something</h4>
+                    </div>
+                    <div className="row my-1 w-100 border-bottom border-light" style={{minHeight: '10rem'}}>
+                        <h4 className='col'>Grade et nom :</h4>
+                        <h5 className='col'>Mr something</h5>
+                    </div>
+                    <div className="row w-100 align-items-end" style={{minHeight: '10rem'}}>
+                        <span className='col'></span>
+                        <button type='button' onClick={() => setRoute('/Profile')} className='col btn btn-outline-warning'>Naviguer au profil.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Personnel);

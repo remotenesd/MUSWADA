@@ -1,0 +1,17 @@
+grades
+-------------------------
+
+
+CV
+CF
+CC
+LV
+EV1
+EV2
+====
+MP
+PM
+SM1
+SM2
+QM1
+QM2

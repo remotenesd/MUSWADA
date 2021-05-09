@@ -64,9 +64,8 @@ const NavMenuNoLogin = ({
   console.log('[ROUTING] UPDATING NAV.3')
   const menus: { [title: string]: string } = {
     "SIGN IN": "login",
-    "REGISTER": "register",
+    "Register" : "register",
     "ABOUT": "about",
-    "TODOS": "todos",
   };
   
   console.log('[ROUTING] UPDATING NAV.4')
@@ -96,7 +95,7 @@ const NavMenuNoLogin = ({
   return (
     <Navbar color="dark" light expand="md">
       <NavbarBrand className="darkTheme noDrag" onClick={() => rerenderAPP()}>
-        MUSWADA
+        Gestionnaire
       </NavbarBrand>
       <NavbarToggler className="noDrag" onClick={() => toggleNavbar()}></NavbarToggler>
       <Collapse className="" isOpen={!collapsed} navbar>

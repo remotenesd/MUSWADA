@@ -49,11 +49,14 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
     // console.log(state);
 
     const menus : {[title : string] : string} = {
-        'ACCOUNT' : '/account',
-        'BLOCKCHAIN' : '/blockchain',
-        'TODO' : '/todos',
-        'DOCS' : '/docs',
-        'SIGNOUT' : '/signout'
+        '🏸Compte Util.' : '/account',
+        '👨 Personnel' : '/personnel',
+        '🔫 Service' : '/Service',
+        '🥡 Permissions de sortie' : '/Permissionnaires',
+        '🧰 Options' : '/options',
+        '📡 Aide' : '/outils',
+        '📔 DOCS' : '/docs',
+        '✂️ Deconnexion' : '/signout'
     }
     
     let getMenus = () =>
@@ -65,8 +68,10 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
                         {
                             // iterate over menus and set up navs
                             return (
-                                <NavItem>
-                                    <NavLink className="darkTheme noDrag" style={{  ...noWrap }} onClick={() => {
+                                <NavItem key={menus[key]}>
+                                    <NavLink 
+                                        key={menus[key]}
+                                        className="darkTheme noDrag" style={{  ...noWrap }} onClick={() => {
                                                             toggleNavbar();
                                                             gotoRoute(menus[key]);
                                                         }}>{key}</NavLink>
@@ -84,7 +89,7 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
     return (
 
             
-            <Navbar  color="dark" light expand="md">
+            <Navbar  color="" light expand="md">
                     <NavbarBrand className="darkTheme noDrag" onClick = {() => rerenderAPP()}><img width={160} height={64} src={logo} /></NavbarBrand>
                     <NavbarToggler className="noDrag" onClick={toggleNavbar}></NavbarToggler>
                     <Collapse className="" isOpen={!collapsed}  navbar>
@@ -102,7 +107,7 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, toggleTheme, 
                             </DropdownMenu>
                         </UncontrolledDropdown>
 
-                        <NavbarText  style={{ color: 'grey', ...noWrap }} >@2020 UND SERVICES AND TECHNOLOGIES</NavbarText>
+                        <NavbarText  style={{ color: 'grey', fontFamily: 'monospace', ...noWrap }} >{'< '}PROGRAMMATION EV FOUQANI {' />'}</NavbarText>
                     </Collapse>
             </Navbar>
         );

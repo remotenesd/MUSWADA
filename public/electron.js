@@ -18,7 +18,8 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
-const randomPortNumber = randomInt(1000, 9000);
+let randomPortNumber = randomInt(1000, 9000);
+randomPortNumber = 5001;
 
 function createWindow() {
   // Node JS back server
@@ -31,8 +32,10 @@ function createWindow() {
     minWidth: 700,
     minHeight: 600,
     maximizable: true,
+    fullscreen: true,
     webPreferences: {
       nodeIntegration: true,
+      // devTools: false,
       // enableRemoteModule: true,
     },
   });
@@ -60,7 +63,8 @@ let options = {
 
 let optionsP2P = {
   mode: "text",
-  args : [randomPortNumber]
+  // args : [randomPortNumber]
+  args : [5001]
 };
 
 let dir = path.join ( __dirname, "../pythonServer/main.py");
@@ -113,6 +117,15 @@ shell.on('getAPIVersion' , (message) => {
 
 ipcMain.on('reqPortNumber', (event, args) => {
   event.reply( 'gotAPIVersion' , randomPortNumber );
+});
+
+
+ipcMain.on('downloadfile', (event, arg) => {
+  var fs = require('fs');
+  let dir = path.join ( __dirname, "../" + arg.file);
+  const {shell} = require('electron');
+  // Open a local file in the default app
+  shell.showItemInFolder(dir);
 });
 
 /////// SENDING ARGS TO SERVER
