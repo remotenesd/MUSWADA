@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
-import {routeStyler} from './routeStyler';
+import {newModifiedComponent, routeStyler} from './routeStyler';
+import { RootState } from '../store/store';
 
 class NoLogin extends React.Component
 {
@@ -15,21 +17,20 @@ class NoLogin extends React.Component
     }
 } 
 
-function isLoggedIn(){
-    return false;
-}
 
-function PrivateRoute({component : Component  , ...rest})
+
+function PrivateRoute({component : Component  , useStyle : boolean, ...rest})
 {
+    const isloggedIn = useSelector((state : RootState)  => state.sessionReducer.user.isLoggedIn);
     return (
         
              <Route {...rest} render={  
                         (props) => (
                             
-                                    isLoggedIn() ? 
-                                    routeStyler({component : Component  , props : {}})
+                                    isloggedIn ? 
+                                    newModifiedComponent({ component: Component, useStyle: false, props })
                                     : 
-                                    routeStyler({component : NoLogin  , props : {}})
+                                    newModifiedComponent({ component: NoLogin, useStyle: false, props })
                                     
                         )
                     }

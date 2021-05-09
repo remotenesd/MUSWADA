@@ -7,6 +7,7 @@ import { setRoute, eraseRoute } from "../store/Actions/actionCreator";
 import sessionReducer from "../store/reducers/sessionReducer";
 import rootReducer from "../store/reducers/mainReducer";
 import history from './historyNavigator';
+import { globals } from "./globals";
 
 const mapStateToProps = (state) => {
   return { route: state.sessionReducer.routing };
@@ -23,10 +24,10 @@ const HistoryNavigator = ({ route, eraseRoute }) => {
   useEffect(() => {
     
     const goto = () => {
-      console.log("######### RECEIVED " + route);
+      console.log("######### RECEIVED " + globals.baseURL + route);
       // const p = '/' + route;
       eraseRoute();
-      history.push('/' + route);
+      history.push(route);
     };
 
     if (route !== "") {

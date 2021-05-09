@@ -1,8 +1,32 @@
+@font-face {
+  font-family: almanar;
+  src: url('../fonts/Almanar.ttf');
+}
+@font-face {
+  font-family: Khodijah;
+  src: url('../fonts/Khodijah.ttf');
+}
+@font-face {
+  font-family: moroccoregular;
+  src: url('../fonts/moroccoregular.ttf');
+}
+
 html, .content, Table, th, td {
+  
     background: var(--color-surface);
     color: var(--color-solid);
+
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    font-family: 'Khodijah';
+    font-stretch: ultra-expanded;
   }
   
+  h1{
+    font-family: 'almanar';
+  }
   .spacer
   {
     margin : 10px;
@@ -85,4 +109,44 @@ html, .content, Table, th, td {
 .quick-button {
   border: none !important;
   color: var(--color-solid) !important;
+}
+
+.flexboxupdown
+{
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgba(186, 186, 197, 0.712);
+  margin: 10px;
+  padding: 10px;
+}
+
+.flexitem{
+  flex: 1;
+
+}
+
+.coverHome{
+  background-image: url('../images/sm_corrected.jpg');
+  background-size: auto;
+  background-repeat: repeat;
+
+  color: black;
+}
+
+#aside
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+
+  flex: 1;
+  height: 100vh;
+
+  padding: 20px;
+
+  background-color: var(--color-surface-faint);
+  color: var(--color-solid);
+
+  font-size: 1.4em;
 }

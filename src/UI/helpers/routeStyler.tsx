@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 const spacerStyle = {
     margin : '5px',
     padding: '10px',
+    height: '100%',
+    width: '100%'
 }
 
 // ROUTING INJECTION

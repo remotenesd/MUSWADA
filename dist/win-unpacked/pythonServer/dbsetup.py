@@ -3,12 +3,12 @@ import pymongo
 
 
 dbclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = dbclient["muswada"]
+mydb = dbclient["personnel"]
 
 #dec all tables
 dbusers = mydb["users"]
-dbblocks = mydb["blocks"]
-dbtransactions = mydb["transactions"]
 dbtodos = mydb["todos"]
-dbpeers = mydb["peers"]
-dbchat = mydb["chat"]
+dbpersonnel = mydb["personnel"]
+dbdeplacer = mydb["deplacer"]
+dbservice = mydb["service"]
+dbpermission = mydb["permission"]

@@ -15,3 +15,19 @@ class user:
                 PORT += character
         # print(PORT[0:4])
         return int(PORT[0:4])
+
+class deplacer:
+    def __init__(self, personID, date, fromTime, toTime,motif):
+        self.personID = personID;
+        self.date = date;
+        self.fromTime = fromTime;
+        self.toTime = toTime;
+        self.motif = motif;
+
+
+class permission:
+    def __init__(self, personID, fromDate, toDate,addresse):
+        self.personID = personID;
+        self.fromDate = fromDate;
+        self.toDate = toDate;
+        self.addresse = addresse;

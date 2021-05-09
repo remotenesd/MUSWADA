@@ -1,7 +1,6 @@
 import type { user as usr } from "../store/core/core";
-import CryptoJS from "crypto-js";
 import Axios, { AxiosResponse } from "axios";
-import { globals } from "../helpers/globals";
+import  {globals} from "../helpers/globals";
 import { fakeDispatch } from '../store/Actions/actionCreator'
 import { store } from "../store/store";
 
@@ -40,6 +39,23 @@ class session {
         this.genNoLoginData();
       }
     }
+  }
+
+  customLS() : Promise<AxiosResponse<any> | null>
+  {
+    console.log("[FREELANCE] CHECKING LOCAL STORAGE [**] " ,  this.isLoggedIn)
+
+    var idd = localStorage.getItem("userID");
+
+    if (idd != null) {
+      var cr = String(localStorage.getItem("name") ?? "");
+      var ex = String(localStorage.getItem("password") ?? "");
+      console.log("[FREELANCE] " + cr);
+      if (cr !== "") {
+        return this.customLogin(idd, cr, ex);
+      }
+    }
+    return new Promise<null>(() => {return null});
   }
 
   isLoggedInFunc = () => {
@@ -81,8 +97,23 @@ class session {
     
   }
 
+  customLogin(id: string, name: string, password: string) : Promise<AxiosResponse<any>> {
+    // console.log('[LOgIN] port ', globals.apiPort, ' with name ', name)
+    let user = {
+      userID: id,
+      name: name,
+      password: password,
+    };
+
+    this.user = user;
+
+    // login using API
+    // todo
+    return this.loginAPI(id, name, password)
+  }
+
   login(id: string, name: string, password: string) {
-    console.log('[LOgIN] port ', globals.apiPort, ' with name ', name)
+    // console.log('[LOgIN] port ', globals.apiPort, ' with name ', name)
     let user = {
       userID: id,
       name: name,
@@ -91,11 +122,6 @@ class session {
 
     // login using API
     // todo
-    if (globals.apiPort === 5001)
-    {
-      this.genNoLoginData()
-      return;
-    }
     this.loginAPI(id, name, password).then( (res: AxiosResponse) => {
       console.log(res.status);
       if (res.status === 200) {
@@ -127,6 +153,8 @@ class session {
     // persist ?
     if (true) {
       // sometimes user does not wish to persist #TODO
+      console.log("[CONNECT] ****** MODIFICATION OF LOCAL STORAGE ********")
+      console.log(this.user.name.toString())
       localStorage.setItem("userID", this.user.userID.toString());
       localStorage.setItem("name", this.user.name.toString());
       localStorage.setItem("password", this.user.password.toString());

@@ -5,21 +5,17 @@ import * as theming from './UI/theming/theming';
 
 import NavMenuNoLogin from './UI/navs/navMenuNoLogin';
 import Routing from './UI/Routes';
-import { Redirect, Router } from 'react-router-dom';
-import HistoryNavigator from './UI/helpers/historyNavigator';
-import { ToastHeader } from 'reactstrap';
-
+import {  Router } from 'react-router-dom';
 
 import * as mappers from './loginUtils';
 import {connect } from 'react-redux';
 import NavMenuWithLogin from './UI/navs/navMenuWithLogin';
 import { newModifiedComponent } from './UI/helpers/routeStyler';
-import { render } from '@testing-library/react';
 // import App from './App';
 
 import history from './UI/helpers/historyNavigator';
 import HistoryAction from './UI/helpers/historyAction';
-import { useEffect } from 'react';
+import RegisterInitial from './UI/registerInitial';
 
 
 interface state {
@@ -32,17 +28,35 @@ interface props  {
     loggedIn : object,
     logout : object,
     route : string,
+    firstUsage : boolean,
 }
 
 
 const App = (props : props) => {
+ 
+    console.log("[AUTH1] " + props.loggedIn)
 
     // let [goto, setGotoFunc] = useState('');
     let [activeTheme, setActiveTheme] = useState('');
     let [switchToVerticalNav, setSwitchToVerticalNav] = useState(false);
     let [goto, setGoto] = useState('');
+    // let [firstUsage, setFirstUsage] = useState(false);
+    // let [firstUsageShunt, setFirstUsageShunt] = useState(false);
     // let [goto, setGoto] = useState('');
     // let [goto, setGoto] = useState('');
+
+    // globalsChangedEvents.push(() => {
+    //     console.log("[APP] first usage detection...")
+    //     if (globals.appData.firstUsage)
+    //     {
+    //         setFirstUsage(true)
+    //     }
+    //     if (globals.firstDataSent)
+    //     {
+    //         setFirstUsageShunt(true);
+    //     }
+    //     console.log(globals.firstDataSent)
+    // })
 
     let propsForMenu = {
         verticalToggle : () => {} ,
@@ -51,6 +65,7 @@ const App = (props : props) => {
         gotoRoute : (r) => {},
 
     }
+
 
     let stateForMenu = {
         route : '',
@@ -91,39 +106,50 @@ const App = (props : props) => {
     }
 
 
-        return (
+    return (
                     <div className="content">
-                        <div className="draggable">
-                            {
-                            props.loggedIn ? 
+                        {
+                        
+                        props.firstUsage ?
+                            <>
+                                <RegisterInitial />
+                            </>
+                        :
+                        <>
+                            <div className="draggable">
+                                {
+                                props.loggedIn ? 
+                                    newModifiedComponent(
+                                        {
+                                            component : NavMenuWithLogin,
+                                            useStyle : false,
+                                            props :  propsForMenu,
+                                            state : stateForMenu,
+                                        }
+                                    )
+                                :
                                 newModifiedComponent(
                                     {
-                                        component : NavMenuWithLogin,
+                                        component : NavMenuNoLogin,
                                         useStyle : false,
                                         props :  propsForMenu,
                                         state : stateForMenu,
                                     }
                                 )
-                            :
-                            newModifiedComponent(
-                                {
-                                    component : NavMenuNoLogin,
-                                    useStyle : false,
-                                    props :  propsForMenu,
-                                    state : stateForMenu,
                                 }
-                            )
-                            }
-                            
-                        </div>
-                        <Router history={history}>
-                            <Routing />
-                            {/* <HistoryNavigator goto={
-                                            goto
-                                        } />         */}
-                            <HistoryAction />
-                        </Router>
+                                
+                            </div>
+                            <Router history={history}>
+                                <Routing />
+                                {/* <HistoryNavigator goto={
+                                                goto
+                                            } />         */}
+                                <HistoryAction />
+                            </Router>
+                        </>
+                        }
                         
+
                     </div>
         )
 }

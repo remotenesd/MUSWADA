@@ -10,7 +10,6 @@ from hashlib import sha256
 from os import path
 filedir = (path.dirname(path.realpath(__file__)))
 
-from myp2p import emitMyRegisteration
 import globalledger as glb
 
 ##############################################################
@@ -30,37 +29,13 @@ def registerUser(user):
     ### register logged in user
     print("[LOGIN] SUCCESS.", user)
     loggedin = user;
-    ## let's update (broadcast) our P2P status ID
-    from main import broadcast
     glb.loggedin = user
-    broadcast(user['name'], str(user['_id']))
 
 def unregisterUser():
     # logout
     loggedin = None;
+    glb.loggedin = loggedin;
 
-
-@glb.socketioinstance.on('newUserRegistration')
-def handleNewUserRegisteration(json):
-    print('Starting user registration ' + json)
-    req = {
-            'sender' : json.sender,
-            'data' : json.data,
-            'signature' : 'everything valid for now'
-        };
-
-    blocksApi.finalizeTransactionRequest(req)
-    print(req)
-
-
-def emitMyRegisteration(req):
-    print('emiting event')
-    # glb.socketioinstance.emit('newUserRegisteration', req)
-    #!IMPORTANT TODO ADD EMISSION OF MY REGISTERATION TO P2P
-
-@glb.socketioinstance.on('reqAPIVersion')
-def sendAPIVersion():
-    glb.socketioinstance.emit('getAPIVersion' ,  glb.getVersion())
 
 
 @usersApi.route('/register', methods = ['POST'])
@@ -73,9 +48,9 @@ def newUser():
     #####################################
     # parse to user
     # print(' ;'.join(p for p in content))
-    if (all(key in content for key in ['name','password','email'])):
+    if (all(key in content for key in ['name','password','email', 'fonction', 'lirePersonnel', 'ecrirePersonnel', 'lirePermissions', 'ecrirePermissions'])):
         # correct
-        newuser = usertypes.user(content['name'], content['email'], content['password']);
+        newuser = usertypes.user(content['name'], content['email'], content['password'], content['fonction'], content['lirePersonnel'], content['ecrirePersonnel'], content['lirePermissions'], content['ecrirePermissions']);
         dbusers.insert_one(newuser.__dict__)
 
         # emit registeration event
@@ -85,8 +60,6 @@ def newUser():
                 'signature' : 'everything valid for now'
         }
         # print(emitMyRegisteration)
-        if (emitMyRegisteration) :
-            emitMyRegisteration(req)
 
         return 'OK', 200
     else:

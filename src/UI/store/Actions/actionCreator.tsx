@@ -2,7 +2,11 @@ import type {transaction, user, block, blockchain} from '../core/core';
 import * as Actions from './actionTypes';
 import * as Defs from './.././core/defs';
 
-export const getLogin = () => {};
+export const getLogin = () => {
+    return {
+        type : Actions.GET_LOGIN
+    };
+}
 
 export const setLogin = (id, name, password) => {
     return {
@@ -188,5 +192,18 @@ export const sendMessage = (id : number, message : string) => {
 export const getMessages = () => {
     return {
         type : Actions.C_GET_MESSAGES,
+    }
+}
+
+export const getFirstUsage = () => {
+    return {
+        type : Actions.APP_GET_FIRST_USAGE,
+    }
+}
+
+export const initialiseSetup = (initData) => {
+    return {
+        type : Actions.APP_SET_FIRST_DATA,
+        payload : initData
     }
 }

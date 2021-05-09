@@ -64,11 +64,19 @@ interface IState {
   registeringUser: user;
   usernameExist: boolean;
   registerSuccess: boolean;
+  isLoggedIn : boolean;
+  loadingAPILogIn : boolean; // only use for startup
+  loadingAPIFirstData : boolean; // only use for startup
   routing: string;
   theme : string;
   myblkchn : blockchain  | null;
   peers : []; 
   mypeer : {};
+  firstUsage : boolean;
+  firstUsageShunt : boolean;
+  batiment : string;
+  commandant : string;
+  batimentClass : string;
 }
 
 export type { IState };

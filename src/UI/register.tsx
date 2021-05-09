@@ -1,20 +1,14 @@
-import React, {Component, useState, useEffect} from 'react';
-import ReactDOM  from 'react-dom';
-
+import React, {useState, useEffect} from 'react';
 import { Form, FormGroup, Label,
     Input, Col, Button,
 } from 'reactstrap'; 
 
-import axios from 'axios';
-
-import {globals}from './helpers/globals';
-import { Route, Redirect, Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './styles/forms.css';
 
 import * as actionCreator from './store/Actions/actionCreator';
 
 import {connect} from 'react-redux';
-import { IState } from './store/core/core';
 
 
 const mapStateToProps = (state ) => {
@@ -47,8 +41,17 @@ const Register = (
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [fct, setFct] = useState('');
     const [userNameTaken, setUserNameTaken] = useState(true);
     const [goto, setGoto] = useState('');
+
+    const [lirePers, setLirePers] = useState(true);
+    const [lireDeplacers, setLireDeplacers] = useState(false);
+
+    const [ecrireDeplacers, setEcrireDeplacers] = useState(false);
+    const [ecrirePers, setEcrirePers] = useState(false);
+
+    const [ajouter, setAjouter] = useState(false);
 
     useEffect(() => {
         // console.log(usernameExist.toString())
@@ -62,6 +65,19 @@ const Register = (
             setGoto('registerSuccess')
         }
     }, [registerSuccess])
+
+    const onAjouter = (e:any) => {
+        if (!e.target.checked)
+        {
+            setAjouter(false);
+            return;
+        }
+        setEcrireDeplacers(true);
+        setEcrirePers(true);
+        setLireDeplacers(true);
+        setLirePers(true);
+        setAjouter(true);
+    }
 
     const onIDChange = (e:any) =>
     {
@@ -126,7 +142,7 @@ const Register = (
     {
         // check email
         var emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
-        if (! emailRegex.test(email.toString()))
+        if (!emailRegex.test(email.toString()))
         {
             return {
                 result : false,
@@ -157,7 +173,14 @@ const Register = (
             email : email,
             account_created : '',
             picture : '',
+            fonction : fct,
+            lirePersonnel : lirePers,
+            ecrirePersonnel : ecrirePers,
+            lirePermissions : lireDeplacers,
+            ecrirePermissions : ecrireDeplacers,
         }
+
+        console.log(user);
 
         register(user);
     }
@@ -172,7 +195,52 @@ const Register = (
             <div className="keepSmall">
                 <Form>
                     <FormGroup row>
-                        <Label size="lg" xs={12} sm={12} for="ide"><b>Identifier </b></Label>
+                        <Label size="lg" xs={12} sm={12} for="classBatiment">Fonction :</Label>
+                        <Col>
+                            <Input xs={12} sm={12} bsSize="lg"
+                                    type="select"
+                                    name="fct"
+                                    id="classBatiment"
+                                    value={fct}
+                                    onChange={(e:any) => setFct(e.target.value)}
+                            >
+                                <option selected={true} >Officier en second</option>
+                                <option onSelect={() => onAjouter({target: {checked: true}})}>Commandant</option>
+                                <option>Officier de details</option>
+                                <option>Capitaine d'armes</option>
+                                <option>Autres</option>
+                            </Input>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup check inline>
+                        <Label check>
+                        <Input readOnly checked={lirePers} type="checkbox" /> Lire personnel
+                        </Label>
+                    </FormGroup>
+                    <FormGroup check inline>
+                        <Label check>
+                        <Input type="checkbox" checked={ecrirePers} onChange={e => {setEcrirePers(e.target.checked); setAjouter(false);}} /> Modifier personnel
+                        </Label>
+                    </FormGroup>
+                    <br />
+                    <FormGroup check inline>
+                        <Label check>
+                        <Input type="checkbox" checked={lireDeplacers} onChange={e => {setLireDeplacers(e.target.checked); setAjouter(false);}}/> Lire permissions et se deplacers
+                        </Label>
+                    </FormGroup>
+                    <FormGroup check inline>
+                        <Label check>
+                        <Input type="checkbox" checked={ecrireDeplacers} onChange={e => {setEcrireDeplacers(e.target.checked); setAjouter(false);}} /> Modifier permissions et se deplacers
+                        </Label>
+                    </FormGroup>
+                    <br />
+                    <FormGroup check inline>
+                        <Label check>
+                        <Input type="checkbox" checked={ajouter} onChange={onAjouter} /> Ajouter comptes
+                        </Label>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Label size="lg" xs={12} sm={12} for="ide"><b>Identifiant du compte (nom ou avatar) </b></Label>
                         <Col>
                             <Input xs={12} sm={12} bsSize="lg"  
                                 type="text" 
@@ -219,10 +287,11 @@ const Register = (
                         </Col>
                         <Label style={redStyle} size="lg" sm={12} for="">{validateEmail()['reason']}</Label>
                     </FormGroup>
+                    
                     <div  className="row">
                         <Button size="lg" 
                             className="col-12"
-                            onClick={sendData} hidden={!validateEmail()['result']} color="primary">Register</Button>
+                            onClick={sendData} hidden={!validateEmail()['result']} color="primary">Enregistrer</Button>
                     </div>
                     <div className="row fixed-bottom w-50 m-auto align-center">
                         <hr className="row col-12 bg-secondary" />

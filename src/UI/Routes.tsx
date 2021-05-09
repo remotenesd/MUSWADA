@@ -16,13 +16,35 @@ import MainBlockchain from "./blockchain/main";
 import Todo from "./todo/Todo";
 import Profile from "./profile";
 import Chat from "./chat";
+import Personnel from "./personnel";
+import Person from "./register/person";
+import outils from "./outils";
+import service from "./service/service";
+import configurer from "./service/configurer";
+import bordees from "./service/bordees";
+import permissionnaires from "./permissionnaires";
+import personStep2 from "./register/personStep2";
+import error_ from "./error_";
+import filler from "./register/filler";
+import ResultRegisteration from "./register/resultRegisteration";
+import sedeplacer from "./sedeplacer";
+import listedeplacer from "./listedeplacer";
+import regpermission from "./regpermission";
+import listepermission from "./listepermission";
+import detailsPermission from "./detailsPermission";
+import listepermissionde from "./listepermissionde";
+import RegisterInitial from './registerInitial';
+import registerInitial from "./registerInitial";
+import options from "./options";
 
 const Routing = (props, state) => (
   <Fragment>
     <Route
       exact
       path="/"
-      render={(props) => routeStyler({ component: Home, props })}
+      render={(props) =>
+        newModifiedComponent({ component: Home, useStyle: false, props })
+      }
     />
     <Route
       exact
@@ -46,8 +68,145 @@ const Routing = (props, state) => (
       path="/registerSuccess"
       render={(props) => routeStyler({ component: RegisterSuccess, props })}
     />
+  
+    
+    
+    {/* <PrivateRoute
+      exact
+      path="/Personnel"
+      render={(props) =>
+        newModifiedComponent({ component: Personnel, useStyle: false, props })
+      }
+    /> */}
+    <PrivateRoute useStyle={false} path="/Personnel" component={Personnel} />
+    <Route
+      exact
+      path="/Deplacer"
+      render={(props) =>
+        newModifiedComponent({ component: sedeplacer, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/regpermission"
+      render={(props) =>
+        newModifiedComponent({ component: regpermission, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/Listpermission"
+      render={(props) =>
+        newModifiedComponent({ component: listepermission, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/ListpermissionDe"
+      render={(props) =>
+        newModifiedComponent({ component: listepermissionde, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/DetailsPermission"
+      render={(props) =>
+        newModifiedComponent({ component: detailsPermission, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/Listdeplacer"
+      render={(props) =>
+        newModifiedComponent({ component: listedeplacer, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/vivres"
+      render={(props) =>
+        newModifiedComponent({ component: permissionnaires, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/Permissionnaires"
+      render={(props) =>
+        newModifiedComponent({ component: listepermission, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/outils"
+      render={(props) =>
+        newModifiedComponent({ component: outils, useStyle: false, props })
+      }
+    />
+
+    <Route
+      exact
+      path="/Service"
+      render={(props) =>
+        newModifiedComponent({ component: service, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/Configurerservice"
+      render={(props) =>
+        newModifiedComponent({ component: configurer, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/Bordees"
+      render={(props) =>
+        newModifiedComponent({ component: bordees, useStyle: false, props })
+      }
+    />
+
+
+
+
+    <Route
+      exact
+      path="/Person"
+      render={(props) =>
+        newModifiedComponent({ component: Person, useStyle: false, props })
+      }
+    />
+
+    <Route
+      exact
+      path="/PersonStep2"
+      render={(props) =>
+        newModifiedComponent({ component: personStep2, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/S3"
+      render={(props) =>
+        newModifiedComponent({ component: filler, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/resultRegisteration"
+      render={(props) =>
+        newModifiedComponent({ component: ResultRegisteration, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/serverError"
+      render={(props) =>
+        newModifiedComponent({ component: error_, useStyle: false, props })
+      }
+    />
+
     {/* <Route  path="/account" render={(props) =>  routeStyler({component : Account, props} )} /> */}
-    <PrivateRoute path="/account" component={Account} />
+    <PrivateRoute useStyle={false} path="/account" component={Account} />
     <Route
       exact
       path="/docs/digitalsignatures"
@@ -73,6 +232,22 @@ const Routing = (props, state) => (
         newModifiedComponent({ component: Todo, useStyle: false, props })
       }
     />
+    
+    <Route
+      exact
+      path="/RegisterInitial"
+      render={(props) =>
+        newModifiedComponent({ component: registerInitial, useStyle: false, props })
+      }
+    />
+    
+    <Route
+      exact
+      path="/options"
+      render={(props) =>
+        newModifiedComponent({ component: options, useStyle: false, props })
+      }
+    />
 
 
 
@@ -93,7 +268,7 @@ const Routing = (props, state) => (
       exact
       path="/profile"
       render={(props) =>
-        newModifiedComponent({ component: Profile, useStyle: true, props })
+        newModifiedComponent({ component: Profile, useStyle: false, props })
       }
     />
     <Route
