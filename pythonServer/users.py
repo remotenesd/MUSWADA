@@ -36,7 +36,18 @@ def unregisterUser():
     loggedin = None;
     glb.loggedin = loggedin;
 
-
+# @usersApi.route('/lier', methods=['POST'])
+# @cross_origin()
+# def lierAPerson():
+#     content = request.get_json(force=True)
+#     if ('personID' in content):
+#         if loggedin != None:
+#             res = dbpersonnel.find({})
+#             pass
+#         else:
+#             return 'MUST LOGIN', 202
+#     else:
+#         return 'INVALID REQUEST ARGS', 201
 
 @usersApi.route('/register', methods = ['POST'])
 @cross_origin()
@@ -77,6 +88,18 @@ def listUsers():
     users = dbusers.find({});
     p = (', '.join(str(u) for u in users))
     return p, 200;
+
+@usersApi.route('/loginInfo', methods = ['GET'])
+@cross_origin()
+def getInfo():
+    if glb.loggedin == None:
+        return 'Must be logged in.', 201
+    else:
+        print(glb.loggedin)
+        opt = glb.loggedin
+        opt['_id'] = str(opt['_id'])
+        opt['password'] = ''
+        return opt, 200
 
 @usersApi.route('/login', methods = ['POST'])
 @cross_origin()

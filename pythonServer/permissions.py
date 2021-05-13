@@ -45,6 +45,35 @@ def listUsers():
     # p = (', '.join(str(u) for u in users))
     return {'permissions' : deplacers}, 200;
 
+def listDuNonAPI(b):
+    # it works ! 
+    import datetime     
+    res = dbpermission.find({});
+    deplacerFunc = lambda d : {'id' : str(d['_id']), 'personID' : str(d['personID']),'fromDate' : str(d['fromDate']),'toDate' : str(d['toDate']),'addresse' : str(d['addresse']),} 
+    deplacers = list(map(deplacerFunc, res))
+    for dep in deplacers:
+        pers = dep['personID'];
+        # res_ = dbpersonnel.find({"id" : ObjectId(str(pers))});/
+        a = datetime.datetime.strptime(dep['fromDate'], '%Y/%m/%d');
+        c = datetime.datetime.strptime(dep['toDate'], '%Y/%m/%d');
+        
+        if a <= b <= c:
+            # if true then get the person's name !
+            res_ = [ r for r in dbpersonnel.find({ "_id" :  ObjectId(str(pers))})];
+            # print(len(res_));
+            if len(res_) > 0:
+                firstguy = res_[0];
+                # print(firstguy);
+                dep['appelation'] = firstguy["grade"] + ' ' + firstguy["nom"] + ' ' + firstguy["prenom"]
+        else:
+            dep['appelation'] = ''
+            
+    newDeplacers = [d for d in deplacers if d['appelation'] != '']
+    # p = (', '.join(str(u) for u in users))
+    
+    return newDeplacers;
+    
+
 @permissionApi.route('/permissionsdu', methods = ['POST'])
 @cross_origin()
 def listDu():
@@ -54,6 +83,7 @@ def listDu():
         import datetime        
         try:
             datetime.datetime.strptime(content['date_'], '%Y/%m/%d')
+            datetime.date.today()
         except:
             return 'INVALID REQUEST ARGS', 201;
 
@@ -61,35 +91,12 @@ def listDu():
         # get dates btw
         
         b = datetime.datetime.strptime(content['date_'], '%Y/%m/%d')
-        
-        #
-        
-        res = dbpermission.find({});
-        deplacerFunc = lambda d : {'id' : str(d['_id']), 'personID' : str(d['personID']),'fromDate' : str(d['fromDate']),'toDate' : str(d['toDate']),'addresse' : str(d['addresse']),} 
-        deplacers = list(map(deplacerFunc, res))
-        for dep in deplacers:
-            pers = dep['personID'];
-            # res_ = dbpersonnel.find({"id" : ObjectId(str(pers))});/
-            a = datetime.datetime.strptime(dep['fromDate'], '%Y/%m/%d');
-            c = datetime.datetime.strptime(dep['toDate'], '%Y/%m/%d');
-            
-            if a <= b <= c:
-                # if true then get the person's name !
-                res_ = [ r for r in dbpersonnel.find({ "_id" :  ObjectId(str(pers))})];
-                # print(len(res_));
-                if len(res_) > 0:
-                    firstguy = res_[0];
-                    # print(firstguy);
-                    dep['appelation'] = firstguy["grade"] + ' ' + firstguy["nom"] + ' ' + firstguy["prenom"]
-            else:
-                dep['appelation'] = ''
-                
-        newDeplacers = [d for d in deplacers if d['appelation'] != '']
-        # p = (', '.join(str(u) for u in users))
-        
-        return {'permissions' : newDeplacers}, 200;
+
+        return {'permissions' : listDuNonAPI(b)}, 200;
     else:
         return 'INVALID REQUEST ARGS', 201;
+        
+       
     
 @permissionApi.route('/permissionsde', methods = ['POST'])
 @cross_origin()

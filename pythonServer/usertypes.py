@@ -11,6 +11,9 @@ class user:
         self.ecrirePermissions = ecrirePermissions;
         self.lirePersonnel = lirePersonnel;
         self.ecrirePersonnel = ecrirePersonnel;
+        self.personID = -1;
+    def lier(self, personID):
+        self.personID = personID;
     
     def getPort(self):
         PORT_BRUTE = sha256(self.name.encode('utf-8')).hexdigest() + '9' + sha256(self.email.encode('utf-8')).hexdigest()

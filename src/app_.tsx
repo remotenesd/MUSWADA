@@ -16,6 +16,7 @@ import { newModifiedComponent } from './UI/helpers/routeStyler';
 import history from './UI/helpers/historyNavigator';
 import HistoryAction from './UI/helpers/historyAction';
 import RegisterInitial from './UI/registerInitial';
+import { applyTheme, globals } from './UI/helpers/globals';
 
 
 interface state {
@@ -81,24 +82,14 @@ const App = (props : props) => {
     //     this.propsForMenu.toggleTheme = () => this.applyTheme(this.state.activeTheme === 'dark' ? 'light' : 'dark' );
     // }
 
-    function applyTheme(theme)
-    {
-        if (theme === 'light')
-        {
-            theming.applyTheme(theming.lightTheme);
-        }
-        if (theme === 'dark')
-        {   
-            theming.applyTheme(theming.darkTheme)
-        }
-        activeTheme = theme;
-    }
+    
 
     propsForMenu.verticalToggle = () => switchNav.bind(this)();
     propsForMenu.redirecter = (path) => setGoto(path);
-    propsForMenu.toggleTheme = () => applyTheme(activeTheme === 'dark' ? 'light' : 'dark' );
+    propsForMenu.toggleTheme = () => {};
 
-    applyTheme('dark');
+    globals.theme = 'dark';
+    applyTheme()
 
     function switchNav()
     {

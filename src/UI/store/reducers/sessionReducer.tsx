@@ -26,7 +26,7 @@ const makeNewInitState = () => {
         firstUsage : false,
         batiment : '',
         commandant : '',
-        batimentClass : ''
+        batimentClass : '',
     }
 }   
 
@@ -141,6 +141,25 @@ function sessionReducer(state = makeNewInitState(), action) {
             }
         }    
     }
+
+    if (action.type === ActionTypes.LOGIN_INFO)
+    {
+        if (action.success)
+        {
+            console.log(action.data)
+            state.user.user.ecrirePermissions = action.data.ecrirePermissions;
+            state.user.user.lirePermissions = action.data.lirePermissions;
+            state.user.user.lirePersonnel = action.data.lirePersonnel;
+            state.user.user.ecrirePersonnel = action.data.ecrirePersonnel;
+            state.user.user.fonction = action.data.fonction;
+            state.user.user.personID = 1000;
+            
+            return Object.assign({}, state, {
+                user : state.user,
+            });
+        }
+    }
+
     if (action.type === ActionTypes.SET_LOGIN)
     {
         console.log('ATTEMPTING A LOG IN [//\\]')
@@ -206,7 +225,7 @@ function sessionReducer(state = makeNewInitState(), action) {
         }
     }
 
-    if (action.type === 'registerPers')
+    if (action.type === ActionTypes.PERSONNEL_PRINT_PROFILE_DIGITAL)
     {
         if (action.success)
         {
@@ -218,7 +237,7 @@ function sessionReducer(state = makeNewInitState(), action) {
             )
         }
     }
-    if (action.type === 'senddeplacer')
+    if (action.type === ActionTypes.PERSONNEL_SEND_DEPLACER)
     {
         if (action.success)
         {
@@ -231,7 +250,7 @@ function sessionReducer(state = makeNewInitState(), action) {
         }
     }
 
-    if (action.type === 'sendpermission')
+    if (action.type === ActionTypes.PERSONNEL_SEND_DEPLACER)
     {
         if (action.success)
         {
@@ -244,9 +263,7 @@ function sessionReducer(state = makeNewInitState(), action) {
         }
     }
 
-    
-
-    if (action.type === 'profilesm1' && action.data === "INVALID REQUEST ARGS")
+    if (action.type === ActionTypes.PERSONNEL_PROFILE_SM1 && action.data === "INVALID REQUEST ARGS")
     {
         return Object.assign({}, state,
             { 

@@ -1,13 +1,6 @@
-// import * as mocker from '../../TODOs/TODOsMocker';
-import * as action from '../Actions/actionCreator';
 import * as actionTypes from '../Actions/actionTypes';
-import * as defs from '../core/defs';
-import {store} from '../store';
-import { TODO as TODODEF, TODOSTATUS  } from '../core/defs';
-import { convertToPriority, convertToStatus } from '../Actions/converters';
 import rg from '../../register/rgEngine';
 import regEngine from '../../register/rgEngine';
-import { setRoute } from '../Actions/actionCreator';
 import { basedeplacer, basepermission, baseperson, someone } from '../../register/core';
 
 
@@ -25,6 +18,11 @@ const initialState = {
     listDu : Array<basedeplacer>(),
     resPermissionDu : Array<basepermission>(),
     resPermissionDe : Array<basepermission>(),
+    
+
+    priseArmes : {},
+    priseArmesEtablie : false,
+    priseArmesEcrite : false,
 }
 
 function registerReducer (state = initialState, action) {
@@ -78,7 +76,7 @@ function registerReducer (state = initialState, action) {
         }catch (e){return state}
     }
 
-    if (action.type === 'registerPers')
+    if (action.type === actionTypes.PERSONNEL_PRINT_PROFILE_DIGITAL)
     {
         if (action.success)
         {
@@ -95,7 +93,7 @@ function registerReducer (state = initialState, action) {
     }
    
 
-    if (action.type === 'profilesm1')
+    if (action.type === actionTypes.PERSONNEL_PROFILE_SM1)
     {
         if (action.data)
         {
@@ -108,7 +106,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'listdu')
+    if (action.type === actionTypes.PERSONEL_DEPLACER_LIST_DU)
     {
         if (action.data)
         {
@@ -121,7 +119,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'listduPermission')
+    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION)
     {
         if (action.data)
         {
@@ -134,7 +132,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'listdePermission')
+    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION)
     {
         if (action.data)
         {
@@ -147,7 +145,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'printprofile')
+    if (action.type === actionTypes.PERSONNEL_PRINT_PROFILE_DIGITAL)
     {
         if (action.data)
         {
@@ -165,7 +163,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'printprofileprinter')
+    if (action.type === actionTypes.PERSONNEL_PRINT_PROFILE_PRINTER)
     {
         if (action.success)
         {
@@ -173,7 +171,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'clearprofile')
+    if (action.type === actionTypes.PERSONNEL_CLEAR_PROFILE)
     {
         if (action.data)
         {
@@ -183,7 +181,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'listPers')
+    if (action.type === actionTypes.PERSONNEL_LIST_PERSONNEL)
     {
         if (action.success)
         {
@@ -197,7 +195,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === 'listDeplacer')
+    if (action.type === actionTypes.PERSONNEL_LIST_DEPLACER)
     {
         if (action.success)
         {
@@ -209,6 +207,42 @@ function registerReducer (state = initialState, action) {
         else{
             return Object.assign({}, state, {basicList : []});
         }
+    }
+
+    if (action.type === actionTypes.PERSONNEL_GET_PRISE_ARMES)
+    {
+       if (action.success)
+       {
+            return Object.assign({}, state,
+                { 
+                    // user : state.user,
+                    priseArmes : action.data.priseArmes,
+                    priseArmesEtablie : true,
+                }
+            )
+       }
+       else{
+            if (!state.priseArmesEtablie)
+            {
+                return Object.assign({}, state,
+                    { 
+                        // user : state.user,
+                        priseArmes : {},
+                        priseArmesEtablie : false,
+                    }
+                )
+            }
+       }
+    }
+    
+    if (action.type === actionTypes.PERSONNEL_SET_PRISE_ARMES)
+    {
+        return Object.assign({}, state,
+            { 
+                // user : state.user,
+                priseArmesEcrite : action.success,
+            }
+        )
     }
 
     if (action.type === 'clearPers')

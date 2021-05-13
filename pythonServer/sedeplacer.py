@@ -46,6 +46,25 @@ def listUsers():
     # p = (', '.join(str(u) for u in users))
     return {'deplacers' : deplacers}, 200;
 
+def listeDuNonAPI(date_):
+    import datetime     
+
+    res = dbdeplacer.find({'date': date_});
+    deplacerFunc = lambda d : {'id' : str(d['_id']), 'personID' : str(d['personID']),'date' : str(d['date']),'fromTime' : str(d['fromTime']),'toTime' : str(d['toTime']),'motif' : str(d['motif']),} 
+    deplacers = list(map(deplacerFunc, res))
+    for dep in deplacers: 
+        pers = dep['personID'];
+        print(pers)
+        # res_ = dbpersonnel.find({"id" : ObjectId(str(pers))});/
+        res_ = [ r for r in dbpersonnel.find({ "_id" :  ObjectId(str(pers))})];
+        # print(len(res_));
+        if len(res_) > 0:
+            firstguy = res_[0];
+            # print(firstguy);
+            dep['appelation'] = firstguy["grade"] + ' ' + firstguy["nom"] + ' ' + firstguy["prenom"]
+    # p = (', '.join(str(u) for u in users))
+    return deplacers
+
 @deplacerApi.route('/listdu', methods = ['POST'])
 @cross_origin()
 def listDu():
@@ -58,21 +77,6 @@ def listDu():
         except:
             return 'INVALID REQUEST ARGS', 201;
         
-        res = dbdeplacer.find({'date': content['date_']});
-        deplacerFunc = lambda d : {'id' : str(d['_id']), 'personID' : str(d['personID']),'date' : str(d['date']),'fromTime' : str(d['fromTime']),'toTime' : str(d['toTime']),'motif' : str(d['motif']),} 
-        deplacers = list(map(deplacerFunc, res))
-        for dep in deplacers: 
-            pers = dep['personID'];
-            print(pers)
-            # res_ = dbpersonnel.find({"id" : ObjectId(str(pers))});/
-            res_ = [ r for r in dbpersonnel.find({ "_id" :  ObjectId(str(pers))})];
-            # print(len(res_));
-            if len(res_) > 0:
-                firstguy = res_[0];
-                # print(firstguy);
-                dep['appelation'] = firstguy["grade"] + ' ' + firstguy["nom"] + ' ' + firstguy["prenom"]
-        # p = (', '.join(str(u) for u in users))
-        
-        return {'deplacers' : deplacers}, 200;
+        return {'deplacers' : listeDuNonAPI(content['date_'])}, 200;
     else:
         return 'INVALID REQUEST ARGS', 201;

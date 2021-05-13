@@ -1,0 +1,92 @@
+.armesCover{
+    background-image: url('../images/seashell.jpg');
+    background-size: auto;
+    background-repeat: repeat;
+
+    display: flex;
+    flex-direction: row;
+
+    color: var(--color-surface) !important;
+}
+
+.childPers
+{
+  flex: 1;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.maindPers
+{
+  flex: 2;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.transparent
+{
+  background: transparent;
+  color: rgb(50, 165, 194);
+  text-decoration: none;
+  font-weight: 800;
+
+  font-size: larger;
+}
+
+.transparent:hover{
+  color: wheat;
+  text-decoration: underline;
+}
+
+.asideSmall
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+
+  flex: 1;
+  height: 100vh;
+
+  padding: 7px;
+
+  background-color: var(--color-surface-faint);
+  color: var(--color-solid);
+
+  width: 40px;
+}
+
+
+
+.asideTitle
+{
+  display: block;
+  font-size: 3em;
+  font-weight: 500;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  
+  
+  opacity: 1 !important;
+}
+
+.asideActions
+{
+  display: flex;
+  margin-top: 10px;
+  padding: 2px;  
+  
+  flex-direction: column;
+  opacity: 1 !important;
+}
+
+.asideBtn
+{
+  flex-direction: column;
+  flex: 1;
+  opacity: 1 !important;
+
+  
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+

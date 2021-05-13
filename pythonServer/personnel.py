@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint, Response
+from flask import Flask, json, request, jsonify, Blueprint, Response
 from flask_cors import cross_origin, CORS
 from flask_api import status
 
@@ -26,6 +26,10 @@ cors = CORS(personnelApi, ressources = { r"/*" : {"origins" : "*"} })
 #######################################################
 
 
+def personIDToPerson(personID):
+    # people
+    res = [person for person in dbpersonnel.find({"_id" : ObjectId(personID["personID"])})]
+    return res[0]
 
 
 @personnelApi.route('/register', methods = ['POST'])
@@ -36,7 +40,7 @@ def newPers():
     # return str(content);
     #####################################
     # parse to user
-    print(' ;'.join(p for p in content))
+    # print(' ;'.join(p for p in content))
     if (all(key in content for key in ['nom','prenom','email','tel','matricule','grade','fonction', 'promotion', 'datenaissance', 'villenaissance', 'cni', 'enfants', 'ecolesciviles', 'ecolesmilitaires', 'addresse', 'personneEnCharge'])):
         # correct
         newuser = {
@@ -84,6 +88,8 @@ def newPers():
             'numCarteMilitaire' : content['numCarteMilitaire']  ,
             'nrSOM' : content['nrSOM']  ,
             'nrCCP' : content['nrCCP']  ,
+
+            'username' : '',
         }
         dbpersonnel.insert_one(newuser)
 
@@ -208,9 +214,9 @@ def digitize(res):
         doc.render(context)
         doc.save(worddoc)
         
-        import pythoncom
+        # import pythoncom
 
-        pythoncom.CoInitialize()
+        # pythoncom.CoInitialize()
         
         from docx2pdf import convert
         convert(worddoc)
@@ -267,4 +273,83 @@ def listUsers():
     users = list(map(baseUser, users))
     print(users)
     return { 'users' : (users) }, 200;
+
+def removeObjectID(itm):
+    itm['_id'] = str(itm['_id'])
+    return itm
+
+@personnelApi.route('/setPriseArmes', methods = ['POST'])
+@cross_origin()
+def setPriseArmes():
+    # situation nominale
+    content = request.get_json(force=True)
+    if (all(key in content for key in ['officierGarde','radioService','maitreService','quartCoupee', 'quartMachine','capitaineArme','infirmier','sc','comie','boulongier','cuisinier','maitreHotel','stage','consultation','absent','ptc','ronde'])):
+        context = {
+            "officierGarde" : content["officierGarde"],
+            "radioService" : content["radioService"],
+            "maitreService" : content["maitreService"],
+            "quartCoupee" : content["quartCoupee"],
+            "quartMachine" : content["quartMachine"],
+            "capitaineArme" : content["capitaineArme"],
+            "infirmier" : content["infirmier"],
+            "sc" : content["sc"],
+            "comie" : content["comie"],
+            "boulongier" : content["boulongier"],
+            "cuisinier" : content["cuisinier"],
+            "maitreHotel" : content["maitreHotel"],
+            "stage" : content["stage"],
+            "consultation" : content["consultation"],
+            "absent" : content["absent"],
+            "ptc" : content["ptc"],
+            "ronde" : content["ronde"],
+        }
+
+        import json
+        with open('situationPriseArmes.json', 'w') as outfile:
+            json.dump(context, outfile)
+        return 'ok', 200
+
+@personnelApi.route('/getPriseArmes', methods = ['GET'])
+@cross_origin()
+def getPriseArmes():
+    import json
+    if not path.exists('situationPriseArmes.json'):
+        return 'file does not exist',210
+    else:
+        with open('situationPriseArmes.json','r') as infile:
+            content = json.load(infile)
+            return {'priseArmes' : content}, 200
+    return 'unknown', 201
+
+@personnelApi.route('/classified', methods = ['GET'])
+@cross_origin()
+def getClassifiedData():
+    # returns data according to 
+
+    ## 1. les permissionnaires
+    ## 2. qui ont un se deplacer ce jour.
+    ## 3. le reste
+    from datetime import datetime
+    from permissions import listDuNonAPI
+    from sedeplacer import listeDuNonAPI
+    
+    # permissionnaires
+    listePermissions = listDuNonAPI((datetime.today()))
+    listePermissionsPersons = list(map(personIDToPerson, listePermissions))
+    lstPermID = list(map(lambda dep : dep['_id'], listePermissionsPersons))
+    lstPermID = list(map(removeObjectID, listePermissionsPersons))
+
+    # ayant se deplacer ce jour !
+    listeDeplacers = listeDuNonAPI((datetime.today()))
+    listeDeplacersPersons = list(map(personIDToPerson, listeDeplacers))
+    lstDeplID = list(map(lambda dep : dep['_id'], listeDeplacersPersons))
+    lstDeplID = list(map(removeObjectID, listeDeplacersPersons))
+
+    # reste
+    res = [person for person in dbpersonnel.find({}) if (person['_id'] not in lstPermID and person['_id'] not in lstDeplID)]
+    res = list(map(removeObjectID, res))
+
+    # compile and send
+    return {"permission" : listePermissionsPersons, "deplacer" : listeDeplacersPersons, "reste" : res}
+
 
