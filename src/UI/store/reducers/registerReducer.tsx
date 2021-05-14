@@ -2,6 +2,7 @@ import * as actionTypes from '../Actions/actionTypes';
 import rg from '../../register/rgEngine';
 import regEngine from '../../register/rgEngine';
 import { basedeplacer, basepermission, baseperson, someone } from '../../register/core';
+import { grades } from '../core/core';
 
 
 let myrg  = new rg();
@@ -119,7 +120,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION)
+    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION_DU)
     {
         if (action.data)
         {
@@ -132,7 +133,7 @@ function registerReducer (state = initialState, action) {
         }
     }
 
-    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION)
+    if (action.type === actionTypes.PERSONNEL_LIST_PERMISSION_DE)
     {
         if (action.data)
         {
@@ -187,6 +188,9 @@ function registerReducer (state = initialState, action) {
         {
             if (action.data)
             {
+                action.data.users.forEach(user => {
+                    user.grade = String(user.grade).toUpperCase() as grades
+                })
                 return Object.assign({}, state, {basicList : action.data.users});
             }
         }
@@ -211,28 +215,29 @@ function registerReducer (state = initialState, action) {
 
     if (action.type === actionTypes.PERSONNEL_GET_PRISE_ARMES)
     {
-       if (action.success)
-       {
-            return Object.assign({}, state,
-                { 
-                    // user : state.user,
-                    priseArmes : action.data.priseArmes,
-                    priseArmesEtablie : true,
-                }
-            )
-       }
-       else{
-            if (!state.priseArmesEtablie)
-            {
+        console.log(action.data)
+        if (action.success)
+        {
                 return Object.assign({}, state,
                     { 
                         // user : state.user,
-                        priseArmes : {},
-                        priseArmesEtablie : false,
+                        priseArmes : action.data.priseArmes,
+                        priseArmesEtablie : true,
                     }
                 )
-            }
-       }
+        }
+        else{
+                if (!state.priseArmesEtablie)
+                {
+                    return Object.assign({}, state,
+                        { 
+                            // user : state.user,
+                            priseArmes : {},
+                            priseArmesEtablie : false,
+                        }
+                    )
+                }
+        }
     }
     
     if (action.type === actionTypes.PERSONNEL_SET_PRISE_ARMES)
@@ -243,6 +248,19 @@ function registerReducer (state = initialState, action) {
                 priseArmesEcrite : action.success,
             }
         )
+    }
+
+    if (action.type === actionTypes.PERSONNEL_SEND_PRISE_ARMES_JOURNEE)
+    {
+        if (action.success)
+        {
+            return Object.assign({} , state , {
+                
+            })
+        }
+        else {
+
+        }
     }
 
     if (action.type === 'clearPers')
