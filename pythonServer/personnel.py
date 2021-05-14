@@ -268,7 +268,7 @@ def usersWelcome():
 def listUsers():
     users = dbpersonnel.find({});
     # p = (', '.join(str(u) for u in users))
-    baseUser = lambda user : {'id' : str(user['_id']) , 'nom' : user['nom'], 'prenom' : user['prenom'], 'grade' : user['grade'] }
+    baseUser = lambda user : {'id' : str(user['_id']) , 'nom' : user['nom'], 'prenom' : user['prenom'], 'grade' : user['grade'], 'fonction' : user['fonction'] }
     
     users = list(map(baseUser, users))
     print(users)

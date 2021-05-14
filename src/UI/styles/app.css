@@ -15,7 +15,7 @@
   src: url('../fonts/moroccoregular.ttf');
 }
 
-html, .content, Table, th, td {
+html, .content {
   
     background: var(--color-surface);
     color: var(--color-solid);

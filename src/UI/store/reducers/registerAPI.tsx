@@ -6,7 +6,6 @@ import session from "../../storage/localStorage";
 import Axios, { AxiosResponse } from "axios";
 import CryptoJS from "crypto-js";
 import { act } from "@testing-library/react";
-import { PERSONNEL_LIST_PERMISSION } from "../Actions/actionTypes";
 
 function registerAPI({  dispatch, getState }) {
   return function (next) {
@@ -144,7 +143,7 @@ function registerAPI({  dispatch, getState }) {
           }
           
       }
-      else if (action.type === PERSONNEL_LIST_PERMISSION)
+      else if (action.type === ActionTypes.PERSONNEL_LIST_PERMISSION_DU)
       {
           if (action.payload)
           {
@@ -171,7 +170,7 @@ function registerAPI({  dispatch, getState }) {
           }
           
       }
-      else if (action.type === PERSONNEL_LIST_PERMISSION)
+      else if (action.type === ActionTypes.PERSONNEL_LIST_PERMISSION_DE)
       {
           if (action.payload)
           {
@@ -227,7 +226,7 @@ function registerAPI({  dispatch, getState }) {
             return next(action);
           }
       }
-      else if (action.type === ActionTypes.PERSONNEL_SEND_DEPLACER)
+      else if (action.type === ActionTypes.PERSONNEL_SEND_PERMISSION)
       {
           if (action.payload)
           {
@@ -332,6 +331,22 @@ function registerAPI({  dispatch, getState }) {
             return next(action);
           });
       
+      }
+      else if (action.type === ActionTypes.PERSONNEL_SEND_PRISE_ARMES_JOURNEE)
+      {
+          // send the prise armes
+          Axios.post(
+            globals.baseURL + "/" + globals.persURL + "/sendPriseArmes", action.payload
+          ).then((res) => {
+            if (res.status === 200) {
+              action.success = true;
+            } else {
+              action.success = false;
+            }
+            action.data = res.data;
+          
+            return next(action);
+          });
       }
       else if (action.type === ActionTypes.SET_ROUTE)
       {

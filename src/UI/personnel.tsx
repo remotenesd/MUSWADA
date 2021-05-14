@@ -203,8 +203,18 @@ const Personnel = ({session, meSetLogin, listPers, setRoute, getPersonnel, profi
                 
                 <hr style={{color: 'wheat', backgroundColor: 'wheat'}} />
                 <h4>
-                    Liste actuelle : <a style={{fontSize : '1.0em'}}><u>Filtrer par status.</u></a>
+                    Liste actuelle : 
+                    <ul style={{listStyle: 'none', display: 'inline-block'}}>
+                        <li style={{display:'inline-block', marginLeft: '12px'}}>
+                            <a style={{fontSize : '1.0em'}}><u>Filtrer par status.</u></a>
+                        </li>
+                        <li style={{display:'inline-block', marginLeft: '12px'}} onClick={() => setRoute('/prisearmes')}>
+                            <a style={{fontSize : '1.0em'}}><u>Prise d'armes.</u></a>
+                        </li>
+                    </ul>
+                    
                 </h4>
+               
                 {
                     (items.length === 0 ) ?(
                         filtername.length === 0 ?

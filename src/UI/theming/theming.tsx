@@ -22,6 +22,15 @@ export const lightTheme = {
     "--color-surface-pale-f2": "#C9D7F8",
   }
   
+  export const modernaTheme = {
+    "--color-solid": "#240B36",
+    "--color-surface": "#A4031F",
+    "--color-surface-faint": "#DB9065",
+    "--color-primary": "#F2A359",
+    "--color-surface-pale": "#F2DC5D",
+    "--color-surface-pale-f2": "#F2DC5D",
+  }
+  
   export const applyTheme = nextTheme => {
       const theme = nextTheme;
       // console.log(theme);

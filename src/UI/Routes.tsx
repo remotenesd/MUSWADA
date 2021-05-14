@@ -12,7 +12,7 @@ import RegisterSuccess from "./navs/registerSuccess";
 import Signature from "./docs/signature";
 import Docs from "./docs/docs";
 import Asymetric from "./docs/asymtric";
-import MainBlockchain from "./blockchain/main";
+// import MainBlockchain from "./blockchain/main";
 import Todo from "./todo/Todo";
 import Profile from "./profile";
 import Chat from "./chat";
@@ -37,6 +37,8 @@ import RegisterInitial from './registerInitial';
 import registerInitial from "./registerInitial";
 import options from "./options";
 import About from "./about";
+import priseArmes from "./priseArmes";
+import priseArmesPourJournee from "./priseArmesPourJournee";
 
 const Routing = (props, state) => (
   <Fragment>
@@ -64,6 +66,7 @@ const Routing = (props, state) => (
       path="/register"
       render={(props) => routeStyler({ component: Register, props })}
     />
+
     <Route
       exact
       path="/registerSuccess"
@@ -163,6 +166,21 @@ const Routing = (props, state) => (
       path="/Bordees"
       render={(props) =>
         newModifiedComponent({ component: bordees, useStyle: false, props })
+      }
+    />
+    <Route
+      exact
+      path="/prisearmes"
+      render={(props) =>
+        newModifiedComponent({ component: priseArmesPourJournee, useStyle: false, props })
+      }
+    />
+
+    <Route
+      exact
+      path="/etablirPriseArmes"
+      render={(props) =>
+        newModifiedComponent({ component: priseArmes, useStyle: false, props })
       }
     />
 
@@ -266,13 +284,14 @@ const Routing = (props, state) => (
       */
     }
 
-    <Route
+    {/* <Route
       exact
       path="/blockchain"
       render={(props) =>
         newModifiedComponent({ component: MainBlockchain, useStyle: true, props })
       }
-    />
+    /> */}
+
     <Route
       exact
       path="/profile"

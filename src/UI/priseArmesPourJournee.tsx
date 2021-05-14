@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 import './styles/armes.css';
 import { setRoute } from './store/Actions/actionCreator';
-import { PERSONNEL_PROFILE_SM1, PERSONNEL_GET_PRISE_ARMES, PERSONNEL_SET_PRISE_ARMES } from './store/Actions/actionTypes';
+import { PERSONNEL_PROFILE_SM1, PERSONNEL_GET_PRISE_ARMES, PERSONNEL_SET_PRISE_ARMES, PERSONNEL_LIST_PERMISSION_DU, PERSONEL_DEPLACER_LIST_DU } from './store/Actions/actionTypes';
 import {armesManagerPourJournee} from './service/core';
 import { baseperson } from './register/core';
 
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
     return {
       session: state.sessionReducer.user,
       listPers : state.rgReducer.basicList,
+      listPermissionsJournee : state.rgReducer.resPermissionDu,
+      listDeplacerJournee : state.rgReducer.listDu,
       priseArmes : state.rgReducer.priseArmes,
       priseArmesEtablie : state.rgReducer.priseArmesEtablie,
       priseArmesEcrite : state.rgReducer.priseArmesEcrite,
@@ -23,6 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
     setRoute : (route) => 
       dispatch(setRoute(route)),
     profilesm1 : (profile) => dispatch({type : PERSONNEL_PROFILE_SM1, data : {profile : profile}}),
+    getListPermissionJournee : (date_) => dispatch({type : PERSONNEL_LIST_PERMISSION_DU, payload : {date_ : date_}}),
+    getListDeplacerJournee : (date_) => dispatch({type : PERSONEL_DEPLACER_LIST_DU, payload : {date_ : date_}}),
     getPriseArmes : () => dispatch({type : PERSONNEL_GET_PRISE_ARMES}),
     setPriseArmes : (data) => dispatch({type : PERSONNEL_SET_PRISE_ARMES, payload : data}),
 });
@@ -40,7 +44,6 @@ const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, arm
 
     const getOffGardes = () => {
         let ind = 0;
-        console.log(armesMgr_state)
         let fd = armesMgr_getstate();
         if (fd == undefined)
         {
@@ -87,7 +90,7 @@ const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, arm
                     <Input type="select" onChange={e => setSelectedOffGarde(offGardeList[e.target.value])}>
                         <option>*</option>
                         {
-                            armesMgr_allPersonnel.map(pers => {
+                            armesMgr_allPersonnel != undefined ? armesMgr_allPersonnel.map(pers => {
                                 if (!gardes.includes(pers.id))
                                 {
                                     offGardeList[pers.id] = pers
@@ -97,7 +100,7 @@ const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, arm
                                         </option>
                                     )
                                 }
-                        })
+                            }) : <></>
                         }
                     </Input>
                 </td>
@@ -137,12 +140,30 @@ const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, arm
 
 }
 
-const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie, priseArmesEcrite, setRoute, listdu, getPriseArmes, setPriseArmes}) => {
+const PriseArmesPourJournee = 
+    (
+        {
+            session, 
+            listPers, listPermissionsJournee, listDeplacerJournee, 
+            priseArmes, priseArmesEtablie, priseArmesEcrite, 
+            setRoute, getListPermissionJournee, getListDeplacerJournee, 
+            getPriseArmes, setPriseArmes
+        }) => {
 
     const today = new Date();
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getFullYear(), 4) + '/' +  myNumFormatter(today.getMonth() + 1, 2)  + '/' +  myNumFormatter(today.getDate(), 2) ;
-    let [seldate, setSeldate] = useState('');
+    
+
+    // useEffect(() => {
+    //     console.log('// \\setting date !')
+    //     // setSeldate(date_);
+    //     console.log(seldate);
+    //     const newDate_ = new Date(seldate);
+    //     let newdate_ =  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
+    //     listdu(newdate_);  
+    // }, [seldate]);
+
 
     if (!priseArmesEtablie)
     {
@@ -151,8 +172,16 @@ const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie
 
     if (armesMgr == undefined)
     {
-        armesMgr = new armesManagerPourJournee(listPers)
+        // first, request data from API
+        getPriseArmes()
+        getListPermissionJournee(date_);
+        getListDeplacerJournee(date_);
     }
+
+    useEffect( () => 
+    {
+        armesMgr = new armesManagerPourJournee(listPers, priseArmes, listPermissionsJournee, listDeplacerJournee)
+    }, [listPermissionsJournee, listDeplacerJournee])
 
     useEffect(
         () => {
@@ -322,6 +351,15 @@ const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie
         title : 'INFIRMIERS'
     })
 
+    let EditorPermission = EditorComponent({
+        armesMgr_addID : (id_) => {},
+        armesMgr_getstate : () => { return armesMgr?.enPermission },
+        armesMgr_state : armesMgr?.enPermission,
+        armesMgr_removeID : (id_) => {},
+        armesMgr_allPersonnel : armesMgr?.allPersonnel,
+        title : 'En permission'
+    })
+
     const renderUnregistered = () => {
         if (armesMgr?.notRegistered.length > 0)
         {
@@ -363,6 +401,107 @@ const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie
         return <></>
     }
 
+    const renderPermission = () => {
+        if (armesMgr?.enPermission.length > 0)
+        {
+            let i = 0;
+            return (
+                <>
+                    <h2>Personnel en permission :</h2>
+                    <Table bordered hover>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Grade</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Rentree le</th>
+                                <th>Addresse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                armesMgr?.getPermission().map(el => 
+                                    {
+                                        i += 1;
+                                        if (el != undefined)
+                                        {
+                                            return (
+                                                <tr key={el.person.id + i}>
+                                                    <td>{i}</td>
+                                                    <td>{el.person.grade}</td>
+                                                    <td>{el.person.nom}</td>
+                                                    <td>{el.person.prenom}</td>
+                                                    <td>{el.dateRentree}</td>
+                                                    <td>{el.addresse}</td>
+                                                </tr>
+                                            )
+                                        }
+                                        return (<></>)
+                                    } 
+                                )
+                            }
+                            <hr />
+                            
+                        </tbody>
+                    </Table>
+                </>
+            )
+        }
+        return <></>
+    }
+
+    const renderDeplacer = () => {
+        armesMgr?.getDeplacer()
+        if (armesMgr?.ayantDeplacer.length > 0)
+        {
+            let i = 0;
+            return (
+                <>
+                    <h2>Personnel ayant se-deplacer aujourd'hui :</h2>
+                    <Table bordered hover>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Grade</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Heure sortie</th>
+                                <th>Heure rentree</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                armesMgr?.getDeplacer().map(el => 
+                                    {
+                                        i += 1;
+                                        if (el != undefined)
+                                        {
+                                            return (
+                                                <tr key={el.person.id + i}>
+                                                    <td>{i}</td>
+                                                    <td>{el.person.grade}</td>
+                                                    <td>{el.person.nom}</td>
+                                                    <td>{el.person.prenom}</td>
+                                                    <td>{el.heureSortie}</td>
+                                                    <td>{el.heureRentree}</td>
+                                                </tr>
+                                            )
+                                        }
+                                        return (<></>)
+                                    } 
+                                )
+                            }
+                            <hr />
+                            
+                        </tbody>
+                    </Table>
+                </>
+            )
+        }
+        return <></>
+    }
+
     return (<>
         
         <div className="d-flex w-100 h-100 armesCover" style={{color: "#012121"}}>
@@ -384,13 +523,15 @@ const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie
                 <div className='float-left bg-secondary w-100 m-3 p-1 rounded'>
                     <h3 className=''>⚔️ Configurer prise d'armes du {date_}</h3>
                     <h5>
-                        Pour pouvoir prochainement preparer les situations quotidiennes de prises d'armes,
-                        veillez confirmer cette liste :
+                        Veillez confirmer la liste de prise d'armes automatiquement generee.
                     </h5>
                 </div>
                 <hr />
                 <div className="container w-100 h-75 m-auto" style={{overflowY: 'auto', overflowX: 'auto'}}>
                     {renderUnregistered()}
+                    {renderPermission()}
+                    {renderDeplacer()}
+
                     <div className='flexTwo w-100'>
                         <div className='flexTwoGarde'>
                             {EditorOffGarde}
@@ -460,7 +601,7 @@ const PriseArmesPourJournee = ({session, listPers, priseArmes, priseArmesEtablie
                             {EditorQuartMachine}
                         </div>
                     </div>
-                    
+                                        
                     <br />
                     <br />
                     <br />

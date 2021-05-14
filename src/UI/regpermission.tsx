@@ -11,7 +11,7 @@ import avatar from './images/avatar-svgrepo-com.svg';
 import { setRoute } from './store/Actions/actionCreator';
 import RegisterSuccess from './navs/registerSuccess';
 import React, { useState } from 'react';
-import { PERSONNEL_LIST_PERSONNEL, PERSONNEL_PROFILE_SM1, PERSONNEL_PRINT_PROFILE_DIGITAL, PERSONNEL_SEND_DEPLACER, PERSONNEL_LIST_DEPLACER } from './store/Actions/actionTypes';
+import { PERSONNEL_LIST_PERSONNEL, PERSONNEL_PROFILE_SM1, PERSONNEL_PRINT_PROFILE_DIGITAL, PERSONNEL_SEND_DEPLACER, PERSONNEL_LIST_DEPLACER, PERSONNEL_SEND_PERMISSION } from './store/Actions/actionTypes';
 
 const { ipcRenderer } = window.require("electron");
 
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     getPersonnel : () => dispatch({type : PERSONNEL_LIST_PERSONNEL}),
     profilesm1 : (profile) => dispatch({type : PERSONNEL_PROFILE_SM1, data : {profile : profile}}),
     printProfile : (profile) => dispatch({type : PERSONNEL_PRINT_PROFILE_DIGITAL, data : {profile : profile}}),
-    regDeplacer : (profile) => dispatch({type : PERSONNEL_SEND_DEPLACER, payload : {deplacer : profile}}),
+    regDeplacer : (profile) => dispatch({type : PERSONNEL_SEND_PERMISSION, payload : {deplacer : profile}}),
     listDeplacer : () => dispatch({type : PERSONNEL_LIST_DEPLACER}),
 });
 

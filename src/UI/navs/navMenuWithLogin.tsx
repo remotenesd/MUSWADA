@@ -1,6 +1,4 @@
-import React, {Component, CSSProperties, Fragment, useState} from 'react';
-import ReactDOM from 'react-dom';
-
+import React, { Fragment, useState} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,8 +23,6 @@ import '../styles/navMenu.css';
 
 import logo from '../logo.svg';
 import { applyTheme, globals } from '../helpers/globals';
-import { setRoute } from '../store/Actions/actionCreator';
-import { store } from '../store/store';
 
 export const noWrap =  {
     overflow: 'hidden', 

@@ -9,7 +9,7 @@ import {connect} from 'react-redux'
 import './styles/personnel.css';
 import avatar from './images/avatar-svgrepo-com.svg';
 import { setRoute } from './store/Actions/actionCreator';
-import { PERSONNEL_PROFILE_SM1, PERSONNEL_LIST_PERMISSION, PERSONNEL_CLEAR_PROFILE } from './store/Actions/actionTypes';
+import { PERSONNEL_PROFILE_SM1, PERSONNEL_CLEAR_PROFILE, PERSONNEL_LIST_PERMISSION_DE } from './store/Actions/actionTypes';
 
 const { ipcRenderer } = window.require("electron");
 
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
     setRoute : (route) => 
       dispatch(setRoute(route)),
     profilesm1 : (profile) => dispatch({type : PERSONNEL_PROFILE_SM1, data : {profile : profile}}),
-    listde : (personID) => dispatch({type : PERSONNEL_LIST_PERMISSION, payload : {personID : personID}}),
+    listde : (personID) => dispatch({type : PERSONNEL_LIST_PERMISSION_DE, payload : {personID : personID}}),
     clearprofile : () => dispatch({type : PERSONNEL_CLEAR_PROFILE}),
 });
 

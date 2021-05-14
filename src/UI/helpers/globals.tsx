@@ -150,6 +150,12 @@ function applyTheme()
     if (globals.theme === 'dark')
     {   
         theming.applyTheme(theming.darkTheme)
+        globals.theme = 'moderna'
+        return;
+    }
+    if (globals.theme === 'moderna')
+    {   
+        theming.applyTheme(theming.modernaTheme)
         globals.theme = 'light'
         return;
     }

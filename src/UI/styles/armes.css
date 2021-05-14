@@ -1,12 +1,12 @@
 .armesCover{
-    background-image: url('../images/seashell.jpg');
+    background-image: url('../images/Asset1.png');
     background-size: auto;
     background-repeat: repeat;
 
     display: flex;
     flex-direction: row;
 
-    color: var(--color-surface) !important;
+    color: var(--color-solid) !important;
 }
 
 .childPers
@@ -34,7 +34,7 @@
 }
 
 .transparent:hover{
-  color: wheat;
+  color: var(--color-surface-faint);
   text-decoration: underline;
 }
 
@@ -44,7 +44,6 @@
   top: 0px;
   left: 0px;
 
-  flex: 1;
   height: 100vh;
 
   padding: 7px;
@@ -52,7 +51,7 @@
   background-color: var(--color-surface-faint);
   color: var(--color-solid);
 
-  width: 40px;
+  width: 60px;
 }
 
 
@@ -90,3 +89,19 @@
   margin-bottom: 30px;
 }
 
+Table{
+  background-color: var(--color-solid);
+  color: var(--color-surface) !important;
+  opacity: 0.75;
+}
+
+.flexTwo{
+  display: flex;
+  flex-direction: row;
+}
+
+.flexTwoGarde
+{
+  flex: 1;
+  margin: 5px;
+}

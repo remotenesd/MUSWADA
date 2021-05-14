@@ -250,7 +250,7 @@ function sessionReducer(state = makeNewInitState(), action) {
         }
     }
 
-    if (action.type === ActionTypes.PERSONNEL_SEND_DEPLACER)
+    if (action.type === ActionTypes.PERSONNEL_SEND_PERMISSION)
     {
         if (action.success)
         {
