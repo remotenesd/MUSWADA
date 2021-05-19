@@ -1,3 +1,6 @@
+/* eslint-plugin-disable react */
+
+
 import { Select } from "@blueprintjs/select";
 import { setRoute } from "../store/Actions/actionCreator";
 import { PERSONNEL_PRINT_PROFILE_DIGITAL } from "../store/Actions/actionTypes";
@@ -7,72 +10,72 @@ import {ISelect} from './core';
 export default class regEngine
 {
     // s1
-    id : string = "";
+    id  = "";
     nom : string;
     prenom : string;
-    email : string = '';
-    tel : string = '';
-    matricule: string = '';
-    grade : string = '';
-    fonction : string = '';
-    promotion : string = '';
-    datenaissance : string = '';
-    villenaissance : string = '';
-    cni : string = '';
+    email  = '';
+    tel  = '';
+    matricule = '';
+    grade  = '';
+    fonction  = '';
+    promotion  = '';
+    datenaissance  = '';
+    villenaissance  = '';
+    cni  = '';
     
 
     // s2
     enfants : Array<string> = [""];
     ecolesciviles : Array<string> = [""];
     ecolesmilitaires : Array<string> = [""];
-    addresse : string = '';
-    personneEnCharge : string = ''; 
+    addresse  = '';
+    personneEnCharge  = ''; 
 
     // s3
     photo;
 
     // s4
-    commune : string = ''; 
-    province : string = ''; 
+    commune  = ''; 
+    province  = ''; 
 
     // s5
-    nomPere : string = ''; 
-    nomMere : string = ''; 
-    professionPere : string = ''; 
-    professionMere : string = ''; 
+    nomPere  = ''; 
+    nomMere  = ''; 
+    professionPere  = ''; 
+    professionMere  = ''; 
     
 
     // s6
-    situationMatrimoniale : string = '';
-    nbrEnfants : number = 0;
-    dateMarriage : string = '';
-    lieuMarriage : string = '';
-    nomEpouse : string = '';
-    prenomEpouse : string = '';
-    filledePere : string = '';
-    filledeMere : string = '';
-    nationnalite : string = '';
-    professionEpouse : string = '';
-    professionOrganismeEpouse : string = '';
-    professionPereEpouse : string = '';
-    professionMereEpouse : string = '';
+    situationMatrimoniale  = '';
+    nbrEnfants  = 0;
+    dateMarriage  = '';
+    lieuMarriage  = '';
+    nomEpouse  = '';
+    prenomEpouse  = '';
+    filledePere  = '';
+    filledeMere  = '';
+    nationnalite  = '';
+    professionEpouse  = '';
+    professionOrganismeEpouse  = '';
+    professionPereEpouse  = '';
+    professionMereEpouse  = '';
 
 
     // s7
-    diplomeUniversitaire : string = '';
-    niveauInstruction : string = '';
-    langueEtrangeres : string = '';
-    dialectesParles : string = '';
+    diplomeUniversitaire  = '';
+    niveauInstruction  = '';
+    langueEtrangeres  = '';
+    dialectesParles  = '';
 
     // s8
-    dateFonction : string = '';
-    numCarteMilitaire : string = '';
-    nrSOM : string = '';
-    nrCCP : string = '';
+    dateFonction  = '';
+    numCarteMilitaire  = '';
+    nrSOM  = '';
+    nrCCP  = '';
 
     // validation
-    _curStep: number = 1;
-    registered : boolean = false;
+    _curStep = 1;
+    registered  = false;
 
 
     get curStep()
@@ -102,19 +105,19 @@ export default class regEngine
 
     validateS1()
     {
-        var spaceRegex = /\s+/;
-        var moreThanTwoRegex = /[\w]{2,}/;
-        var emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
-        var telRegex = /^0[5-7][0-9]{8}$/;
-        var promotionRegex = /^19[7-9][0-9]|20[0-3][0-9]$/;
-        var dateRegex = /^19[4-9][0-9]|20[0-3][0-9]$/;
+        const spaceRegex = /\s+/;
+        const moreThanTwoRegex = /[\w]{2,}/;
+        const emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
+        const telRegex = /^0[5-7][0-9]{8}$/;
+        const promotionRegex = /^19[7-9][0-9]|20[0-3][0-9]$/;
+        const dateRegex = /^19[4-9][0-9]|20[0-3][0-9]$/;
 
-        let nomcheck = (name : string) => name.length > 2;
-        let prenomcheck = (name : string) => name.length > 2;
-        let emailcheck = (email : string) => !spaceRegex.test(email) && emailRegex.test(email);
-        let telcheck = (tel : string) => telRegex.test(tel);
-        let promotioncheck = (name : string) => promotionRegex.test(name);
-        let datecheck = (name : string) => dateRegex.test(name);
+        const nomcheck = (name : string) => name.length > 2;
+        const prenomcheck = (name : string) => name.length > 2;
+        const emailcheck = (email : string) => !spaceRegex.test(email) && emailRegex.test(email);
+        const telcheck = (tel : string) => telRegex.test(tel);
+        const promotioncheck = (name : string) => promotionRegex.test(name);
+        const datecheck = (name : string) => dateRegex.test(name);
         
         // console.log(emailcheck(this.email));
         // console.log(this.email);
@@ -144,8 +147,8 @@ export default class regEngine
 
     validateS2()
     {
-        var spaceRegex = /\s+/;
-        var moreThanTwoRegex = /[\w]{2,}/;
+        const spaceRegex = /\s+/;
+        const moreThanTwoRegex = /[\w]{2,}/;
 
         if (moreThanTwoRegex.test(this.addresse) 
             && moreThanTwoRegex.test(this.personneEnCharge) 
@@ -204,8 +207,8 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var spaceRegex = /\s+/;
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const spaceRegex = /\s+/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (moreThanTwoRegex.test(this.commune) && moreThanTwoRegex.test(this.province))
                 {
                     validated = true;
@@ -299,7 +302,7 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (
                     moreThanTwoRegex.test(this.nomMere) && moreThanTwoRegex.test(this.nomPere)
                     &&
@@ -332,13 +335,13 @@ export default class regEngine
         {
             // validated first two steps !
 
-            let marie : ISelect = {
+            const marie : ISelect = {
                 title : 'MARIE',commentary : 'Situation actuelle.'
             }
-            let divorce : ISelect = {
+            const divorce : ISelect = {
                 title : 'DIVORCE',commentary : 'Situation actuelle.'
             }
-            let celibataire : ISelect = {
+            const celibataire : ISelect = {
                 title : 'CELIBATAIRE',commentary : 'Situation actuelle.'
             }
 
@@ -379,8 +382,8 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var spaceRegex = /\s+/;
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const spaceRegex = /\s+/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (true)
                 {
                     validated = true;
@@ -565,7 +568,7 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (
                     moreThanTwoRegex.test(this.nomEpouse) && moreThanTwoRegex.test(this.prenomEpouse)
                     &&
@@ -655,7 +658,7 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (
                     moreThanTwoRegex.test(this.niveauInstruction) 
                 )
@@ -743,7 +746,7 @@ export default class regEngine
 
             const register = () => {
                 // continue the process
-                var moreThanTwoRegex = /[\w]{2,}/;
+                const moreThanTwoRegex = /[\w]{2,}/;
                 if (
                     moreThanTwoRegex.test(this.niveauInstruction) 
                 )
@@ -783,14 +786,14 @@ export default class regEngine
                 },
             ]
 
-            let remarks = '';
+            const remarks = '';
 
             const meta = {
                 title : 'TRAITEMENT ',
                 description : '....'
             }
 
-            let validated = false;
+            const validated = false;
 
             const register = () => {
                 // continue the process

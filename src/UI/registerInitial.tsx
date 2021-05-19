@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import {connect} from 'react-redux';
 
 import { Icon } from "@blueprintjs/core";
@@ -34,7 +39,7 @@ const RegisterInitial = ({session, setRoute, initData}) => {
     const [classBatiment, setClassBatiment] = useState('')
 
     const register = () => {
-        let initConf = {
+        const initConf = {
             batiment : batiment,
             classBatiment : classBatiment,
             commandant : commandant,

@@ -39,6 +39,7 @@ import options from "./options";
 import About from "./about";
 import priseArmes from "./priseArmes";
 import priseArmesPourJournee from "./priseArmesPourJournee";
+import priseArmesPourJourneeDisplay from "./priseArmesPourJourneeDisplay";
 
 const Routing = (props, state) => (
   <Fragment>
@@ -181,6 +182,14 @@ const Routing = (props, state) => (
       path="/etablirPriseArmes"
       render={(props) =>
         newModifiedComponent({ component: priseArmes, useStyle: false, props })
+      }
+    />
+
+    <Route
+      exact
+      path="/priseArmeJourneeDisplay"
+      render={(props) =>
+        newModifiedComponent({ component: priseArmesPourJourneeDisplay, useStyle: false, props })
       }
     />
 

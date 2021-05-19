@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import { globals } from './helpers/globals';
 import { register, setLogin, setRoute, usernameExist } from './store/Actions/actionCreator';
@@ -26,8 +27,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const Outils = (props, state) => {
 
-    let [PORT, setPORT ] = useState(globals.apiPort);
-    let [version, setVersion ] = useState(globals.version);
+    const [PORT, setPORT ] = useState(globals.apiPort);
+    const [version, setVersion ] = useState(globals.version);
 
 
     const pushTransaction = () => 

@@ -42,11 +42,11 @@ const RegPermision = ({route, profile, setRoute, printProfile, lastPrintedPdf, l
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getDate(), 2) + '/' + myNumFormatter(today.getMonth() + 1, 2) + '/' + myNumFormatter(today.getFullYear(), 4) ;
 
-    let [myftime, setMyftime ] = useState('');
-    let [myetime, setMyetime ] = useState('');
-    let [addresse, setaddresse ] = useState(profile?.addresse);
+    const [myftime, setMyftime ] = useState('');
+    const [myetime, setMyetime ] = useState('');
+    const [addresse, setaddresse ] = useState(profile?.addresse);
 
-    let selectedProfile = generals.selectedProfile!;
+    const selectedProfile = generals.selectedProfile!;
 
     const makeIcon = (size : number , icon : JSX.Element) => {
         return (
@@ -76,10 +76,10 @@ const RegPermision = ({route, profile, setRoute, printProfile, lastPrintedPdf, l
     }
 
     const registerUser = () => {
-        let newDate_  = new Date();
+        const newDate_  = new Date();
         const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
 
-        let dtf = (newDate_) =>  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
+        const dtf = (newDate_) =>  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
         console.log(dtf(new Date(myftime)));
         regDeplacer({personID : profile._id, fromDate : dtf(new Date(myftime)), toDate : dtf(new Date(myetime)), addresse : addresse})
     }

@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useEffect, useState } from 'react';
 import { globals } from '../helpers/globals';
 import { register, setLogin, setRoute, usernameExist } from '../store/Actions/actionCreator';
@@ -73,11 +78,11 @@ const Person = (
     
     const onIDChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         v = v.toUpperCase();
         
-        var user = {
+        const user = {
             name : v
         }     
 
@@ -90,7 +95,7 @@ const Person = (
     
     const onPASSChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         v = v.toUpperCase(); 
         
@@ -109,7 +114,7 @@ const Person = (
             };
         }
 
-        var spaceRegex = /\s+/;
+        const spaceRegex = /\s+/;
         if (spaceRegex.test(prenom.toString()))
         {
             return {
@@ -118,7 +123,7 @@ const Person = (
             };
         }
 
-        var passRegex = /^(?=.*\W)(?=.*\d)[a-zA-Z\d\W]{8,}$/;
+        const passRegex = /^(?=.*\W)(?=.*\d)[a-zA-Z\d\W]{8,}$/;
 
         if (passRegex.test(prenom.toString()))
         {
@@ -134,7 +139,7 @@ const Person = (
     function validateEmail() : {result : boolean , reason : string}
     {
         // check email
-        var emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
+        const emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
         if (! emailRegex.test(email.toString()))
         {
             return {
@@ -150,7 +155,7 @@ const Person = (
 
     function validateTel() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(tel),
             reason : ''
@@ -159,7 +164,7 @@ const Person = (
 
     function validateMatricule() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(matricule),
             reason : ''
@@ -168,7 +173,7 @@ const Person = (
 
     function validatePromotion() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(promotion),
             reason : ''
@@ -177,7 +182,7 @@ const Person = (
 
     function validateGrade() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(grade),
             reason : ''
@@ -186,7 +191,7 @@ const Person = (
 
     function validateFonction() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(fonction),
             reason : ''
@@ -195,7 +200,7 @@ const Person = (
 
     function validateDatenaissance() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(datenaissance),
             reason : ''
@@ -204,7 +209,7 @@ const Person = (
 
     function validateVillenaissance() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(villenaissance),
             reason : ''
@@ -213,7 +218,7 @@ const Person = (
 
     function validateCni() : {result : boolean , reason : string}
     {
-        var moreThanTwoRegex = /[\w\d]{2,}/;
+        const moreThanTwoRegex = /[\w\d]{2,}/;
         return {
             result : moreThanTwoRegex.test(cni),
             reason : ''
@@ -222,63 +227,63 @@ const Person = (
 
     const onEmailChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setEmail(v);
     }
 
     const onTelChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setTel(v);
     }
 
     const onMatriculeChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setMatricule(v);
     }
 
     const onGradeChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setGrade(v);
     }
 
     const onFonctionChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setFonction(v);
     }
 
     const onPromotionChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setPromotion(v);
     }
 
     const onCniChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setCni(v);
     }
 
     const onDatenaissanceChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setDatenaissance(v);
     }
 
     const onVilleChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setVillenaissance(v);
     }

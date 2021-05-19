@@ -1,3 +1,5 @@
+/* eslint-plugin-disable react */
+
 import React, { useEffect, useState } from 'react';
 import {globals, globalsChangedEvents, generals} from './helpers/globals';
 import { Container, Row, Col, Media, Form, FormGroup, Label, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
@@ -36,7 +38,7 @@ const Listedeplacer = ({route, profile, setRoute, listdu, profilesm1, printProfi
     const today = new Date();
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getFullYear(), 4) + '/' +  myNumFormatter(today.getMonth() + 1, 2)  + '/' +  myNumFormatter(today.getDate(), 2) ;
-    let [seldate, setSeldate] = useState('');
+    const [seldate, setSeldate] = useState('');
 
  
     useEffect(() => {
@@ -44,7 +46,7 @@ const Listedeplacer = ({route, profile, setRoute, listdu, profilesm1, printProfi
         // setSeldate(date_);
         console.log(seldate);
         const newDate_ = new Date(seldate);
-        let newdate_ =  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
+        const newdate_ =  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
         listdu(newdate_);  
     }, [seldate]);
 

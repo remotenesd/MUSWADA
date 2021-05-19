@@ -1,3 +1,4 @@
+import { someone } from "../../register/core";
 import session from "../../storage/localStorage";
 
 
@@ -174,6 +175,12 @@ enum fonctionsPontiste
   MAITREHOTEL
 }
 
+enum classes
+{
+  PONTISTE,
+  MECANICIEN,
+}
+
 const filterMecanicienParFonction = (fonction : fonctions) => {
     return fonction in fonctionsMecanicien;
 }
@@ -181,6 +188,17 @@ const filterMecanicienParFonction = (fonction : fonctions) => {
 const filterPontisteParFonction = (fonction : fonctions) => {
     return fonction in fonctionsPontiste;
 }
+
+const classifyClasse = (pers : someone) => {
+    if (filterPontisteParFonction(fonctions[pers.fonction]))
+    {
+      return classes.PONTISTE;
+    }
+    else{
+      return classes.MECANICIEN;
+    }
+}
+
 
 export type { IState };
 export { 
@@ -193,5 +211,7 @@ export {
   roleManoeuvre, 
   fonctions, 
   filterMecanicienParFonction, 
-  filterPontisteParFonction 
+  filterPontisteParFonction ,
+  classes,
+  classifyClasse,
 };

@@ -6,7 +6,7 @@ import { globals, globalsChangedEvents } from '../../helpers/globals';
 import { reMakeStore, store } from '../store';
 import { AxiosResponse } from 'axios';
 
-let emptyUser : user = new user('', '', '');
+const emptyUser : user = new user('', '', '');
 
 
 const makeNewInitState = () => {
@@ -30,7 +30,7 @@ const makeNewInitState = () => {
     }
 }   
 
-let initState : IState = makeNewInitState() as IState
+const initState : IState = makeNewInitState() as IState
 
 // let curPortDontUse =  globals.apiPort;
 
@@ -167,7 +167,7 @@ function sessionReducer(state = makeNewInitState(), action) {
         {
             // successful login from middleware,
             // engage in session creation
-            var ses = new session(false);
+            const ses = new session(false);
             ses.login(action.data.user.userID, action.data.user.name, action.data.user.password);
             return Object.assign({}, state, {
                 user : ses,
@@ -232,7 +232,7 @@ function sessionReducer(state = makeNewInitState(), action) {
             return Object.assign({}, state,
                 { 
                     // user : state.user,
-                    routing : '/personnel',
+                    // routing : '/personnel',
                 }
             )
         }

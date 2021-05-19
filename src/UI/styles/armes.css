@@ -1,14 +1,28 @@
 .armesCover{
-    background-image: url('../images/Asset1.png');
+    background-image: url('../images/Hcx2E6.jpg');
     background-size: auto;
     background-repeat: repeat;
 
     display: flex;
     flex-direction: row;
 
-    color: var(--color-solid) !important;
+    color: var(--color-surface) !important;
 }
 
+.container2
+{
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 25fr 25fr 25fr 25fr;
+  gap: 20px 20px;
+  /* align-items: center; */
+  justify-content: space-around;
+}
+
+.container2Item
+{
+  display: block;
+}
 .childPers
 {
   flex: 1;
@@ -38,6 +52,13 @@
   text-decoration: underline;
 }
 
+.verticalText{
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 10px;
+  margin-top: 30px;
+}
+
 .asideSmall
 {
   position: relative;
@@ -48,10 +69,28 @@
 
   padding: 7px;
 
-  background-color: var(--color-surface-faint);
-  color: var(--color-solid);
+  background-color: var(--color-surface-faint) !important;
+  color: var(--color-solid) !important;
 
   width: 60px;
+}
+
+@keyframes expand {
+  from {
+    width: 60px;
+  }
+  to {
+    width: 600px;
+  }
+}
+
+.asideExpanded
+{
+  animation-name: expand;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
 }
 
 
@@ -104,4 +143,8 @@ Table{
 {
   flex: 1;
   margin: 5px;
+}
+
+.elementBig{
+  grid-column: span 4;
 }

@@ -1,3 +1,5 @@
+/* eslint-plugin-disable react */
+
 import React, { useEffect, useState } from 'react';
 import {globals, globalsChangedEvents, generals} from './helpers/globals';
 import { Container, Row, Col, Media, Form, FormGroup, Label, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
@@ -24,6 +26,8 @@ const mapStateToProps = (state) => {
     };
 };
   
+let reqSent = false;
+
 const mapDispatchToProps = (dispatch) => ({
     setRoute : (route) => 
       dispatch(setRoute(route)),
@@ -37,10 +41,13 @@ const ListepermissionDe = ({route, profile, setRoute, resPermissionDe, profilesm
     const today = new Date();
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getFullYear(), 4) + '/' +  myNumFormatter(today.getMonth() + 1, 2)  + '/' +  myNumFormatter(today.getDate(), 2) ;
-    let [seldate, setSeldate] = useState('');
+    const [seldate, setSeldate] = useState('');
 
- 
-    listde(profile._id);  
+    if (!reqSent)
+    {
+        listde(profile._id);  
+        reqSent = true;
+    }
 
     const handleClickPerm = (id_, permission) => {
         clearprofile();

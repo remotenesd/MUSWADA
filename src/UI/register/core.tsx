@@ -1,53 +1,54 @@
 export class someone {
-    _id : string = '';
-    nom : string = '';
-    prenom : string = '';
-    email : string = '';
-    tel : string = '';
-    matricule: string = '';
-    grade : string = '';
-    fonction : string = '';
-    promotion : string = '';
-    datenaissance : string = '';
-    villenaissance : string = '';
-    cni : string = '';
+    _id  = '';
+    nom  = '';
+    prenom  = '';
+    email  = '';
+    tel  = '';
+    matricule = '';
+    grade  = '';
+    fonction  = '';
+    promotion  = '';
+    datenaissance  = '';
+    villenaissance  = '';
+    cni  = '';
     
 
     // s2
     enfants : Array<string> = [""];
     ecolesciviles : Array<string> = [""];
     ecolesmilitaires : Array<string> = [""];
-    addresse : string = '';
-    personneEnCharge : string = ''; 
+    addresse  = '';
+    personneEnCharge  = ''; 
 
     // s3
     photo;
 }
 
 export class baseperson {
-    id : string = '';
-    grade : string = '';
-    nom : string = '';
-    prenom : string = '';
+    id  = '';
+    grade  = '';
+    nom  = '';
+    prenom  = '';
+    fonction  = '';
 }
 
 export class basedeplacer {
-    id : string = '';
-    personID : string = '';
-    motif : string = '';
-    fromTime : string = '';
-    toTime : string = '';
-    date : string = '';
-    appelation : string = '';
+    id  = '';
+    personID  = '';
+    motif  = '';
+    fromTime  = '';
+    toTime  = '';
+    date  = '';
+    appelation  = '';
 }
 
 export class basepermission {
-    id : string = '';
-    personID : string = '';
-    addresse : string = '';
-    fromDate : string = '';
-    toDate : string = '';
-    appelation : string = '';
+    id  = '';
+    personID  = '';
+    addresse  = '';
+    fromDate  = '';
+    toDate  = '';
+    appelation  = '';
 }
 
 export interface ISelect 

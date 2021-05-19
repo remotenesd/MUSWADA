@@ -10,14 +10,14 @@ dispatcher(getFirstUsage());
 
 const Home = (props, state) => {
 
-    let [PORT, setPORT ] = useState(globals.apiPort);
-    let [version, setVersion ] = useState(globals.version);
-    let [batiment, setBatiment ] = useState(globals.appData.batiment);
-    let [batimentClass, setBatimentClass ] = useState(globals.appData.batimentClass);
+    const [PORT, setPORT ] = useState(globals.apiPort);
+    const [version, setVersion ] = useState(globals.version);
+    const [batiment, setBatiment ] = useState(globals.appData.batiment);
+    const [batimentClass, setBatimentClass ] = useState(globals.appData.batimentClass);
 
     
     
-    let func = () => {
+    const func = () => {
         setPORT(globals.apiPort);
         setVersion(globals.version);
         setBatiment(globals.appData.batiment)

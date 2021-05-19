@@ -90,6 +90,7 @@ def init():
     from sedeplacer import deplacerApi
     from permissions import permissionApi
     from dbapp import appApi
+    from armes import armesApi
 
     # register actions
     ## register
@@ -99,6 +100,7 @@ def init():
     globalledger.app.register_blueprint(personnelApi, url_prefix='/pers');
     globalledger.app.register_blueprint(permissionApi, url_prefix='/permission');
     globalledger.app.register_blueprint(deplacerApi, url_prefix='/deplacer');
+    globalledger.app.register_blueprint(armesApi, url_prefix='/armes');
     ## add specific features
     setUpRoutes()
 

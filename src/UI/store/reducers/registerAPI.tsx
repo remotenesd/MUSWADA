@@ -11,14 +11,14 @@ function registerAPI({  dispatch, getState }) {
   return function (next) {
     return function (action) {
      console.log(action);
-     if (action.type === ActionTypes.PERSONNEL_PRINT_PROFILE_DIGITAL) {
+     if (action.type === ActionTypes.PERSONNEL_REGISTER) {
         // REGISTER THE USER
         console.log('reg')
         const HEADERS = {
           "Content-Type": "application/json",
         };
 
-        let user = action.data.user;
+        const user = action.data.user;
         Axios.post(
           globals.baseURL + "/" + globals.persURL + "/register",
           user
@@ -71,7 +71,7 @@ function registerAPI({  dispatch, getState }) {
             const HEADERS = {
               "Content-Type": "application/json",
             };
-            console.log(action.data.profile);
+            // console.log(action.data.profile);
             Axios.post(
               globals.baseURL + "/" + globals.persURL + "/printprofile", {profile : action.data.profile}
             ).then((res) => {
@@ -336,7 +336,55 @@ function registerAPI({  dispatch, getState }) {
       {
           // send the prise armes
           Axios.post(
-            globals.baseURL + "/" + globals.persURL + "/sendPriseArmes", action.payload
+            globals.baseURL + "/" + globals.armesURL + "/sendPriseArmes", action.payload
+          ).then((res) => {
+            if (res.status === 200) {
+              action.success = true;
+            } else {
+              action.success = false;
+            }
+            action.data = res.data;
+          
+            return next(action);
+          });
+      }
+      else if (action.type === ActionTypes.PERSONNEL_GET_PRISE_ARMES_JOURNEE)
+      {
+          // send the prise armes
+          Axios.post(
+            globals.baseURL + "/" + globals.armesURL + "/listdu", action.payload
+          ).then((res) => {
+            if (res.status === 200) {
+              action.success = true;
+            } else {
+              action.success = false;
+            }
+            action.data = res.data;
+          
+            return next(action);
+          });
+      }
+      else if (action.type === ActionTypes.PERSONNEL_DOC_PRISE_ARMES_JOURNEE)
+      {
+          // send the prise armes
+          Axios.post(
+            globals.baseURL + "/" + globals.armesURL + "/doc", action.payload
+          ).then((res) => {
+            if (res.status === 200) {
+              action.success = true;
+            } else {
+              action.success = false;
+            }
+            action.data = res.data;
+          
+            return next(action);
+          });
+      }
+      else if (action.type === ActionTypes.PERSONNEL_PERMISSION_PDF)
+      {
+          // send the prise armes
+          Axios.post(
+            globals.baseURL + "/" + globals.permissionURL + "/doc", action.payload
           ).then((res) => {
             if (res.status === 200) {
               action.success = true;

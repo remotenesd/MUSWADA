@@ -26,8 +26,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const Bordees = (props, state) => {
 
-    let [PORT, setPORT ] = useState(globals.apiPort);
-    let [version, setVersion ] = useState(globals.version);
+    const [PORT, setPORT ] = useState(globals.apiPort);
+    const [version, setVersion ] = useState(globals.version);
 
 
     const pushTransaction = () => 

@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React from 'react';
 import { useEffect } from 'react';
 import { Widget, addResponseMessage, setQuickButtons } from 'react-chat-widget';
@@ -12,7 +17,7 @@ import { generals} from './helpers/globals';
  
 function Chat({route, gotoRoute}) {
 
-  let selectedProfile = generals.selectedProfile!;
+  const selectedProfile = generals.selectedProfile!;
 
   const buttons = [
     {

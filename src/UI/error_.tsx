@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useState } from 'react';
 import { globals } from './helpers/globals';
 import { setLogin, setRoute } from './store/Actions/actionCreator';

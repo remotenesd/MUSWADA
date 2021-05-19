@@ -1,3 +1,4 @@
+from datetime import datetime
 from bson.objectid import ObjectId
 from usertypes import permission
 from flask import Flask, request, jsonify, Blueprint, Response
@@ -121,3 +122,59 @@ def listDe():
         return {'permissions' : deplacers}, 200;
     else:
         return 'INVALID REQUEST ARGS', 201;
+
+
+def getAppelation(id_):
+    if id_ == None or id_ == '' or len(id_) == 0:
+        return ''
+    id_ = id_[0]
+    res = [ r for r in dbpersonnel.find({ "_id" :  ObjectId(id_)})];
+    firstguy = res[0]
+    return firstguy["grade"] + ' ' + firstguy["nom"] + ' ' + firstguy["prenom"]
+def digitize(res):
+    from random import randrange
+            
+    val = res
+
+    # val["_id"] = str(val["_id"]);
+    
+    worddoc = "generated_doc{}.docx".format(randrange(1,100000));
+    
+    from docxtpl import DocxTemplate
+    doc = DocxTemplate("permission.docx")
+    
+    from datetime import date
+    today = str(date.today())
+
+    context = {
+        "nomprenom" : (val["nomprenom"]),
+        "grade" : (val["grade"]),
+        "duree" : (val["duree"]),
+        "valableDu" : (val["valableDu"]),
+        "valableAu" : (val["valableAu"]),
+        "allerDe" : (val["allerDe"]),
+        "allerA" : (val["allerA"]),
+        "lieu" : (val["lieu"]),
+        "date" : today,
+    }
+    
+    doc.render(context=context)
+    doc.save(worddoc)
+
+    import pythoncom
+    pythoncom.CoInitialize()
+    from docx2pdf import convert
+    convert(worddoc)
+
+    return  { 'profile' : (val) , 'genDoc' : worddoc, 'genPdf' : worddoc.replace('docx','pdf')}, 200
+
+
+@permissionApi.route('/doc', methods=['POST'])
+@cross_origin()
+def generateDOC():
+    content = request.get_json(force = True);
+
+    if (all(key in content for key in ['nomprenom','grade','duree','valableDu', 'valableAu','allerDe','allerA','lieu'])):
+        return digitize(content)
+    else:
+        return 'INVALID REQUEST ARGS', 201

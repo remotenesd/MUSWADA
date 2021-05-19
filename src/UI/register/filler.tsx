@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useEffect, useState } from 'react';
 import { globals } from '../helpers/globals';
 import { register, setLogin, setRoute, usernameExist } from '../store/Actions/actionCreator';
@@ -11,8 +16,8 @@ import { bindActionCreators } from 'redux';
 // import { Select } from '@blueprintjs/select';
 
 
-let ntoC = (num : number) => {
-    let nums = ["premier" , "deuscieme", "troisieme", "quatrieme", "cinquieme", "sixieme"]
+const ntoC = (num : number) => {
+    const nums = ["premier" , "deuscieme", "troisieme", "quatrieme", "cinquieme", "sixieme"]
     if (num < 6)
     {
         return nums[num] + ' enfant';
@@ -71,7 +76,7 @@ const Filler  = (
     }
     data.data.forEach(item => myMap.set(item.name, item.getValue()));
 
-    let redefineMap = data.data.map(
+    const redefineMap = data.data.map(
             item =>
                  {
 
@@ -160,7 +165,7 @@ const Filler  = (
     console.log('update !');
     // if (data === undefined){return <Spinner />}
 
-    let useMapToHTML = redefineMap;
+    const useMapToHTML = redefineMap;
 
     // console.log(mapToHTML())
     // console.log(data);
@@ -193,7 +198,7 @@ const Filler  = (
                                     <Button size="lg" 
                                         className="col-12"
                                         onClick={() => {
-                                            let d = data.register(); 
+                                            const d = data.register(); 
                                             if (d && d !== undefined && d !== null)
                                             {
 

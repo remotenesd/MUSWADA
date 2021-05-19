@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useEffect, useState } from 'react';
 import { globals } from '../helpers/globals';
 import { register, setLogin, setRoute, usernameExist } from '../store/Actions/actionCreator';
@@ -8,7 +13,7 @@ import {connect} from 'react-redux'
 import { Button, Col, Form, FormGroup, Input, Label, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 
 
-let ntoC = (num : number) => {
+const ntoC = (num : number) => {
     // switch (num)
     // {
     //     case 1:
@@ -18,7 +23,7 @@ let ntoC = (num : number) => {
     //     case 3:
     //         return "troisieme"
     // }
-    let nums = ["premier" , "deuscieme", "troisieme", "quatrieme", "cinquieme", "sixieme"]
+    const nums = ["premier" , "deuscieme", "troisieme", "quatrieme", "cinquieme", "sixieme"]
     if (num < 6)
     {
         return nums[num] + ' enfant';
@@ -56,8 +61,8 @@ const Person = (
     }    
 
     const [enfants, setEnfants] = useState([""] as Array<string>);
-    const [ecolesciviles, setEcolesciviles] = useState([""] as Array<String>);
-    const [ecolesmilitaires, setEcolesmilitaires] = useState([""] as Array<String>);
+    const [ecolesciviles, setEcolesciviles] = useState([""] as Array<string>);
+    const [ecolesmilitaires, setEcolesmilitaires] = useState([""] as Array<string>);
     const [addresse, setAddresse] = useState('');
     const [personneEnCharge, setPersonneEnCharge] = useState('');
 
@@ -70,13 +75,13 @@ const Person = (
 
     const onAddresseChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setAddresse(v);
     }
 
     const onEcoleChange = (id : number, ecole : string) => {
-        let cp = Object.assign([""], ecolesciviles);
+        const cp = Object.assign([""], ecolesciviles);
         cp[id] = ecole;
         console.log(id + " " + ecolesciviles.length)
         console.log(ecole);
@@ -89,7 +94,7 @@ const Person = (
 
 
     const onEcoleChange2 = (id : number, ecole : string) => {
-        let cp = Object.assign([""], ecolesmilitaires);
+        const cp = Object.assign([""], ecolesmilitaires);
         cp[id] = ecole;
         console.log(id + " " + ecolesmilitaires.length)
         if (id + 1 === ecolesmilitaires.length)
@@ -100,7 +105,7 @@ const Person = (
     }
 
     const onEnfantsChange = (id : number, enf : string) => {
-        let cp = Object.assign([""], enfants);
+        const cp = Object.assign([""], enfants);
         cp[id] = enf;
         if (id + 1 === enfants.length)
         {
@@ -179,7 +184,7 @@ const Person = (
                         {
                             ecolesciviles.map(ecolecivile => {
                                 ecl += 1;
-                                let mui = ecl as number;
+                                const mui = ecl as number;
                                 return (
                                         <FormGroup row>  
                                             <Label size='lg' sm={4} for="ecole">Formation (Ecole civile, si oui)</Label>
@@ -207,7 +212,7 @@ const Person = (
                         {
                             ecolesmilitaires.map(ecolecivile => {
                                 ecl_ += 1;
-                                let mui = ecl_ as number;
+                                const mui = ecl_ as number;
                                 return (
                                         <FormGroup row>  
                                             <Label size='lg' sm={4} for="ecole">Formation (Ecole <b>Militaire</b>)</Label>
@@ -236,7 +241,7 @@ const Person = (
                         {
                             enfants.map(enfant => {
                                 ecl1 += 1;
-                                let mui = ecl1 as number;
+                                const mui = ecl1 as number;
                                 return (
                                         <FormGroup row>  
                                             <Label size='lg' sm={4} for="ecole">Enfants :</Label>

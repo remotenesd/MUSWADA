@@ -25,11 +25,11 @@ class session {
   checkLS() {
     console.log("CHECKING LOCAL STORAGE [**] " ,  this.isLoggedIn)
 
-    var idd = localStorage.getItem("userID");
+    const idd = localStorage.getItem("userID");
 
     if (idd != null) {
-      var cr = String(localStorage.getItem("name") ?? "");
-      var ex = String(localStorage.getItem("password") ?? "");
+      const cr = String(localStorage.getItem("name") ?? "");
+      const ex = String(localStorage.getItem("password") ?? "");
       if (cr !== "") {
         this.login(idd, cr, ex);
       } else {
@@ -42,11 +42,11 @@ class session {
   {
     console.log("[FREELANCE] CHECKING LOCAL STORAGE [**] " ,  this.isLoggedIn)
 
-    var idd = localStorage.getItem("userID");
+    const idd = localStorage.getItem("userID");
 
     if (idd != null) {
-      var cr = String(localStorage.getItem("name") ?? "");
-      var ex = String(localStorage.getItem("password") ?? "");
+      const cr = String(localStorage.getItem("name") ?? "");
+      const ex = String(localStorage.getItem("password") ?? "");
       console.log("[FREELANCE] " + cr);
       if (cr !== "") {
         return this.customLogin(idd, cr, ex);
@@ -75,7 +75,7 @@ class session {
 
   loginAPI(id: string, name: string, password: string)
   {
-    let user = {
+    const user = {
       userID: id,
       name: name,
       password: password,
@@ -89,7 +89,7 @@ class session {
       
     // console.log(user);
     
-    let resPromise = Axios.post(globals.baseURL + "/" + globals.userURL + "/login", user)
+    const resPromise = Axios.post(globals.baseURL + "/" + globals.userURL + "/login", user)
     return resPromise;
     
   }
@@ -111,7 +111,7 @@ class session {
 
   login(id: string, name: string, password: string) {
     // console.log('[LOgIN] port ', globals.apiPort, ' with name ', name)
-    let user = {
+    const user = {
       userID: id,
       name: name,
       password: password,

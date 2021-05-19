@@ -23,7 +23,7 @@ class transaction
 
     fromJson(json)
     {
-        let jsonObj = JSON.parse(json);
+        const jsonObj = JSON.parse(json);
         this.data = jsonObj.data;
         this.sender = jsonObj.sender;
         this.signature = jsonObj.signature;

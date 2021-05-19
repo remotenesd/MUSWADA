@@ -125,7 +125,8 @@ ipcMain.on('downloadfile', (event, arg) => {
   let dir = path.join ( __dirname, "../" + arg.file);
   const {shell} = require('electron');
   // Open a local file in the default app
-  shell.showItemInFolder(dir);
+  // shell.showItemInFolder(dir);
+  shell.openPath(arg.file)
 });
 
 /////// SENDING ARGS TO SERVER

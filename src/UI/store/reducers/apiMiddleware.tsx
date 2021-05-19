@@ -32,8 +32,8 @@ function APIMiddleware({ getState, dispatch }) {
       } 
       else if (action.type === ActionTypes.GET_LOGIN)
       {
-          var ses = new session(false);
-          var ax : Promise<AxiosResponse<any> | null> = ses.customLS();
+          const ses = new session(false);
+          const ax : Promise<AxiosResponse<any> | null> = ses.customLS();
           console.log("[REDUCER] UDPDATE IS LOGGED IN " + ses.user.name)
           ax.then( (res: AxiosResponse<any> | null) => {
               console.log("[AUTH0] RES " + res?.status)
@@ -197,7 +197,7 @@ function APIMiddleware({ getState, dispatch }) {
           "Content-Type": "application/json",
         };
 
-        let user = new usr(action.payload.id, action.payload.name, action.payload.password);
+        const user = new usr(action.payload.id, action.payload.name, action.payload.password);
         
         // {
         //   userID: action.payload.id,

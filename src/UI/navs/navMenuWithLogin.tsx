@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { Fragment, useState} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,7 +62,7 @@ const NavMenuWithLogin  = ({   route, verticalToggle , redirecter, gotoRoute }) 
         '✂️ Deconnexion' : '/signout'
     }
     
-    let getMenus = () =>
+    const getMenus = () =>
     {
         return (
                 <Fragment>

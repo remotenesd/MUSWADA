@@ -1,3 +1,5 @@
+/* eslint-plugin-disable react */
+
 import React, { useEffect, useState } from 'react';
 import { Col, Form, FormGroup, Label, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Table } from 'reactstrap';
 import {Button, Icon, Spinner} from '@blueprintjs/core';
@@ -33,14 +35,14 @@ let armesMgr : (armesManager | undefined) = undefined;
 const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, armesMgr_removeID, armesMgr_allPersonnel, title}) => {
 
 
-    let [moker, setMocker] = useState(0);
-    let [selectedOffGarde, setSelectedOffGarde] = useState(null as (baseperson | null) );
+    const [moker, setMocker] = useState(0);
+    const [selectedOffGarde, setSelectedOffGarde] = useState(null as (baseperson | null) );
 
-    let offGardeList = {}
+    const offGardeList = {}
 
     const getOffGardes = () => {
         let ind = 0;
-        let fd = armesMgr_getstate();
+        const fd = armesMgr_getstate();
         if (fd == undefined)
         {
             return <></>
@@ -60,8 +62,8 @@ const EditorComponent = ({armesMgr_state, armesMgr_getstate, armesMgr_addID, arm
     }
 
     const getOffGardeSupplement = () => {
-        let ind = 0;
-        let gardes = armesMgr_state;
+        const ind = 0;
+        const gardes = armesMgr_state;
         return (
             <tr key="10000">
                 {
@@ -141,7 +143,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
     const today = new Date();
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getFullYear(), 4) + '/' +  myNumFormatter(today.getMonth() + 1, 2)  + '/' +  myNumFormatter(today.getDate(), 2) ;
-    let [seldate, setSeldate] = useState('');
+    const [seldate, setSeldate] = useState('');
 
     if (armesMgr == undefined)
     {
@@ -164,11 +166,11 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
     )
 
     const sendData = () => {
-        let compiled = armesMgr?.compileObject();
+        const compiled = armesMgr?.compileObject();
         setPriseArmes(compiled);
     }
 
-    let EditorOffGarde = EditorComponent({
+    const EditorOffGarde = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToOffGardes(id_),
         armesMgr_allPersonnel : armesMgr?.allPersonnel,
         armesMgr_getstate : () => armesMgr?.getOfficiersGarde(),
@@ -177,7 +179,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Officiers de garde'
     })
 
-    let EditorMaitresService = EditorComponent({
+    const EditorMaitresService = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToMaitresService(id_),
         armesMgr_allPersonnel : armesMgr?.allPersonnel,
         armesMgr_getstate : () => armesMgr?.getMaitresService(),
@@ -186,7 +188,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Maitres de service'
     })
     
-    let EditorCDARMES = EditorComponent({
+    const EditorCDARMES = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToCapitaineArmes(id_),
         armesMgr_getstate : () => armesMgr?.getCDArmes(),
         armesMgr_state : armesMgr?.capitaineArme,
@@ -195,7 +197,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Capitaine d\'armes'
     })
     
-    let EditorBoulanger = EditorComponent({
+    const EditorBoulanger = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToBoulongier(id_),
         armesMgr_getstate : () => armesMgr?.getboulongier(),
         armesMgr_state : armesMgr?.boulongier,
@@ -204,7 +206,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Boulongier'
     })
 
-    let EditorAbsent = EditorComponent({
+    const EditorAbsent = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToAbsent(id_),
         armesMgr_getstate : () => armesMgr?.getabsent(),
         armesMgr_state : armesMgr?.absent,
@@ -213,7 +215,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Absents'
     })
 
-    let EditorCuisinier = EditorComponent({
+    const EditorCuisinier = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToCuisinier(id_),
         armesMgr_getstate : () => armesMgr?.getcuisinier(),
         armesMgr_state : armesMgr?.cuisinier,
@@ -222,7 +224,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Cuisiniers'
     })
 
-    let EditorComie = EditorComponent({
+    const EditorComie = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToComie(id_),
         armesMgr_getstate : () => armesMgr?.getComie(),
         armesMgr_state : armesMgr?.comie,
@@ -231,7 +233,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Comie'
     })
 
-    let EditorConsultation = EditorComponent({
+    const EditorConsultation = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToConsultation(id_),
         armesMgr_getstate : () => armesMgr?.getconsultation(),
         armesMgr_state : armesMgr?.consultation,
@@ -240,7 +242,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'En consultation'
     })
    
-    let EditorMaitreHotel = EditorComponent({
+    const EditorMaitreHotel = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToMaitreHotel(id_),
         armesMgr_getstate : () => armesMgr?.getmaitreHotel(),
         armesMgr_state : armesMgr?.maitreHotel,
@@ -249,7 +251,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'Maitres d\'hotel'
     })
 
-    let EditorPTC = EditorComponent({
+    const EditorPTC = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToPTC(id_),
         armesMgr_getstate : () => armesMgr?.getptc(),
         armesMgr_state : armesMgr?.ptc,
@@ -258,7 +260,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'PTC'
     })
 
-    let EditorQuartCoupee = EditorComponent({
+    const EditorQuartCoupee = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToQuartCoupee(id_),
         armesMgr_getstate : () => armesMgr?.getquartCoupee(),
         armesMgr_state : armesMgr?.quartCoupee,
@@ -267,7 +269,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'QUART A LA COUPEE'
     })
 
-    let EditorQuartMachine = EditorComponent({
+    const EditorQuartMachine = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToQuartMachine(id_),
         armesMgr_getstate : () => armesMgr?.getquartMachine(),
         armesMgr_state : armesMgr?.quartMachine,
@@ -276,7 +278,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'QUART A LA MACHINE'
     })
 
-    let EditorRadioService = EditorComponent({
+    const EditorRadioService = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToRadioService(id_),
         armesMgr_getstate : () => armesMgr?.getradioService(),
         armesMgr_state : armesMgr?.radioService,
@@ -285,7 +287,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'RADIO DE SERVICE'
     })
 
-    let EditorRonde = EditorComponent({
+    const EditorRonde = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToRonde(id_),
         armesMgr_getstate : () => armesMgr?.getronde(),
         armesMgr_state : armesMgr?.ronde,
@@ -294,7 +296,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'RONDES'
     })
 
-    let EditorSC = EditorComponent({
+    const EditorSC = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToSC(id_),
         armesMgr_getstate : () => armesMgr?.getsc(),
         armesMgr_state : armesMgr?.sc,
@@ -303,7 +305,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'S/C'
     })
 
-    let EditorStage = EditorComponent({
+    const EditorStage = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToStage(id_),
         armesMgr_getstate : () => armesMgr?.getstage(),
         armesMgr_state : armesMgr?.stage,
@@ -312,7 +314,7 @@ const PriseArmes = ({session, listPers, priseArmes, priseArmesEtablie, priseArme
         title : 'EN STAGE'
     })
 
-    let EditorInfirmier = EditorComponent({
+    const EditorInfirmier = EditorComponent({
         armesMgr_addID : (id_) => armesMgr?.addToInfirmier(id_),
         armesMgr_getstate : () => armesMgr?.getinfirmier(),
         armesMgr_state : armesMgr?.infirmier,

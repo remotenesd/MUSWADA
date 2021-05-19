@@ -35,10 +35,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const REGSERVICE = ({session, meSetLogin, listPers, setRoute, getPersonnel, profilesm1, clearprofile}) => {
-    let [isOpen, setIsOpen] = useState(false);
-    let [items, setItems] = useState(Array<ITreeNode>());
+    const [isOpen, setIsOpen] = useState(false);
+    const [items, setItems] = useState(Array<ITreeNode>());
 
-    let [filtername, setFiltername] = useState('');
+    const [filtername, setFiltername] = useState('');
 
     const searchContainer = () => {
         return (
@@ -107,17 +107,17 @@ const REGSERVICE = ({session, meSetLogin, listPers, setRoute, getPersonnel, prof
    
     useEffect( () => {
         let _id = 0;
-        let getIncId = () =>
+        const getIncId = () =>
         {
             _id +=1;
             return _id;
         }
 
 
-        let filteredListPers = listPers.filter((pers : baseperson) => (pers.nom.toLocaleUpperCase().includes(filtername.toLocaleUpperCase()) || (pers.prenom.toLocaleUpperCase().includes(filtername.toLocaleUpperCase())  ) ) );
+        const filteredListPers = listPers.filter((pers : baseperson) => (pers.nom.toLocaleUpperCase().includes(filtername.toLocaleUpperCase()) || (pers.prenom.toLocaleUpperCase().includes(filtername.toLocaleUpperCase())  ) ) );
         
-        let listItems = (filteredListPers.map( (pers : baseperson) =>  {
-            var nm = pers.grade + " " + pers.nom + " " + pers.prenom;
+        const listItems = (filteredListPers.map( (pers : baseperson) =>  {
+            const nm = pers.grade + " " + pers.nom + " " + pers.prenom;
             return { 
                 id : pers.id,
                 hasCaret : true,
@@ -155,13 +155,13 @@ const REGSERVICE = ({session, meSetLogin, listPers, setRoute, getPersonnel, prof
 
 
 
-    let handleNodeClick = (nodeData: ITreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
+    const handleNodeClick = (nodeData: ITreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
         clearprofile();
         profilesm1(nodeData.id);
         setRoute('/profile')
     };
 
-    let handleNodeExpand = (nodeData: ITreeNode) => {
+    const handleNodeExpand = (nodeData: ITreeNode) => {
         items.forEach(item => {
             if (item.id=== nodeData.id)
             {
@@ -253,7 +253,7 @@ const REGSERVICE = ({session, meSetLogin, listPers, setRoute, getPersonnel, prof
 
             
         </div>
-        <Overlay isOpen={isOpen} onClose={closeClick} transitionName={classes.OVERLAY}> 
+        <Overlay isOpen={isOpen} onClose={closeClick} transitionName={Classes.OVERLAY_CONTAINER}> 
                 {/* {searchContainer()} */}
                 {dialog()}
         </Overlay>

@@ -18,7 +18,7 @@ const filterByPriorityAction  = (state) =>
     return state.todos.filter (
         todo  => {
             // console.log(state.priorities );
-            var p = convertToPriority(todo.priority);
+            const p = convertToPriority(todo.priority);
             if ( state.priorities.includes(p) || state.priorities.includes(TODOPRIORITY[TODOPRIORITY.ALL]))
             {
                 return todo;
@@ -30,7 +30,7 @@ const filterByStatusAction = (state) =>
 {
     return state.todos.filter (
         todo  => {
-            var p = convertToStatus(todo.status);
+            const p = convertToStatus(todo.status);
             if ( state.status.includes(p ) || state.status.includes(TODOSTATUS[TODOSTATUS.ANY]))
             {
                 return todo;
@@ -80,8 +80,8 @@ const TODO = ({todos, forbiddenFlag, addTODOR, theme,
         fltStatus(status);
     }, [status]);
 
-    let dateC = (c : number) => {
-        var b = new Date(c);
+    const dateC = (c : number) => {
+        const b = new Date(c);
         return b.toString()
     }
     
@@ -93,7 +93,7 @@ const TODO = ({todos, forbiddenFlag, addTODOR, theme,
     };
 
     const getClass = (todo : TODODEF) => {
-        let s = [' mb-5'];
+        const s = [' mb-5'];
         if (theme === 'dark')
         {
             if (todo === undefined || todo === null)
@@ -119,7 +119,7 @@ const TODO = ({todos, forbiddenFlag, addTODOR, theme,
             {
                 return 'text-primary bg-light p-3 border border-muted'
             }
-            let s = [' mb-5'];
+            const s = [' mb-5'];
             var p = convertToPriority(todo.priority);
             if (p === TODOPRIORITY[ TODOPRIORITY.URGENT])
             {
@@ -367,7 +367,7 @@ const TODO = ({todos, forbiddenFlag, addTODOR, theme,
                 <div className="container row w-100 m-0 p-2">
                     <div className="col-md-auto my-auto">
                         <svg width="4em" height="4em" viewBox="0 0 16 16" className="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                            <path fillRule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
                         </svg>         
                     </div>       
                     <div className="col-md-9">

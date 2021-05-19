@@ -62,10 +62,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const Configurer = ({setRoute}) => {
 
-    let [bordee, setBordee ] = useState('bordée 1');
-    let [version, setVersion ] = useState("");
+    const [bordee, setBordee ] = useState('bordée 1');
+    const [version, setVersion ] = useState("");
 
-    var today = new Date(),
+    const today = new Date(),
 
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -78,7 +78,7 @@ const Configurer = ({setRoute}) => {
         // });
     }
 
-    let ctnStyle = {
+    const ctnStyle = {
         overflowX: 'hidden', 
         overflowY: '-moz-hidden-unscrollable', 
         marginTop: '50px', 

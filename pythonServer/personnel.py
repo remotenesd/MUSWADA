@@ -9,9 +9,10 @@ from hashlib import sha256
 from os import path
 filedir = (path.dirname(path.realpath(__file__)))
 
-import globalledger as glb
-
+# import globalledger as glb
 from bson.objectid import ObjectId
+from docxtpl import DocxTemplate
+from docx2pdf import convert
 
 ##############################################################
 #!IMPORTANT THIS ASSUMES PASSWORD IS HASHED THROUGH 256 HASH 
@@ -135,8 +136,6 @@ def digitize(res):
         val["_id"] = str(val["_id"]);
         
         worddoc = "generated_doc{}.docx".format(randrange(1,100000));
-        
-        from docxtpl import DocxTemplate
         doc = DocxTemplate("fiche.docx")
         
         from datetime import date
@@ -213,12 +212,11 @@ def digitize(res):
             
         doc.render(context)
         doc.save(worddoc)
-        
-        # import pythoncom
 
-        # pythoncom.CoInitialize()
         
-        from docx2pdf import convert
+        import pythoncom
+
+        pythoncom.CoInitialize()
         convert(worddoc)
         
         return  { 'profile' : (val) , 'genDoc' : worddoc, 'genPdf' : worddoc.replace('docx','pdf')}, 200
@@ -271,7 +269,6 @@ def listUsers():
     baseUser = lambda user : {'id' : str(user['_id']) , 'nom' : user['nom'], 'prenom' : user['prenom'], 'grade' : user['grade'], 'fonction' : user['fonction'] }
     
     users = list(map(baseUser, users))
-    print(users)
     return { 'users' : (users) }, 200;
 
 def removeObjectID(itm):

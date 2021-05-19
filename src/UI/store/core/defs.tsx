@@ -7,7 +7,7 @@ type user = {
 enum itemTypes {
     FIXED,
     CARRIABLE,
-};
+}
 
 enum ORGANISATIONS {
     UND,
@@ -15,7 +15,7 @@ enum ORGANISATIONS {
     SPE,
     SPM,
     UIGA,
-};
+}
 
 type item = {
     tag : number,
@@ -33,7 +33,7 @@ enum TODOPRIORITY {
     URGENT,
     CASUAL,
     ALL
-};
+}
 
 enum TODOSTATUS {
     DONE,
@@ -41,7 +41,7 @@ enum TODOSTATUS {
     CANCELLED,
     ACTIVE,
     ANY
-};
+}
 
 type TODO = {
     id : string,

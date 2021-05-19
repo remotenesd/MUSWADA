@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useState } from 'react';
 import { globals } from './helpers/globals';
 import { loginInfo, setLogin } from './store/Actions/actionCreator';
@@ -37,8 +42,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Account = ({session, meSetLogin, getLoginInfo}) => {
 
-    let [isOpen, setIsOpen] = useState(false);
-    let [wigglingbtn, setWigglingbtn] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [wigglingbtn, setWigglingbtn] = useState(true);
 
 
     setTimeout(() => setWigglingbtn(false), 2000);

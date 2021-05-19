@@ -41,12 +41,12 @@ const Deplacer = ({route, profile, setRoute, printProfile, lastPrintedPdf, lastP
     const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
     const date_ =  myNumFormatter(today.getDate(), 2) + '/' + myNumFormatter(today.getMonth() + 1, 2) + '/' + myNumFormatter(today.getFullYear(), 4) ;
 
-    let [mydate, setMydate ] = useState('');
-    let [myftime, setMyftime ] = useState('');
-    let [myetime, setMyetime ] = useState('');
-    let [motif, setMotif ] = useState('');
+    const [mydate, setMydate ] = useState('');
+    const [myftime, setMyftime ] = useState('');
+    const [myetime, setMyetime ] = useState('');
+    const [motif, setMotif ] = useState('');
 
-    let selectedProfile = generals.selectedProfile!;
+    const selectedProfile = generals.selectedProfile!;
 
     // console.log(generals.selectedProfile)
 
@@ -87,10 +87,10 @@ const Deplacer = ({route, profile, setRoute, printProfile, lastPrintedPdf, lastP
     }
 
     const registerUser = () => {
-        let newDate_  = new Date(mydate);
+        const newDate_  = new Date(mydate);
         const myNumFormatter = (num, nbr) => ("0" + num).slice(-nbr);
 
-        let newdate_ =  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
+        const newdate_ =  myNumFormatter(newDate_.getFullYear(), 4) + '/' +  myNumFormatter(newDate_.getMonth() + 1, 2)  + '/' +  myNumFormatter(newDate_.getDate(), 2) ;
              
         regDeplacer({personID : profile._id, date : newdate_, fromTime : myftime, toTime : myetime, motif : motif})
     }

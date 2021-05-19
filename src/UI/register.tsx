@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, {useState, useEffect} from 'react';
 import { Form, FormGroup, Label,
     Input, Col, Button,
@@ -81,11 +86,11 @@ const Register = (
 
     const onIDChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         v = v.toUpperCase();
         
-        var user = {
+        const user = {
             name : v
         }     
 
@@ -97,7 +102,7 @@ const Register = (
     
     const onPASSChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         v = v.toUpperCase(); 
         
@@ -116,7 +121,7 @@ const Register = (
             };
         }
 
-        var spaceRegex = /\s+/;
+        const spaceRegex = /\s+/;
         if (spaceRegex.test(password.toString()))
         {
             return {
@@ -125,7 +130,7 @@ const Register = (
             };
         }
 
-        var passRegex = /^(?=.*\W)(?=.*\d)[a-zA-Z\d\W]{8,}$/;
+        const passRegex = /^(?=.*\W)(?=.*\d)[a-zA-Z\d\W]{8,}$/;
 
         if (!passRegex.test(password.toString()))
         {
@@ -141,7 +146,7 @@ const Register = (
     function validateEmail() : {result : boolean , reason : string}
     {
         // check email
-        var emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
+        const emailRegex = /^[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
         if (!emailRegex.test(email.toString()))
         {
             return {
@@ -158,7 +163,7 @@ const Register = (
 
     const onEmailChange = (e:any) =>
     {
-        var v = String("");
+        let v = String("");
         v = e.target.value;
         setEmail(v);
     }

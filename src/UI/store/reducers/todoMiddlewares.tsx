@@ -67,7 +67,7 @@ export function APIInsertion({getState, dispatch}){
                         // console.log(action.data);
                         if (true){
                             action.data = action.data.map (todo  => {
-                                let t : TODODEF = {} as TODODEF;
+                                const t : TODODEF = {} as TODODEF;
                                 t.id = todo.id;
                                 t.title = todo.title;
                                 t.content = todo.content;

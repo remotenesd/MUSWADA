@@ -1,5 +1,4 @@
-import { fonctions, grades } from "../store/core/core";
-import { store } from "../store/store"
+import { classes, classifyClasse, filterPontisteParFonction, fonctions, grades } from "../store/core/core";
 
 // !IMPORTANT
 // ONLY ONE PER LIST !!
@@ -63,7 +62,7 @@ class armesManager
         this.constructMaitreService();
         this.constructRest()
 
-        // console.log("[CORE ARMES]initialised !")
+        // //console.log("[CORE ARMES]initialised !")
     }
 
     findSpecialities()
@@ -134,9 +133,9 @@ class armesManager
         this.quartCoupee = []
         this.quartMachine = []
 
-        let auQuart = [String(fonctions.CHEFQUART), String(fonctions.DETECTEUR), String(fonctions.GABIER), String(fonctions.MISSILIER), String(fonctions.NAV)]
+        const auQuart = [String(fonctions.CHEFQUART), String(fonctions.DETECTEUR), String(fonctions.GABIER), String(fonctions.MISSILIER), String(fonctions.NAV)]
         // je sais
-        let auMachine = [String(fonctions.MSEC), String(fonctions.ELECTRICIEN), String(fonctions.MECANICIEN)]
+        const auMachine = [String(fonctions.MSEC), String(fonctions.ELECTRICIEN), String(fonctions.MECANICIEN)]
 
         this.allPersonnel.forEach(person_ => {
             if (!this.__reserved.includes(person_.id))
@@ -498,15 +497,57 @@ class armesManagerPourJournee
 
     notRegistered;
 
+    count_passerelle;
+    count_machine;
+
+    debrief()
+    {
+        // compile a summary
+        if (this.allPersonnel == undefined)
+        {
+            return "";
+        }
+        const a = []
+        let summary = "Total personnel affecté : " + this.allPersonnel.length;
+        summary += "\nTotal effectivement a bord : " + (this.allPersonnel.length - this.enPermission.length)
+        summary += "\nTotal en permission : " + (this.enPermission.length)
+        summary += "\n\nDe cet effectif, ceux : "
+        
+        this.count_passerelle = 0
+        this.count_machine = 0
+        console.log(this.enPermission)
+        this.allPersonnel.forEach(pers =>{
+            if (this.enPermission.map(e => e.personID).includes(pers.id))
+            {
+                return;
+            }
+            const class_ = classifyClasse(pers);
+            if (class_ === classes.PONTISTE)
+            {
+                this.count_passerelle += 1
+            }
+            else{
+                this.count_machine += 1
+            }
+        });
+
+        summary += "\n - Pouvant assister a la passerelle : " + (this.count_passerelle)
+        summary += "\n - Pouvant assister a la machine : " + (this.count_machine)
+        
+        return summary;
+    }
+
     constructor(listPersonnel = {}, dataAPI, permission, deplacers)
     {
 
-        console.log(dataAPI)
+        //console.log(dataAPI)
 
-        if (dataAPI == {})
+        if (dataAPI == {} || dataAPI == undefined)
         {
             return;
         }
+
+
 
         
         this.consultation = dataAPI.consultation ?? [];
@@ -544,7 +585,7 @@ class armesManagerPourJournee
         // from API
         this.construct();
 
-        // console.log("[CORE ARMES]initialised !")
+        // //console.log("[CORE ARMES]initialised !")
     }
 
     construct()
@@ -730,7 +771,6 @@ class armesManagerPourJournee
 
     getOfficiersGarde()
     {
-        console.log(this.officiersGarde)
         return this.officiersGarde.map(offIndex => 
             this.allPersonnel.filter(pers => pers.id == offIndex)[0]
         )
@@ -738,7 +778,7 @@ class armesManagerPourJournee
 
     getPermission()
     {
-        // console.log(this.enPermission)
+        // //console.log(this.enPermission)
         // returns the list of the personnel in leave
         return this.enPermission.map(permissionInfo => 
             { return {
@@ -752,7 +792,6 @@ class armesManagerPourJournee
 
     getDeplacer()
     {
-        console.log(this.ayantDeplacer)
         return this.ayantDeplacer.map(deplacerInfo => 
             { return {
                     person : this.allPersonnel.filter(pers => pers.id == deplacerInfo.personID)[0],

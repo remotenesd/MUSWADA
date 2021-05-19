@@ -16,7 +16,7 @@ let reducer;
 let store;
 let _programNav = '';
 
-let programNav = (route : string) => { _programNav = route};
+const programNav = (route : string) => { _programNav = route};
 
 const reMakeStore = () => {
         console.log('>>> Called Store remake.')

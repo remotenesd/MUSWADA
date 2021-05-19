@@ -1,3 +1,6 @@
+/* eslint-plugin-disable react */
+
+
 import React, { useState } from 'react';
 
 import './UI/styles/app.css';
@@ -38,9 +41,9 @@ const App = (props : props) => {
     console.log("[AUTH1] " + props.loggedIn)
 
     // let [goto, setGotoFunc] = useState('');
-    let [activeTheme, setActiveTheme] = useState('');
-    let [switchToVerticalNav, setSwitchToVerticalNav] = useState(false);
-    let [goto, setGoto] = useState('');
+    const [activeTheme, setActiveTheme] = useState('');
+    const [switchToVerticalNav, setSwitchToVerticalNav] = useState(false);
+    const [goto, setGoto] = useState('');
     // let [firstUsage, setFirstUsage] = useState(false);
     // let [firstUsageShunt, setFirstUsageShunt] = useState(false);
     // let [goto, setGoto] = useState('');
@@ -59,7 +62,7 @@ const App = (props : props) => {
     //     console.log(globals.firstDataSent)
     // })
 
-    let propsForMenu = {
+    const propsForMenu = {
         verticalToggle : () => {} ,
         redirecter : (s) => {} ,
         toggleTheme : () => {},
@@ -68,7 +71,7 @@ const App = (props : props) => {
     }
 
 
-    let stateForMenu = {
+    const stateForMenu = {
         route : '',
     }
 

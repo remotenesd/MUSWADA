@@ -6,7 +6,7 @@ import { grades } from '../core/core';
 
 
 let myrg  = new rg();
-let sm1 = new someone()
+const sm1 = new someone()
 const initialState = {
     rg : myrg,
     basicList : Array<baseperson>(),
@@ -20,10 +20,21 @@ const initialState = {
     resPermissionDu : Array<basepermission>(),
     resPermissionDe : Array<basepermission>(),
     
-
+    // PRISE ARMES
     priseArmes : {},
     priseArmesEtablie : false,
     priseArmesEcrite : false,
+
+    priseArmesJourneeEcrite : false,
+    priseArmesJournee : {},
+    priseArmesJourneeDoc : false,
+    priseArmesJourneeDocFile : '',
+
+    permissionPDF : false,
+    permissionPDFFile : '',
+    ///
+
+
 }
 
 function registerReducer (state = initialState, action) {
@@ -77,7 +88,7 @@ function registerReducer (state = initialState, action) {
         }catch (e){return state}
     }
 
-    if (action.type === actionTypes.PERSONNEL_PRINT_PROFILE_DIGITAL)
+    if (action.type === actionTypes.PERSONNEL_REGISTER)
     {
         if (action.success)
         {
@@ -128,7 +139,6 @@ function registerReducer (state = initialState, action) {
             {
                 return state;
             }
-            console.log(action.data.profile)
             return Object.assign({}, state, {resPermissionDu : action.data.permissions});
         }
     }
@@ -152,9 +162,10 @@ function registerReducer (state = initialState, action) {
         {
             if (action.data === "INVALID REQUEST ARGS")
             {
+                console.log("error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 return state;
             }
-            console.log(action.data.profile)
+            console.log("returning ?30")
             return Object.assign({}, state, {
                 profile : action.data.profile, 
                 lastPrintedDoc : action.data.genDoc, 
@@ -254,12 +265,36 @@ function registerReducer (state = initialState, action) {
     {
         if (action.success)
         {
+            console.log("1040")
             return Object.assign({} , state , {
-                
+                priseArmesJourneeEcrite : true,
             })
         }
-        else {
+    }
 
+    if (action.type === actionTypes.PERSONNEL_DOC_PRISE_ARMES_JOURNEE)
+    {
+        if (action.success)
+        {
+            return Object.assign({} , state , {
+                priseArmesJourneeDoc : true,
+                priseArmesJourneeDocFile : action.data.genDoc,
+            })
+        }
+    }
+
+    if (action.type === actionTypes.PERSONNEL_GET_PRISE_ARMES_JOURNEE)
+    {
+        console.log(action)
+        if (action.success)
+        {
+            if (action.data.exist)
+            {
+                return Object.assign({} , state , {
+                    priseArmesJourneeEcrite : true,
+                    priseArmesJournee : action.data.armes[0],
+                })
+            }
         }
     }
 
@@ -268,6 +303,33 @@ function registerReducer (state = initialState, action) {
         return Object.assign({}, state, {rg : new regEngine()})
     }
 
+    if (action.type === actionTypes.PERSONNEL_PERMISSION_PDF)
+    {
+        if (action.success)
+        {
+            return Object.assign({} , state , {
+                permissionPDF : true,
+                permissionPDFFile : action.data.genPdf,
+            })
+        }
+    }
+
+    if (action.type === actionTypes.PERSONNEL_RESET_FLAGS)
+    {
+        return Object.assign({}, state, {
+            profile : new someone(),
+            lastPrintedPdf : '',
+            lastPrintedDoc : '',
+            lastPrintedID : '',
+
+            // PRISE ARMES        
+            priseArmesJourneeDoc : false,
+            priseArmesJourneeDocFile : '',
+        
+            permissionPDF : false,
+            permissionPDFFile : '',
+        })
+    }
     
 
     return state;

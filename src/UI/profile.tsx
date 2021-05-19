@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+
 import React, { useState } from 'react';
 import {globals, globalsChangedEvents, generals} from './helpers/globals';
 import { Container, Row, Col, Media } from 'reactstrap';
@@ -34,9 +39,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Profile = ({route, profile, setRoute, printProfile, printProfilePrinter, lastPrintedPdf, lastPrintedID}) => {
 
-    let [PORT, setPORT ] = useState(globals.apiPort);
-    let [version, setVersion ] = useState(globals.version);
-    let selectedProfile = generals.selectedProfile!;
+    const [PORT, setPORT ] = useState(globals.apiPort);
+    const [version, setVersion ] = useState(globals.version);
+    const selectedProfile = generals.selectedProfile!;
+
+    console.log(lastPrintedPdf)
+    console.log(lastPrintedID)
 
     // console.log(generals.selectedProfile)
     
@@ -138,7 +146,7 @@ const Profile = ({route, profile, setRoute, printProfile, printProfilePrinter, l
                                     }} 
                                     className='asideBtn'
                                     >
-                                🎟️ Fichier prét ! Ouvrir le dossier du PDF
+                                🎟️ Fichier prét ! Ouvrir le PDF
                                 </Button>
                                 <Button minimal={true}  style={{color: 'black', fontWeight: 500,fontSize: '1.14em'}}  large={true}  
                                     onClick={() => {
@@ -148,7 +156,7 @@ const Profile = ({route, profile, setRoute, printProfile, printProfilePrinter, l
                                     }} 
                                     className='asideBtn'
                                     >
-                                📎 Fichier prét ! Ouvrir le dossier du format WORD
+                                📎 Fichier prét ! Ouvrir le format WORD
                                 </Button>
                             </>
                         :

@@ -1,3 +1,5 @@
+/* eslint-plugin-disable react */
+
 import Axios, { AxiosResponse } from 'axios';
 import { basepermission } from '../register/core';
 import { store } from '../store/store';
@@ -13,7 +15,7 @@ const ipcRenderer  = electron.ipcRenderer;
 let myPort = 5001;
 
 
-var globalsConstructor = () => { 
+const globalsConstructor = () => { 
     return {
         apiPort : myPort,
         baseURL : "http://localhost:" + myPort,
@@ -24,6 +26,7 @@ var globalsConstructor = () => {
         persURL : "pers",
         deplacerURL : "deplacer",
         permissionURL : "permission",
+        armesURL : "armes",
         version : '1.0',
 
         theme : 'dark',
@@ -40,14 +43,14 @@ var globalsConstructor = () => {
     }
 };
 
-let generals = {
+const generals = {
     // selected profile
     selectedProfile : null || Object,
     selectedPermission : new basepermission(),
 }
 
-var globals = globalsConstructor();
-let globalsChangedEvents = [() => {}];
+let globals = globalsConstructor();
+const globalsChangedEvents = [() => {}];
 
 // mobile info
 
@@ -57,7 +60,7 @@ let globalsChangedEvents = [() => {}];
 // }
 
 
-let updateMaker = () => new Promise((resolve, reject) => {
+const updateMaker = () => new Promise((resolve, reject) => {
     ipcRenderer.send('reqPortNumber');
 
     let promisePort : Promise<AxiosResponse<any>>;
@@ -76,8 +79,8 @@ let updateMaker = () => new Promise((resolve, reject) => {
                 globals.version = res.data.version
                 store.dispatch(getFirstUsage())
                 store.dispatch(getLogin())
-                let fetchInitialData = () => {
-                    let state = store.getState();
+                const fetchInitialData = () => {
+                    const state = store.getState();
                     if (!state.sessionReducer.loadingAPIFirstData && !state.sessionReducer.loadingAPILogIn)
                     {
                         globalsChangedEvents.map(event => event());
@@ -86,7 +89,7 @@ let updateMaker = () => new Promise((resolve, reject) => {
                         resolve('yooo')
                     }
                 }
-                let unsubscribe = store.subscribe(fetchInitialData) // #todo implement
+                const unsubscribe = store.subscribe(fetchInitialData) // #todo implement
             }
             else{
                 reject('error')
@@ -101,8 +104,8 @@ let updateMaker = () => new Promise((resolve, reject) => {
     }); 
 })
 
-let getAppSpecific = () => new Promise((resolve, reject) => {
-    let promiseApp : Promise<AxiosResponse<any>> = Axios.get(globals.baseURL + '/' + globals.appURL + '/getdata');
+const getAppSpecific = () => new Promise((resolve, reject) => {
+    const promiseApp : Promise<AxiosResponse<any>> = Axios.get(globals.baseURL + '/' + globals.appURL + '/getdata');
     promiseApp.then( (res) => {
         if (res.status === 200)
         {
@@ -120,8 +123,8 @@ let getAppSpecific = () => new Promise((resolve, reject) => {
     })
 })
 
-let portDidUpdate = updateMaker();
-let lostConnection = new Promise((resolve, reject) => {
+const portDidUpdate = updateMaker();
+const lostConnection = new Promise((resolve, reject) => {
     // always checking for connection
     ipcRenderer.send('reqPortNumber');
         // gotAPIVersion ::: meant 😢 gotPORTNumber

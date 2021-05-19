@@ -57,10 +57,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const Service = ({setRoute}) => {
 
-    let [PORT, setPORT ] = useState('');
-    let [version, setVersion ] = useState("");
+    const [PORT, setPORT ] = useState('');
+    const [version, setVersion ] = useState("");
 
-    var today = new Date(),
+    const today = new Date(),
 
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -73,7 +73,7 @@ const Service = ({setRoute}) => {
         // });
     }
 
-    let ctnStyle = {
+    const ctnStyle = {
         overflowX: 'hidden', 
         overflowY: '-moz-hidden-unscrollable', 
         marginTop: '50px', 

@@ -1,7 +1,7 @@
 import { IState } from "./UI/store/core/core";
 import { LOGOUT } from "./UI/store/Actions/actionTypes";
 
-let mapStateToProps = (state  ) => {
+const mapStateToProps = (state  ) => {
     // console.log(state)
     return { 
         loggedIn : state.sessionReducer.isLoggedIn,
@@ -18,7 +18,7 @@ let mapStateToProps = (state  ) => {
 // }
 
 
-let mapDispatchToProps = dispatch => (
+const mapDispatchToProps = dispatch => (
    {
         logout : () => dispatch(LOGOUT),  
    }

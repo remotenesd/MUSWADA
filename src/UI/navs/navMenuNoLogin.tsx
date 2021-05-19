@@ -69,7 +69,7 @@ const NavMenuNoLogin = ({
   };
   
   console.log('[ROUTING] UPDATING NAV.4')
-  let getMenus = () => {
+  const getMenus = () => {
     return (
       <Fragment>
         {Object.keys(menus).map((key) => {

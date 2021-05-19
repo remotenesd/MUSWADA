@@ -2,7 +2,7 @@ import { TODO, TODOPRIORITY, TODOSTATUS } from '../store/core/defs';
 
 
 
-var a : TODO;
+let a : TODO;
 
 export const TODOs = [
     {
